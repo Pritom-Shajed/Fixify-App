@@ -116,7 +116,7 @@ class _CustomerSignUpPageState extends State<CustomerSignUpPage> {
             },
           ),
           SizedBox(
-            height: Dimensions.height20,
+            height: Dimensions.height10,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
