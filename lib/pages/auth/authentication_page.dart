@@ -1,6 +1,7 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/pages/auth/auth_body.dart';
+import 'package:fixify_app/utils/constants.dart';
 import 'package:fixify_app/widgets/auth/auth_button.dart';
 import 'package:fixify_app/widgets/auth/auth_clip.dart';
 import 'package:fixify_app/pages/auth/sign_in_body.dart';
@@ -64,7 +65,7 @@ class _AuthPageState extends State<AuthPage> {
                 clipper: WaveClipperTwo(),
                 child: Container(
                   width: double.maxFinite,
-                  height: Dimensions.height20 * 20,
+                  height: Dimensions.screenHeight/2,
                   color: AppColors.primaryColorLight,
                 )),
 
@@ -91,7 +92,7 @@ class _AuthPageState extends State<AuthPage> {
                       Column(
                         children: [
                           SizedBox(
-                            width: 150,
+                            width: Dimensions.authLogoSize,
                             child: Image.asset('assets/icons/fixify_logo.png'),
                           ),
                           const SmallText(

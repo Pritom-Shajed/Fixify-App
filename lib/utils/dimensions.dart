@@ -8,7 +8,7 @@ class Dimensions {
   static double height20 = screenHeight / 39.15;
   static double width10 = screenWidth / 39.2;
 
-  static double authLogoSize = screenHeight / 8.7;
+  static double authLogoSize = screenHeight / 5.22;
 
   //Fonts
   static double font12 = screenHeight / 65.25;
@@ -18,9 +18,13 @@ class Dimensions {
 
   //Radius
   static double radius20 = screenHeight / 39.15;
-
+  static double iconButtonRadius = screenHeight / 62.54;
 
   //Padding
-static double padding5 = screenHeight/156.6;
-static double padding10 = screenHeight/78.3;
+  static double padding5 = screenHeight / 156.6;
+  static double padding10 = screenHeight / 78.3;
+
+  //Icon
+  static double icon20 = screenHeight / 39.15;
+  static double icon15 = screenHeight / 52.2;
 }

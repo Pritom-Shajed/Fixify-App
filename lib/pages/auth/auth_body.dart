@@ -57,7 +57,6 @@ class AuthBody extends StatelessWidget {
             children: [
               Container(
                 margin: EdgeInsets.all(Dimensions.width10),
-                padding: EdgeInsets.only(bottom: Dimensions.height20),
                 height: 350,
                 width: 300,
                 decoration: BoxDecoration(

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'pages/auth/authentication_page.dart';
+import 'helper/dependencies.dart' as dep;
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dep.init();
   runApp(const MyApp());
 }
 
