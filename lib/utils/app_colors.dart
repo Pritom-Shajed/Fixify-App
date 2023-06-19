@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   static Color primaryColor = Colors.teal;
+  static Color primaryColorLight = Colors.teal.withOpacity(0.2);
   static Color mainBgColor = Colors.teal.withOpacity(0.1);
-  static Color shadowColor = const Color(0xff5EA1FF).withOpacity(0.15);
+  static Color shadowColor = Colors.teal.withOpacity(0.1);
   static Color whiteColor = Colors.white;
   static Color redColor = Colors.red;
   static Color greyColor = Colors.grey;

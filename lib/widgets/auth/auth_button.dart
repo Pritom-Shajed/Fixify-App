@@ -1,4 +1,5 @@
 import 'package:fixify_app/utils/app_colors.dart';
+import 'package:fixify_app/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 
 class AuthButton extends StatelessWidget {
@@ -14,7 +15,7 @@ class AuthButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
         decoration: BoxDecoration(
           color: AppColors.buttonColor,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(Dimensions.radius20),
         ),
         child: Text(
           buttonText,

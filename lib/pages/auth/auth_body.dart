@@ -22,64 +22,66 @@ class AuthBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedCrossFade(
-        firstChild: ClipPath(
-          clipper: AuthClip(),
-          child: SizedBox(
-            height: 470,
-            child: Stack(
-              children: [
-                Container(
-                  height: 450,
-                  width: 300,
-                  decoration: BoxDecoration(
-                    color: AppColors.whiteColor,
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        top: Dimensions.height20 * 6,
-                        left: Dimensions.height20,
-                        right: Dimensions.height20,
-                        bottom: Dimensions.height20),
-                    child: signInBody,
-                  ),
+        firstChild: SizedBox(
+          height: 375,
+          child: Stack(
+            children: [
+              Container(
+                margin: EdgeInsets.all(Dimensions.width10),
+                padding: EdgeInsets.only(bottom: Dimensions.height20),
+                height: 350,
+                width: 300,
+                decoration: BoxDecoration(
+                  color: AppColors.whiteColor,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                    blurRadius: 5,
+                    offset: const Offset(0, 5),
+                    color: AppColors.shadowColor),
+                  ]
                 ),
-                 Positioned(
-                    bottom: 0,
-                    left: 100,
-                    child: signInButton),
-              ],
-            ),
+                child: Padding(
+                  padding: EdgeInsets.all(Dimensions.height20,),
+                  child: signInBody,
+                ),
+              ),
+               Positioned(
+                  bottom: 0,
+                  left: 100,
+                  child: signInButton),
+            ],
           ),
         ),
-        secondChild: ClipPath(
-          clipper: AuthClip(flipped: true),
-          child: SizedBox(
-            height: 470,
-            child: Stack(
-              children: [
-                Container(
-                  height: 450,
-                  width: 300,
-                  decoration: BoxDecoration(
-                    color: AppColors.whiteColor,
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        top: Dimensions.height20 * 6,
-                        left: Dimensions.height20,
-                        right: Dimensions.height20,
-                        bottom: Dimensions.height20),
-                    child: signUpBody,
-                  ),
+        secondChild: SizedBox(
+          height: 375,
+          child: Stack(
+            children: [
+              Container(
+                margin: EdgeInsets.all(Dimensions.width10),
+                padding: EdgeInsets.only(bottom: Dimensions.height20),
+                height: 350,
+                width: 300,
+                decoration: BoxDecoration(
+                  color: AppColors.whiteColor,
+                  borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                          blurRadius: 5,
+                          offset: const Offset(0, 5),
+                          color: AppColors.shadowColor),
+                    ]
                 ),
-                 Positioned(
-                    bottom: 0,
-                    left: 90,
-                    child: signUpButton),
-              ],
-            ),
+                child: Padding(
+                  padding: EdgeInsets.all(Dimensions.height20,),
+                  child: signUpBody,
+                ),
+              ),
+               Positioned(
+                  bottom: 0,
+                  left: 90,
+                  child: signUpButton),
+            ],
           ),
         ),
         crossFadeState: crossFadeState,

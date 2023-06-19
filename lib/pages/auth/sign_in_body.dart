@@ -11,52 +11,54 @@ class SignInBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-            padding: const EdgeInsets.only(bottom: 10.0),
-            decoration: BoxDecoration(
-              border: Border(
-                  bottom: BorderSide(
-                      width: 3,
-                      color: AppColors.primaryColor)),
-            ),
-            child: const Text(
-              'Login',
-              style: TextStyle(
-                  color: Colors.black, fontSize: 30),
-            )),
-        CustomTextFormField(
-          hintText: 'Email Address',
-          controller: emailController,
-          validator: (value) {
-            if (value!.isEmpty) {
-              return 'This field can\'t be empty';
-            }
-          },
-        ),
-        CustomTextFormField(
-          hintText: 'Password',
-          controller: passController,
-          validator: (value) {
-            if (value!.isEmpty) {
-              return 'This field can\'t be empty';
-            }
-          },
-        ),
-        SizedBox(height: Dimensions.height20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            MediumText(
-              text: 'Forgot Password?',
-              color: AppColors.primaryColor,
-              fontSize: Dimensions.font14,
-            ),
-          ],
-        )
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+              padding: const EdgeInsets.only(bottom: 10.0),
+              decoration: BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(
+                        width: 3,
+                        color: AppColors.primaryColor)),
+              ),
+              child: Text(
+                'Login',
+                style: TextStyle(
+                    color: Colors.black, fontSize: Dimensions.font30),
+              )),
+          CustomTextFormField(
+            hintText: 'Email Address',
+            controller: emailController,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'This field can\'t be empty';
+              }
+            },
+          ),
+          CustomTextFormField(
+            hintText: 'Password',
+            controller: passController,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'This field can\'t be empty';
+              }
+            },
+          ),
+          SizedBox(height: Dimensions.height20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              MediumText(
+                text: 'Forgot Password?',
+                color: AppColors.primaryColor,
+                fontSize: Dimensions.font14,
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }
