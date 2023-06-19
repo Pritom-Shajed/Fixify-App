@@ -8,15 +8,13 @@ class AuthBody extends StatelessWidget {
   final Widget signUpBody;
   final CrossFadeState crossFadeState;
   final Widget signInButton;
-  final Widget signUpButton;
 
   const AuthBody(
       {Key? key,
       required this.signInBody,
       required this.signUpBody,
       required this.crossFadeState,
-      required this.signInButton,
-      required this.signUpButton})
+      required this.signInButton,})
       : super(key: key);
 
   @override
@@ -77,10 +75,6 @@ class AuthBody extends StatelessWidget {
                   child: signUpBody,
                 ),
               ),
-               Positioned(
-                  bottom: 0,
-                  left: 90,
-                  child: signUpButton),
             ],
           ),
         ),

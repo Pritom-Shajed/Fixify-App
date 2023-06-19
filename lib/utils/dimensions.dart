@@ -18,4 +18,9 @@ class Dimensions {
 
   //Radius
   static double radius20 = screenHeight / 39.15;
+
+
+  //Padding
+static double padding5 = screenHeight/156.6;
+static double padding10 = screenHeight/78.3;
 }

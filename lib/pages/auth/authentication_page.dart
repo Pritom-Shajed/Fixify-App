@@ -4,7 +4,7 @@ import 'package:fixify_app/pages/auth/auth_body.dart';
 import 'package:fixify_app/widgets/auth/auth_button.dart';
 import 'package:fixify_app/widgets/auth/auth_clip.dart';
 import 'package:fixify_app/pages/auth/sign_in_body.dart';
-import 'package:fixify_app/pages/auth/sign_up_body.dart';
+import 'package:fixify_app/pages/auth/sign_up/sign_up_body.dart';
 import 'package:fixify_app/widgets/auth/auth_footer.dart';
 import 'package:fixify_app/widgets/switches/toggle_switch.dart';
 import 'package:fixify_app/widgets/text_fields/custom_text_form_field.dart';
@@ -91,7 +91,7 @@ class _AuthPageState extends State<AuthPage> {
                       Column(
                         children: [
                           SizedBox(
-                            width: Dimensions.authLogoSize,
+                            width: 150,
                             child: Image.asset('assets/icons/fixify_logo.png'),
                           ),
                           const SmallText(
@@ -114,24 +114,11 @@ class _AuthPageState extends State<AuthPage> {
                             passController: signInPassController,
                           ),
                         ),
-                        signUpBody: Form(
-                          key: formKeySignUp,
-                          child: SignUpBody(
-                            nameController: signUpNameController,
-                            emailController: signUpEmailController,
-                            passController: signUpPassController,
-                          ),
-                        ),
+                        signUpBody: const SignUpBody(),
                         signInButton: AuthButton(
                           buttonText: 'LOGIN',
                           onTap: () {
                             if (formKeySignIn.currentState!.validate()) {}
-                          },
-                        ),
-                        signUpButton: AuthButton(
-                          buttonText: 'SIGN UP',
-                          onTap: () {
-                            if (formKeySignUp.currentState!.validate()) {}
                           },
                         ),
                       ),
