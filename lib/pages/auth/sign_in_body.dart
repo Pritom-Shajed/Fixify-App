@@ -52,6 +52,7 @@ class SignInBody extends StatelessWidget {
             MediumText(
               text: 'Forgot Password?',
               color: AppColors.primaryColor,
+              fontSize: Dimensions.font14,
             ),
           ],
         )

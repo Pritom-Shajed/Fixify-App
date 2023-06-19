@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 class MediumText extends StatelessWidget {
   final Color? color;
   final String text;
-  const MediumText({Key? key, this.color, required this.text}) : super(key: key);
+  final double fontSize;
+  const MediumText({Key? key, this.color, required this.text, this.fontSize = 0}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class MediumText extends StatelessWidget {
       text,
       style: TextStyle(
           color: color,
-          fontSize: Dimensions.font16),
+          fontSize: fontSize == 0 ? Dimensions.font16 : fontSize),
     );
   }
 }

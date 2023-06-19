@@ -58,20 +58,20 @@ class _AuthPageState extends State<AuthPage> {
                 clipper: DiagonalPathClipperTwo(),
                 child: Container(
                   width: double.maxFinite,
-                  height: Dimensions.height20 * 4.2,
+                  height: Dimensions.height20 * 3.7,
                   color: AppColors.primaryColor.withOpacity(0.5),
                 )),
             ClipPath(
                 clipper: DiagonalPathClipperOne(),
                 child: Container(
                   width: double.maxFinite,
-                  height: Dimensions.height20 * 4,
+                  height: Dimensions.height20 * 3.7,
                   color: AppColors.primaryColor.withOpacity(0.5),
                 )),
 
             //BODY
             Padding(
-              padding: const EdgeInsets.only(top: 50),
+              padding: EdgeInsets.only(top: Dimensions.height10*7),
               child: SingleChildScrollView(
                 child: Center(
                   child: Column(
@@ -134,6 +134,8 @@ class _AuthPageState extends State<AuthPage> {
                       SizedBox(
                         height: Dimensions.height20,
                       ),
+
+                      //TERMS & CONDITIONS
                       RichText(
                           text: TextSpan(
                               text: 'By signing up, you agree with our ',
