@@ -37,6 +37,6 @@ class Dimensions {
 
 
   //Splash Screen
-  static double splashScreenLogoSize = screenHeight / 3.13;
-  static double loadingSize20 = screenHeight / 39.15;
+  static double splashScreenLogoSize200 = screenHeight / 3.9;
+  static double loadingSize16 = screenHeight / 48.94;
 }

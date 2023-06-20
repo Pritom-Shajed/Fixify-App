@@ -31,12 +31,12 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                width: Dimensions.splashScreenLogoSize,
+                width: Dimensions.splashScreenLogoSize200,
                 child: Image.asset('assets/icons/fixify_logo.png'),
               ),
               SpinKitWave(
                 color: AppColors.primaryColor,
-                size: Dimensions.loadingSize20,
+                size: Dimensions.loadingSize16,
               )
             ],
           ),
