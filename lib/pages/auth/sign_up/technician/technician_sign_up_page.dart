@@ -35,11 +35,6 @@ class _TechnicianSignUpPageState extends State<TechnicianSignUpPage> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

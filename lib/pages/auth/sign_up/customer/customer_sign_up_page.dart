@@ -39,11 +39,6 @@ class _CustomerSignUpPageState extends State<CustomerSignUpPage> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
