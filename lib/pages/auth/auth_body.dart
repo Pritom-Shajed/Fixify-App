@@ -21,14 +21,14 @@ class AuthBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedCrossFade(
         firstChild: SizedBox(
-          height: 375,
+          height: Dimensions.authBodyHeight375,
           child: Stack(
             children: [
               Container(
                 margin: EdgeInsets.all(Dimensions.width10),
                 padding: EdgeInsets.only(bottom: Dimensions.height20),
-                height: 350,
-                width: 300,
+                height: Dimensions.authBodyHeight350,
+                width: Dimensions.screenWidth*0.75,
                 decoration: BoxDecoration(
                   color: AppColors.whiteColor,
                   borderRadius: BorderRadius.circular(12),
@@ -51,30 +51,23 @@ class AuthBody extends StatelessWidget {
             ],
           ),
         ),
-        secondChild: SizedBox(
-          height: 375,
-          child: Stack(
-            children: [
-              Container(
-                margin: EdgeInsets.all(Dimensions.width10),
-                height: 350,
-                width: 300,
-                decoration: BoxDecoration(
-                  color: AppColors.whiteColor,
-                  borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                          blurRadius: 5,
-                          offset: const Offset(0, 5),
-                          color: AppColors.shadowColor),
-                    ]
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(Dimensions.height20,),
-                  child: signUpBody,
-                ),
-              ),
-            ],
+        secondChild: Container(
+          margin: EdgeInsets.all(Dimensions.width10),
+          height: Dimensions.authBodyHeight390,
+          width: Dimensions.authBodyWidth,
+          decoration: BoxDecoration(
+              color: AppColors.whiteColor,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                    blurRadius: 5,
+                    offset: const Offset(0, 5),
+                    color: AppColors.shadowColor),
+              ]
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(Dimensions.height20,),
+            child: signUpBody,
           ),
         ),
         crossFadeState: crossFadeState,

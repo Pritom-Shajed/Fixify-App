@@ -1,8 +1,11 @@
 import 'package:fixify_app/controller/auth/auth_controller.dart';
+import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
+import 'package:fixify_app/widgets/auth/sign_up_role_sign.dart';
 import 'package:fixify_app/widgets/buttons/custom_button.dart';
 import 'package:fixify_app/widgets/buttons/custom_icon_button.dart';
 import 'package:fixify_app/widgets/text_fields/custom_text_form_field.dart';
+import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -47,7 +50,10 @@ class _CustomerSignUpPageState extends State<CustomerSignUpPage> {
     return Form(
       key: formKeyCustomer,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SignUpRoleSign(text: 'Customer', icon: Icons.man),
+
           CustomTextFormField(
             prefixIcon: Icon(
               Icons.person,
@@ -129,7 +135,7 @@ class _CustomerSignUpPageState extends State<CustomerSignUpPage> {
               ),
               CustomIconButton(icon: Icons.arrow_back, onTap: widget.onTapBack),
             ],
-          )
+          ),
         ],
       ),
     );

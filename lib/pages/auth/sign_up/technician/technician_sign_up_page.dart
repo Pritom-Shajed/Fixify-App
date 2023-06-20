@@ -1,6 +1,7 @@
 import 'package:fixify_app/controller/auth/auth_controller.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/widgets/auth/auth_button.dart';
+import 'package:fixify_app/widgets/auth/sign_up_role_sign.dart';
 import 'package:fixify_app/widgets/buttons/custom_button.dart';
 import 'package:fixify_app/widgets/buttons/custom_icon_button.dart';
 import 'package:fixify_app/widgets/text_fields/custom_text_form_field.dart';
@@ -46,6 +47,8 @@ class _TechnicianSignUpPageState extends State<TechnicianSignUpPage> {
       key: formKeyTechnician,
       child: Column(
         children: [
+          const SignUpRoleSign(text: 'Technician', icon: Icons.construction),
+
           CustomTextFormField(
             prefixIcon: Icon(Icons.email, size: Dimensions.icon20,),
             hintText: 'Email Address',

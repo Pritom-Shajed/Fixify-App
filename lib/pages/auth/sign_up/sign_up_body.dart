@@ -68,8 +68,7 @@ class _SignUpBodyState extends State<SignUpBody> {
               children: [
                 //PAGE 0
                 Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: Dimensions.padding5 * 2),
+                  padding:EdgeInsets.symmetric(vertical: Dimensions.padding5 * 2),
                   child: Row(
                     children: [
                       Expanded(
@@ -127,9 +126,9 @@ class _SignUpBodyState extends State<SignUpBody> {
                       curve: Curves.ease);
                 }),
               ]),
-          SizedBox(
+          pageIndex == 0 ? SizedBox(
             height: Dimensions.height10,
-          ),
+          ):const SizedBox(),
 
           //BUTTON
           pageIndex == 0

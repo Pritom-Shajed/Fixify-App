@@ -10,6 +10,13 @@ class Dimensions {
 
   static double authLogoSize = screenHeight / 5.22;
 
+
+  //Auth Page
+  static double authBodyHeight350 = screenHeight / 2.24;
+  static double authBodyHeight375 = screenHeight / 2.09;
+  static double authBodyHeight390 = screenHeight / 2;
+  static double authBodyWidth = screenWidth * 0.75;
+
   //Fonts
   static double font12 = screenHeight / 65.25;
   static double font14 = screenHeight / 55.93;
@@ -27,4 +34,9 @@ class Dimensions {
   //Icon
   static double icon20 = screenHeight / 39.15;
   static double icon15 = screenHeight / 52.2;
+
+
+  //Splash Screen
+  static double splashScreenLogoSize = screenHeight / 3.13;
+  static double loadingSize20 = screenHeight / 39.15;
 }

@@ -4,9 +4,9 @@ import 'package:fixify_app/pages/auth/auth_body.dart';
 import 'package:fixify_app/utils/constants.dart';
 import 'package:fixify_app/widgets/auth/auth_button.dart';
 import 'package:fixify_app/widgets/auth/auth_clip.dart';
-import 'package:fixify_app/pages/auth/sign_in_body.dart';
+import 'package:fixify_app/pages/auth/sign_in/sign_in_body.dart';
 import 'package:fixify_app/pages/auth/sign_up/sign_up_body.dart';
-import 'package:fixify_app/widgets/auth/auth_footer.dart';
+import 'package:fixify_app/pages/auth/auth_footer.dart';
 import 'package:fixify_app/widgets/switches/toggle_switch.dart';
 import 'package:fixify_app/widgets/text_fields/custom_text_form_field.dart';
 import 'package:fixify_app/widgets/texts/medium_text.dart';
@@ -124,7 +124,7 @@ class _AuthPageState extends State<AuthPage> {
                         ),
                       ),
                       SizedBox(
-                        height: Dimensions.height20 * 2,
+                        height: _signIn ? Dimensions.height20 * 2 : Dimensions.height20,
                       ),
 
                       //FOOTER
@@ -141,6 +141,7 @@ class _AuthPageState extends State<AuthPage> {
                           });
                         },
                       ),
+                      SizedBox(height: Dimensions.height20,),
                     ],
                   ),
                 ),

@@ -1,3 +1,5 @@
+import 'package:fixify_app/pages/splashscreen/splashscreen_page.dart';
+import 'package:fixify_app/routes/route_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'pages/auth/authentication_page.dart';
@@ -21,7 +23,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
       ),
-      home: const AuthPage(),
+      getPages: RouteHelper.routes,
+      initialRoute: RouteHelper.getSplashScreen(),
     );
   }
 }
