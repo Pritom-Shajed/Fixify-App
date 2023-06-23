@@ -77,10 +77,10 @@ class _AuthPageState extends State<AuthPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      //SWITCH BETWEEN SIGN IN & SIGN UP
+                      ///SWITCH BETWEEN SIGN IN & SIGN UP
                       CustomToggleSwitch(
                           current: _signIn,
-                          firstText: 'Sign up',
+                          firstText: 'Signup',
                           secondText: 'Login',
                           onChanged: (value) {
                             setState(() {
@@ -88,7 +88,7 @@ class _AuthPageState extends State<AuthPage> {
                             });
                           }),
 
-                      //LOGO
+                      ///LOGO
                       Column(
                         children: [
                           SizedBox(
@@ -103,7 +103,7 @@ class _AuthPageState extends State<AuthPage> {
                         height: Dimensions.height20,
                       ),
 
-                      //BODY
+                      ///BODY
                       AuthBody(
                         crossFadeState: _signIn
                             ? CrossFadeState.showFirst
@@ -127,7 +127,7 @@ class _AuthPageState extends State<AuthPage> {
                         height: _signIn ? Dimensions.height20 * 2 : Dimensions.height20,
                       ),
 
-                      //FOOTER
+                      ///FOOTER
                       AuthFooter(
                         signIn: _signIn,
                         onTapSignIn: () {
@@ -140,6 +140,7 @@ class _AuthPageState extends State<AuthPage> {
                             _signIn = !_signIn;
                           });
                         },
+                        onTapForgotPass: (){},
                       ),
                       SizedBox(height: Dimensions.height20,),
                     ],

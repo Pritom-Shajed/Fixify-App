@@ -54,6 +54,7 @@ class _SignInBodyState extends State<SignInBody> {
             height: Dimensions.height10,
           ),
           CustomTextFormField(
+            titleText: 'Email Address',
             prefixIcon: Icon(Icons.email, size: Dimensions.icon20,),
             hintText: 'Email Address',
             controller: widget.emailController,
@@ -65,11 +66,12 @@ class _SignInBodyState extends State<SignInBody> {
           ),
           Obx(
                 () => CustomTextFormField(
+                  titleText: 'Password',
               suffixIcon: GestureDetector(
                 onTap: () =>
-                    controller.changeObscureText(!controller.obscureText),
+                    controller.changeObscureTextSignIn(!controller.obscureTextSignIn),
                 child: Icon(
-                  controller.obscureText
+                  controller.obscureTextSignIn
                       ? Icons.visibility_off
                       : Icons.visibility,
                   size: Dimensions.icon20,
@@ -79,7 +81,7 @@ class _SignInBodyState extends State<SignInBody> {
                 Icons.lock,
                 size: Dimensions.icon20,
               ),
-              obscureText: controller.obscureText,
+              obscureText: controller.obscureTextSignIn,
               hintText: 'Password',
               controller: widget.passController,
               validator: (value) {
@@ -89,17 +91,6 @@ class _SignInBodyState extends State<SignInBody> {
               },
             ),
           ),
-          SizedBox(height: Dimensions.height20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              MediumText(
-                text: 'Forgot Password?',
-                color: AppColors.primaryColor,
-                fontSize: Dimensions.font14,
-              ),
-            ],
-          )
         ],
       ),
     );

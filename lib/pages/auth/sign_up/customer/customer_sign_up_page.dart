@@ -50,6 +50,7 @@ class _CustomerSignUpPageState extends State<CustomerSignUpPage> {
           const SignUpRoleSign(text: 'Customer', icon: Icons.man),
 
           CustomTextFormField(
+            titleText: 'Username',
             prefixIcon: Icon(
               Icons.person,
               size: Dimensions.icon20,
@@ -63,6 +64,7 @@ class _CustomerSignUpPageState extends State<CustomerSignUpPage> {
             },
           ),
           CustomTextFormField(
+            titleText: 'Email Address',
             textInputType: TextInputType.emailAddress,
             prefixIcon: Icon(
               Icons.email,
@@ -78,11 +80,12 @@ class _CustomerSignUpPageState extends State<CustomerSignUpPage> {
           ),
           Obx(
             () => CustomTextFormField(
+              titleText: 'Password',
               suffixIcon: GestureDetector(
                 onTap: () =>
-                    controller.changeObscureText(!controller.obscureText),
+                    controller.changeObscureTextCustomerSignUp(!controller.obscureTextCustomerSignUp),
                 child: Icon(
-                  controller.obscureText
+                  controller.obscureTextCustomerSignUp
                       ? Icons.visibility_off
                       : Icons.visibility,
                   size: Dimensions.icon20,
@@ -92,7 +95,7 @@ class _CustomerSignUpPageState extends State<CustomerSignUpPage> {
                 Icons.lock,
                 size: Dimensions.icon20,
               ),
-              obscureText: controller.obscureText,
+              obscureText: controller.obscureTextCustomerSignUp,
               hintText: 'Password',
               controller: signUpPassController,
               validator: (value) {
@@ -103,6 +106,7 @@ class _CustomerSignUpPageState extends State<CustomerSignUpPage> {
             ),
           ),
           CustomTextFormField(
+            titleText: 'Phone Number',
             textInputType: TextInputType.number,
             prefixIcon: Icon(
               Icons.phone,

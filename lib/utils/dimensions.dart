@@ -10,6 +10,7 @@ class Dimensions {
 
   static double authLogoSize = screenHeight / 5.22;
 
+  static double profileImageSize = screenHeight / 11.18;
 
   //Auth Page
   static double authBodyHeight350 = screenHeight / 2.24;
@@ -24,6 +25,7 @@ class Dimensions {
   static double font30 = screenHeight / 26.1;
 
   //Radius
+  static double radius4 = screenHeight / 192.75;
   static double radius20 = screenHeight / 39.15;
   static double iconButtonRadius = screenHeight / 62.54;
 

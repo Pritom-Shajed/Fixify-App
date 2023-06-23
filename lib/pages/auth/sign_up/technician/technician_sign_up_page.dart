@@ -1,13 +1,17 @@
-import 'package:fixify_app/controller/auth/auth_controller.dart';
+import 'dart:io';
+
+import 'package:expandable_page_view/expandable_page_view.dart';
+import 'package:fixify_app/pages/auth/sign_up/technician/technician_sign_up1.dart';
+import 'package:fixify_app/pages/auth/sign_up/technician/technician_sign_up2.dart';
 import 'package:fixify_app/utils/app_colors.dart';
-import 'package:fixify_app/widgets/auth/auth_button.dart';
-import 'package:fixify_app/widgets/auth/sign_up_role_sign.dart';
 import 'package:fixify_app/widgets/buttons/custom_button.dart';
 import 'package:fixify_app/widgets/buttons/custom_icon_button.dart';
+import 'package:fixify_app/widgets/text_fields/custom_dropdown_form_field.dart';
 import 'package:fixify_app/widgets/text_fields/custom_text_form_field.dart';
+import 'package:fixify_app/widgets/texts/medium_text.dart';
+import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
+import 'package:image_picker/image_picker.dart';
 import '../../../../utils/dimensions.dart';
 
 class TechnicianSignUpPage extends StatefulWidget {
@@ -21,20 +25,18 @@ class TechnicianSignUpPage extends StatefulWidget {
 }
 
 class _TechnicianSignUpPageState extends State<TechnicianSignUpPage> {
-  late TextEditingController signUpEmailController;
-  late TextEditingController signUpPassController;
+  late TextEditingController signUpFullNameController;
   late GlobalKey<FormState> formKeyTechnician;
-  late AuthController controller;
+  late PageController _controller;
+  int pageIndex = 0;
+
 
   @override
   void initState() {
-    signUpEmailController = TextEditingController();
-    signUpPassController = TextEditingController();
+    _controller = PageController(initialPage: 0);
     formKeyTechnician = GlobalKey<FormState>();
-    controller = Get.find<AuthController>();
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -42,54 +44,27 @@ class _TechnicianSignUpPageState extends State<TechnicianSignUpPage> {
       key: formKeyTechnician,
       child: Column(
         children: [
-          const SignUpRoleSign(text: 'Technician', icon: Icons.construction),
-
-          CustomTextFormField(
-            prefixIcon: Icon(Icons.email, size: Dimensions.icon20,),
-            hintText: 'Email Address',
-            controller: signUpEmailController,
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'This field can\'t be empty';
-              }
-            },
-          ),
-          Obx(
-                () => CustomTextFormField(
-              suffixIcon: GestureDetector(
-                onTap: () =>
-                    controller.changeObscureText(!controller.obscureText),
-                child: Icon(
-                  controller.obscureText
-                      ? Icons.visibility_off
-                      : Icons.visibility,
-                  size: Dimensions.icon20,
-                ),
-              ),
-              prefixIcon: Icon(
-                Icons.lock,
-                size: Dimensions.icon20,
-              ),
-              obscureText: controller.obscureText,
-              hintText: 'Password',
-              controller: signUpPassController,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'This field can\'t be empty';
-                }
+          ///Upload Profile Picture
+          ExpandablePageView(
+              physics: const NeverScrollableScrollPhysics(),
+              controller: _controller,
+              onPageChanged: (int value) {
+                pageIndex = value;
+                setState(() {});
               },
-            ),
-          ),
-          SizedBox(height: Dimensions.height10,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomButton(text: 'Proceed', onTap: (){
-                if(formKeyTechnician.currentState!.validate()){}
-              },),
-              CustomIconButton(icon: Icons.arrow_back, onTap: widget.onTapBack),
-            ],
-          )
+              children: [
+                TechnicianSignUpPage1(onTapProceed: (){
+                  if(formKeyTechnician.currentState!.validate()){
+                    _controller.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                  }
+                },onTapBack: widget.onTapBack),
+                TechnicianSignUpPage2(onTapProceed: (){
+                  if(formKeyTechnician.currentState!.validate()){
+                  }
+                }, onTapBack: (){
+                  _controller.previousPage(duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                }),
+              ]),
         ],
       ),
     );

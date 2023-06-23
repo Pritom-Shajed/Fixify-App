@@ -3,63 +3,43 @@ import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/texts/text_with_star.dart';
 import 'package:flutter/material.dart';
 
-class CustomTextFormField extends StatelessWidget {
+class CustomDropDownFormField extends StatelessWidget {
+  final List<DropdownMenuItem<Object>>? items;
+  final String hintText;
   final String titleText;
   final bool starEnable;
-  final String hintText;
-  final TextInputType textInputType;
-  final bool obscureText;
-  final TextEditingController? controller;
-  final Widget? suffixIcon;
-  final VoidCallback? onTap;
-  final bool isEnabled;
-  final Icon? prefixIcon;
-  final VoidCallback? suffixIconOnTap;
+    final FormFieldValidator<Object> validator;
 
-  final FormFieldValidator<String>? validator;
-
-  const CustomTextFormField(
-      {super.key,
-        required this.titleText,
-        this.starEnable = true,
-        this.validator,
-        this.controller,
-        required this.hintText,
-        this.textInputType = TextInputType.text,
-        this.suffixIcon,
-        this.suffixIconOnTap,
-        this.prefixIcon,
-        this.onTap,
-        this.isEnabled = true,
-        this.obscureText = false});
+  const CustomDropDownFormField({
+    super.key,
+    required this.items,
+    required this.hintText,
+    required this.titleText,
+    this.starEnable = true,
+    required this.validator,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          height: Dimensions.height10,
-        ),
         TextWithStar(
           fontSize: Dimensions.font12,
-          text: titleText,
-          starEnable: starEnable,
-        ),
+              text: titleText,
+              starEnable: starEnable,
+            ),
         SizedBox(
           height: Dimensions.height10,
         ),
-        TextFormField(
-          controller: controller,
-          obscureText: obscureText,
-          keyboardType: textInputType,
+        DropdownButtonFormField(
+          isExpanded: true,
           validator: validator,
-          enabled: isEnabled,
+          onChanged: (value) {},
+          items: items,
           decoration: InputDecoration(
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
             hintText: hintText,
-            hintStyle: TextStyle(fontSize: Dimensions.font12, color: AppColors.greyColor),
+            hintStyle: TextStyle(fontSize: Dimensions.font14, color: AppColors.greyColor),
             filled: true,
             fillColor: AppColors.textFieldColor,
             enabledBorder: OutlineInputBorder(
@@ -75,7 +55,6 @@ class CustomTextFormField extends StatelessWidget {
                 borderSide: BorderSide(color: AppColors.redColor),
                 borderRadius: BorderRadius.circular(Dimensions.radius4)),
           ),
-          onTap: onTap,
         ),
         SizedBox(
           height: Dimensions.height10,
