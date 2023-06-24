@@ -53,7 +53,7 @@ class CustomTimePicker extends StatelessWidget {
                   },
                   child: CustomContainer(
                       titleText: time1 == null
-                          ? '00::00'
+                          ? '00 : 00'
                           : '${time1!.hour} : ${time1!.minute} ${time1!.period.name}'),
                 ),
                 SmallText(
@@ -77,7 +77,7 @@ class CustomTimePicker extends StatelessWidget {
                   },
                   child: CustomContainer(
                       titleText: time2 == null
-                          ? '00::00'
+                          ? '00 : 00'
                           : '${time2!.hour} : ${time2!.minute} ${time2!.period.name}'),
                 ),
               ],
