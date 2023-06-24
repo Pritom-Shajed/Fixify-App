@@ -1,22 +1,32 @@
 import 'dart:io';
-
+import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
+import 'package:fixify_app/model/days_model.dart';
+import 'package:fixify_app/model/factory_data/factory_data.dart';
+import 'package:fixify_app/model/services_model.dart';
+import 'package:fixify_app/model/times_model.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/widgets/buttons/custom_button.dart';
 import 'package:fixify_app/widgets/buttons/custom_icon_button.dart';
-import 'package:fixify_app/widgets/text_fields/custom_dropdown_form_field.dart';
+import 'package:fixify_app/widgets/buttons/custom_multiselect_button.dart';
+import 'package:fixify_app/widgets/buttons/custom_time_picker.dart';
+import 'package:fixify_app/widgets/container/custom_container.dart';
 import 'package:fixify_app/widgets/text_fields/custom_text_form_field.dart';
-import 'package:fixify_app/widgets/texts/medium_text.dart';
 import 'package:fixify_app/widgets/texts/small_text.dart';
+import 'package:fixify_app/widgets/texts/text_with_star.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
+import 'package:multi_select_flutter/util/multi_select_item.dart';
 import '../../../../utils/dimensions.dart';
 
 class TechnicianSignUpPage1 extends StatefulWidget {
   final VoidCallback onTapBack;
   final VoidCallback onTapProceed;
 
-  const TechnicianSignUpPage1({Key? key, required this.onTapBack, required this.onTapProceed})
+  const TechnicianSignUpPage1(
+      {Key? key, required this.onTapBack, required this.onTapProceed})
       : super(key: key);
 
   @override
@@ -25,15 +35,13 @@ class TechnicianSignUpPage1 extends StatefulWidget {
 
 class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
   late TextEditingController signUpFullNameController;
-  late TextEditingController nidCardNumber;
   late GlobalKey<FormState> formKeyTechnician;
-  final List<String> _servicesOffered = ['Fridge', 'AC', 'Fan'];
   File? _image;
   late PageController _controller;
   int pageIndex = 0;
 
   Future getProfileImage() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.camera);
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (image == null) return;
 
     final imageTemporary = File(image.path);
@@ -46,9 +54,30 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
   void initState() {
     _controller = PageController(initialPage: 0);
     signUpFullNameController = TextEditingController();
-    nidCardNumber = TextEditingController();
     formKeyTechnician = GlobalKey<FormState>();
     super.initState();
+  }
+
+  List<ServicesModel> _servicesOffered = [];
+  List<DaysModel> _availableDays = [];
+  List<TimesModel> _availableTimes = [];
+
+  Time? _time1;
+  Time? _time2;
+  bool iosStyle = true;
+
+  void onTimeChanged1(Time newTime) {
+    _time1 = newTime;
+    setState(() {
+
+    });
+  }
+
+  void onTimeChanged2(Time newTime) {
+    _time2 = newTime;
+    setState(() {
+
+    });
   }
 
   @override
@@ -105,6 +134,7 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
               ),
             ]),
 
+        ///Full Name
         CustomTextFormField(
           titleText: 'Full Name',
           hintText: 'Full Name',
@@ -115,35 +145,85 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
             }
           },
         ),
-        SizedBox(
-          height: Dimensions.height10,
+
+        ///MultiSelect
+        ///Services
+        CustomMultiSelectButton(
+            required: true,
+            titleText: 'Services',
+            multiSelectWidget: MultiSelectDialog(
+              height: Dimensions.screenHeight * 0.25,
+              selectedColor: AppColors.primaryColor,
+              items: FactoryData.services
+                  .map((e) => MultiSelectItem(e, e.name))
+                  .toList(),
+              initialValue: _servicesOffered,
+              onConfirm: (values) {
+                _servicesOffered = values;
+                setState(() {});
+              },
+            ),
+            initialValue: _servicesOffered,
+            hintText: 'Select Services',
+            children: List.generate(_servicesOffered.length, (index) {
+              var services = _servicesOffered[index];
+              return CustomContainer(titleText: services.name);
+            })),
+
+        ///Available Days
+        CustomMultiSelectButton(
+            required: true,
+            titleText: 'Available Days',
+            multiSelectWidget: MultiSelectDialog(
+              height: Dimensions.screenHeight * 0.25,
+              selectedColor: AppColors.primaryColor,
+              items: FactoryData.days
+                  .map((e) => MultiSelectItem(e, e.day))
+                  .toList(),
+              initialValue: _availableDays,
+              onConfirm: (values) {
+                _availableDays = values;
+                setState(() {});
+              },
+            ),
+            initialValue: _availableDays,
+            hintText: 'Available Days',
+            children: List.generate(_availableDays.length, (index) {
+              var days = _availableDays[index];
+              return CustomContainer(titleText: days.day);
+            })),
+
+        ///Available Time
+        _availableDays.isEmpty ? Container(): Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextWithStar(
+              fontSize: Dimensions.font12,
+              text: 'Available Time',
+              starEnable: true,
+            ),
+            SizedBox(
+              height: Dimensions.height10,
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(
+                  vertical: Dimensions.padding5,
+                  horizontal: Dimensions.padding10),
+              decoration: BoxDecoration(
+                color: AppColors.textFieldColor,
+                borderRadius: BorderRadius.circular(Dimensions.radius4),
+              ),
+              child: CustomTimePicker(
+                titleText: 'Available Time',
+                onTimeChanged1: onTimeChanged1,
+                onTimeChanged2: onTimeChanged2,
+                time1: _time1,
+                time2: _time2,
+              ),
+            ),
+          ],
         ),
-        CustomDropDownFormField(
-          items: _servicesOffered.map((value) {
-            return DropdownMenuItem(
-                value: value,
-                child: SmallText(
-                  text: value,
-                ));
-          }).toList(),
-          hintText: 'Select service',
-          titleText: 'Services Offered',
-          validator: (value) {
-            if (value == null) {
-              return 'This field can\'t be empty';
-            }
-          },
-        ),
-        CustomTextFormField(
-          titleText: 'NID Card',
-          hintText: 'NID Card number',
-          controller: nidCardNumber,
-          validator: (value) {
-            if (value!.isEmpty) {
-              return 'This field can\'t be empty';
-            }
-          },
-        ),
+
 
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String titleText;
-  final bool starEnable;
+  final bool required;
   final String hintText;
   final TextInputType textInputType;
   final bool obscureText;
@@ -21,7 +21,7 @@ class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField(
       {super.key,
         required this.titleText,
-        this.starEnable = true,
+        this.required = true,
         this.validator,
         this.controller,
         required this.hintText,
@@ -44,7 +44,7 @@ class CustomTextFormField extends StatelessWidget {
         TextWithStar(
           fontSize: Dimensions.font12,
           text: titleText,
-          starEnable: starEnable,
+          starEnable: required,
         ),
         SizedBox(
           height: Dimensions.height10,
