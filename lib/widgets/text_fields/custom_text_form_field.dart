@@ -16,13 +16,10 @@ class CustomTextFormField extends StatelessWidget {
   final Icon? prefixIcon;
   final VoidCallback? suffixIconOnTap;
 
-  final FormFieldValidator<String>? validator;
-
   const CustomTextFormField(
       {super.key,
         required this.titleText,
         this.required = true,
-        this.validator,
         this.controller,
         required this.hintText,
         this.textInputType = TextInputType.text,
@@ -49,11 +46,10 @@ class CustomTextFormField extends StatelessWidget {
         SizedBox(
           height: Dimensions.height10,
         ),
-        TextFormField(
+        TextField(
           controller: controller,
           obscureText: obscureText,
           keyboardType: textInputType,
-          validator: validator,
           enabled: isEnabled,
           decoration: InputDecoration(
             prefixIcon: prefixIcon,

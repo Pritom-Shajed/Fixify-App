@@ -5,7 +5,15 @@ class MediumText extends StatelessWidget {
   final Color? color;
   final String text;
   final double fontSize;
-  const MediumText({Key? key, this.color, required this.text, this.fontSize = 0}) : super(key: key);
+  final FontWeight fontWeight;
+
+  const MediumText(
+      {Key? key,
+      this.color,
+      required this.text,
+      this.fontSize = 0,
+      this.fontWeight = FontWeight.normal})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +21,8 @@ class MediumText extends StatelessWidget {
       text,
       style: TextStyle(
           color: color,
-          fontSize: fontSize == 0 ? Dimensions.font16 : fontSize),
+          fontSize: fontSize == 0 ? Dimensions.font16 : fontSize,
+          fontWeight: fontWeight),
     );
   }
 }
