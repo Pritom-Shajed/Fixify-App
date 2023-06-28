@@ -197,7 +197,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                               child: authController.authSignupImage == null
                                   ? GestureDetector(
                                       onTap: () => authController
-                                          .pickImage(ImageSource.camera),
+                                          .pickImage(ImageSource.gallery),
                                       child: Icon(
                                         Icons.file_upload_outlined,
                                         color: AppColors.primaryColorLight,
@@ -209,7 +209,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                             ),
                             GestureDetector(
                               onTap: () =>
-                                  authController.pickImage(ImageSource.camera),
+                                  authController.pickImage(ImageSource.gallery),
                               child: authController.authSignupImage == null
                                   ? SmallText(
                                       text: 'Add Profile Picture',
@@ -314,7 +314,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                                           fullName: signUpFullNameController.text,
                                           uname: signUpNameController.text,
                                           email: signUpEmailController.text,
-                                          pass: signUpEmailController.text,
+                                          pass: signUpPassController.text,
                                           phoneNumber: signUpPhoneController.text);
                                       widget.onTapProceedCustomer();
                                       authController.authSignupImage = null;
