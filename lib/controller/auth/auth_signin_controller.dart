@@ -63,9 +63,9 @@ class AuthSignInController extends GetxController {
 
         // Navigate to the appropriate screen based on user role
         if (userRole == 'customer') {
-          Get.to(()=> HomePageCustomer());
+          Get.offAllNamed(RouteHelper.getHomeCustomer());
         } else if (userRole == 'technician') {
-          Get.to(()=> HomePageTechnician());
+          Get.offAllNamed(RouteHelper.getHomeTechnician());
         }
       } else {
         // Login failed, handle invalid credentials or user not found
