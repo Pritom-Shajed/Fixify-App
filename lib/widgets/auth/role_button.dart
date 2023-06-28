@@ -19,17 +19,10 @@ class RoleButton extends StatelessWidget {
         padding: EdgeInsets.all(Dimensions.padding10),
         decoration: BoxDecoration(
             color: bgColor ?? AppColors.whiteColor,
-            borderRadius: BorderRadius.circular(Dimensions.radius20/3),
+            borderRadius: BorderRadius.circular(Dimensions.radius4),
             border: Border.all(
               color: AppColors.primaryColor,
             ),
-            boxShadow: [
-              BoxShadow(
-                  color: AppColors.shadowColor,
-                  blurRadius: 5,
-                  offset: const Offset(3, 3)
-              )
-            ]
         ),
         child:  Column(
           children: [

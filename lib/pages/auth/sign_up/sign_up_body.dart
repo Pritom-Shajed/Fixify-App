@@ -2,7 +2,7 @@ import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:fixify_app/base/show_custom_snackbar.dart';
 import 'package:fixify_app/base/show_default_snackbar2.dart';
 import 'package:fixify_app/base/show_text_field_validator.dart';
-import 'package:fixify_app/controller/auth/auth_controller.dart';
+import 'package:fixify_app/controller/auth/auth_signup_controller.dart';
 import 'package:fixify_app/pages/auth/sign_up/technician/technician_sign_up.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/constants.dart';
@@ -11,8 +11,10 @@ import 'package:fixify_app/widgets/auth/role_button.dart';
 import 'package:fixify_app/widgets/auth/sign_up_role_sign.dart';
 import 'package:fixify_app/widgets/buttons/custom_button.dart';
 import 'package:fixify_app/widgets/text_fields/custom_text_form_field.dart';
+import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SignUpBody extends StatefulWidget {
   final VoidCallback onTapProceedTechnician;
@@ -57,7 +59,7 @@ class _SignUpBodyState extends State<SignUpBody> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AuthController>(builder: (controller) {
+    return GetBuilder<AuthSignUpController>(builder: (authController) {
       return SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,6 +105,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                     padding:
                         EdgeInsets.symmetric(vertical: Dimensions.padding5 * 2),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
@@ -153,10 +156,71 @@ class _SignUpBodyState extends State<SignUpBody> {
                         ),
 
                         ///Error Dialog
-                        controller.authSignUpError
-                            ? showCustomAuthValidator(
-                                'Please fill up all required fields')
+                        authController.authSignUpError
+                            ? showCustomAuthValidator((() {
+                                if (signUpFullNameController.text.isEmpty ||
+                                    signUpNameController.text.isEmpty ||
+                                    signUpEmailController.text.isEmpty ||
+                                    signUpPassController.text.isEmpty ||
+                                    signUpPhoneController.text.isEmpty) {
+                                  return 'Please fill up all required fields';
+                                } else {
+                                  return 'Please add your profile picture';
+                                }
+                              }()))
                             : Container(),
+
+                        ///Profile Picture
+                        authController.authSignUpError
+                            ? Container()
+                            : SizedBox(
+                                height: Dimensions.height10,
+                              ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: Dimensions.profileImageSize,
+                              width: Dimensions.profileImageSize,
+                              decoration: BoxDecoration(
+                                  color: AppColors.greyColorLight,
+                                  borderRadius: BorderRadius.circular(4),
+                                  image: authController.authSignupImage != null
+                                      ? DecorationImage(
+                                          image: FileImage(
+                                              authController.authSignupImage!),
+                                          fit: BoxFit.cover)
+                                      : null,
+                                  border: Border.all(
+                                      width: 1,
+                                      color: AppColors.primaryColorLight)),
+                              child: authController.authSignupImage == null
+                                  ? GestureDetector(
+                                      onTap: () => authController
+                                          .pickImage(ImageSource.camera),
+                                      child: Icon(
+                                        Icons.file_upload_outlined,
+                                        color: AppColors.primaryColorLight,
+                                      ))
+                                  : Container(),
+                            ),
+                            SizedBox(
+                              height: Dimensions.height10,
+                            ),
+                            GestureDetector(
+                              onTap: () =>
+                                  authController.pickImage(ImageSource.camera),
+                              child: authController.authSignupImage == null
+                                  ? SmallText(
+                                      text: 'Add Profile Picture',
+                                      color: AppColors.primaryColor)
+                                  : SmallText(
+                                      text: 'Change Profile Picture',
+                                      color: AppColors.greyColor,
+                                    ),
+                            ),
+                          ],
+                        ),
 
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -188,15 +252,15 @@ class _SignUpBodyState extends State<SignUpBody> {
                               titleText: 'Password',
                               suffixIcon: GestureDetector(
                                 onTap: () =>
-                                    controller.changeObscureTextSignUp(),
+                                    authController.changeObscureTextSignUp(),
                                 child: Icon(
-                                  controller.obscureTextSignUp
+                                  authController.obscureTextSignUp
                                       ? Icons.visibility_off
                                       : Icons.visibility,
                                   size: Dimensions.icon20,
                                 ),
                               ),
-                              obscureText: controller.obscureTextSignUp,
+                              obscureText: authController.obscureTextSignUp,
                               hintText: 'Password',
                               controller: signUpPassController,
                             ),
@@ -216,30 +280,44 @@ class _SignUpBodyState extends State<SignUpBody> {
                                 return CustomButton(
                                   text: 'Proceed',
                                   onTap: () {
-                                    controller.authSignUpErrorCleared();
+                                    authController.authSignUpErrorCleared();
                                     showCustomSnackBar(
                                         title: 'Error',
                                         'Select your role to continue');
                                   },
                                 );
                               } else if (selectedRole == UserRole.customer) {
-
                                 ///Sign Up As Customer
                                 return CustomButton(
                                   text: 'Sign Up',
-                                  onTap: () {
+                                  onTap: () async{
                                     if (signUpFullNameController.text.isEmpty ||
                                         signUpNameController.text.isEmpty ||
                                         signUpEmailController.text.isEmpty ||
                                         signUpPassController.text.isEmpty ||
                                         signUpPhoneController.text.isEmpty) {
-                                      controller.authSignUpErrorOccured();
+                                      authController.authSignUpErrorOccured();
                                       showDefaultSnackBar(
                                           'Please fill up all required fields',
                                           context);
+                                    } else if (authController.authSignupImage ==
+                                        null) {
+                                      authController.authSignUpErrorOccured();
+                                      showDefaultSnackBar(
+                                          'Please add your profile picture',
+                                          context);
                                     } else {
-                                      controller.authSignUpErrorCleared();
+                                      authController.authSignUpErrorCleared();
+                                      await authController.signUpCustomer(
+                                          context: context,
+                                          userRole: selectedRole == UserRole.customer ? 'customer': 'technician',
+                                          fullName: signUpFullNameController.text,
+                                          uname: signUpNameController.text,
+                                          email: signUpEmailController.text,
+                                          pass: signUpEmailController.text,
+                                          phoneNumber: signUpPhoneController.text);
                                       widget.onTapProceedCustomer();
+                                      authController.authSignupImage = null;
                                       selectedRole = null;
                                       signUpFullNameController.text = '';
                                       signUpNameController.text = '';
@@ -250,7 +328,6 @@ class _SignUpBodyState extends State<SignUpBody> {
                                   },
                                 );
                               } else {
-
                                 ///Sign Up As Technician
                                 return CustomButton(
                                   text: 'Proceed',
@@ -260,12 +337,18 @@ class _SignUpBodyState extends State<SignUpBody> {
                                         signUpEmailController.text.isEmpty ||
                                         signUpPassController.text.isEmpty ||
                                         signUpPhoneController.text.isEmpty) {
-                                      controller.authSignUpErrorOccured();
+                                      authController.authSignUpErrorOccured();
                                       showDefaultSnackBar(
                                           'Please fill up all required fields',
                                           context);
+                                    } else if (authController.authSignupImage ==
+                                        null) {
+                                      authController.authSignUpErrorOccured();
+                                      showDefaultSnackBar(
+                                          'Please add your profile picture',
+                                          context);
                                     } else {
-                                      controller.authSignUpErrorCleared();
+                                      authController.authSignUpErrorCleared();
                                       _controller.nextPage(
                                           duration:
                                               const Duration(milliseconds: 300),
@@ -284,6 +367,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                   ///Technician Page
                   TechnicianSignUpPage1(onTapProceed: () {
                     widget.onTapProceedTechnician();
+                    authController.authSignupImage = null;
                     selectedRole = null;
                     signUpFullNameController.text = '';
                     signUpNameController.text = '';

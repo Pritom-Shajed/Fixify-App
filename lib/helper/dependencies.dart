@@ -1,6 +1,8 @@
-import 'package:fixify_app/controller/auth/auth_controller.dart';
+import 'package:fixify_app/controller/auth/auth_signin_controller.dart';
+import 'package:fixify_app/controller/auth/auth_signup_controller.dart';
 import 'package:get/get.dart';
 
 Future<void> init() async {
-  Get.lazyPut(() => AuthController(), fenix: true);
+  Get.lazyPut(() => AuthSignInController(), fenix: true);
+  Get.lazyPut(() => AuthSignUpController(), fenix: true);
 }

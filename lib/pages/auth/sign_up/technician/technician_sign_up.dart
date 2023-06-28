@@ -3,7 +3,7 @@ import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:fixify_app/base/show_default_snackbar2.dart';
 import 'package:fixify_app/base/show_text_field_validator.dart';
-import 'package:fixify_app/controller/auth/auth_controller.dart';
+import 'package:fixify_app/controller/auth/auth_signup_controller.dart';
 import 'package:fixify_app/model/days_model.dart';
 import 'package:fixify_app/model/division_model.dart';
 import 'package:fixify_app/model/factory_data/factory_data.dart';
@@ -39,20 +39,9 @@ class TechnicianSignUpPage1 extends StatefulWidget {
 class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
   late TextEditingController nidCardController;
   late TextEditingController locationController;
-  File? _image;
   late PageController _controller;
   int pageIndex = 0;
   DivisionModel? selectedDivision;
-
-  Future getProfileImage() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.camera);
-    if (image == null) return;
-
-    final imageTemporary = File(image.path);
-
-    _image = imageTemporary;
-    setState(() {});
-  }
 
   @override
   void initState() {
@@ -81,7 +70,7 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AuthController>(builder: (authController) {
+    return GetBuilder<AuthSignUpController>(builder: (authController) {
       return Column(
         children: [
           ///Upload Profile Picture
@@ -89,68 +78,9 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
           ///Error Dialog
           authController.authSignUpError
               ? showCustomAuthValidator((() {
-                  if (selectedDivision == null ||
-                      locationController.text.isEmpty ||
-                      nidCardController.text.isEmpty ||
-                      _servicesOffered.isEmpty ||
-                      _availableDays.isEmpty ||
-                      _time1 == null ||
-                      _time2 == null) {
-                    return 'Please fill up all required fields';
-                  } else {
-                    return 'Please add your profile picture';
-                  }
+                  return 'Please fill up all required fields';
                 }()))
               : Container(),
-
-          ExpandablePageView(
-              physics: const NeverScrollableScrollPhysics(),
-              controller: _controller,
-              onPageChanged: (int value) {
-                pageIndex = value;
-                setState(() {});
-              },
-              children: [
-                Column(
-                  children: [
-                    Container(
-                      height: Dimensions.profileImageSize,
-                      width: Dimensions.profileImageSize,
-                      decoration: BoxDecoration(
-                          color: AppColors.greyColorLight,
-                          borderRadius: BorderRadius.circular(4),
-                          image: _image != null
-                              ? DecorationImage(
-                                  image: FileImage(_image!), fit: BoxFit.cover)
-                              : null,
-                          border: Border.all(
-                              width: 1, color: AppColors.primaryColorLight)),
-                      child: _image == null
-                          ? GestureDetector(
-                              onTap: () => getProfileImage(),
-                              child: Icon(
-                                Icons.file_upload_outlined,
-                                color: AppColors.primaryColorLight,
-                              ))
-                          : Container(),
-                    ),
-                    SizedBox(
-                      height: Dimensions.height10,
-                    ),
-                    GestureDetector(
-                      onTap: () => getProfileImage(),
-                      child: _image == null
-                          ? SmallText(
-                              text: 'Add Profile Picture',
-                              color: AppColors.primaryColor)
-                          : SmallText(
-                              text: 'Change Profile Picture',
-                              color: AppColors.greyColor,
-                            ),
-                    ),
-                  ],
-                ),
-              ]),
 
           ///Division
           CustomDropDownFormField(
@@ -280,10 +210,6 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
                     authController.authSignUpErrorOccured();
                     showDefaultSnackBar(
                         'Please fill up all required fields', context);
-                  } else if (_image == null) {
-                    authController.authSignUpErrorOccured();
-                    showDefaultSnackBar(
-                        'Please add your profile picture', context);
                   } else {
                     authController.authSignUpErrorCleared();
                     widget.onTapProceed();

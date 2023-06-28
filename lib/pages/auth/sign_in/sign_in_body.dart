@@ -1,5 +1,5 @@
 import 'package:fixify_app/base/show_text_field_validator.dart';
-import 'package:fixify_app/controller/auth/auth_controller.dart';
+import 'package:fixify_app/controller/auth/auth_signin_controller.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/text_fields/custom_text_form_field.dart';
@@ -16,7 +16,7 @@ class SignInBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AuthController>(builder: (controller) {
+    return GetBuilder<AuthSignInController>(builder: (controller) {
       return SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

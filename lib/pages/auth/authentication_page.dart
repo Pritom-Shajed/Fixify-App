@@ -1,5 +1,6 @@
 import 'package:fixify_app/base/show_custom_snackbar.dart';
-import 'package:fixify_app/controller/auth/auth_controller.dart';
+import 'package:fixify_app/controller/auth/auth_signin_controller.dart';
+import 'package:fixify_app/controller/auth/auth_signup_controller.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/pages/auth/auth_body.dart';
 import 'package:fixify_app/widgets/auth/auth_button.dart';
@@ -25,6 +26,8 @@ class _AuthPageState extends State<AuthPage> {
   bool _signIn = true;
   late TextEditingController signInEmailController;
   late TextEditingController signInPassController;
+  final authSignInController = Get.find<AuthSignInController>();
+  final authSignUpController = Get.find<AuthSignUpController>();
 
   @override
   void initState() {
@@ -35,8 +38,8 @@ class _AuthPageState extends State<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: GetBuilder<AuthController>(builder: (controller) {
-      return Container(
+    return Scaffold(
+      body: Container(
         height: double.maxFinite,
         width: double.maxFinite,
         decoration: BoxDecoration(
@@ -96,15 +99,15 @@ class _AuthPageState extends State<AuthPage> {
                           emailController: signInEmailController,
                           passController: signInPassController,
                         ),
-                        signUpBody:  SignUpBody(
-                          onTapProceedCustomer: (){
-                            showCustomSnackBar('Sign in with your credential', title: 'Account Registered');
+                        signUpBody: SignUpBody(
+                          onTapProceedCustomer: () {
                             setState(() {
                               _signIn = !_signIn;
                             });
                           },
                           onTapProceedTechnician: () {
-                            showCustomSnackBar('Sign in with your credential', title: 'Account Registered');
+                            showCustomSnackBar('Sign in with your credential',
+                                title: 'Account Registered');
                             setState(() {
                               _signIn = !_signIn;
                             });
@@ -115,12 +118,12 @@ class _AuthPageState extends State<AuthPage> {
                           onTap: () {
                             if (signInEmailController.text.isEmpty ||
                                 signInPassController.text.isEmpty) {
-                              controller.authSignInErrorOccured();
+                              authSignInController.authSignInErrorOccured();
                               // showDefaultSnackBar(
                               //     'Please fill up all required fields',
                               //     context);
                             } else {
-                              controller.authSignInErrorCleared();
+                              authSignInController.authSignInErrorCleared();
                             }
                           },
                         ),
@@ -135,13 +138,13 @@ class _AuthPageState extends State<AuthPage> {
                       AuthFooter(
                         signIn: _signIn,
                         onTapSignIn: () {
-                          controller.authSignUpErrorCleared();
+                          authSignUpController.authSignUpErrorCleared();
                           setState(() {
                             _signIn = !_signIn;
                           });
                         },
                         onTapSignUp: () {
-                          controller.authSignInErrorCleared();
+                          authSignInController.authSignInErrorCleared();
                           setState(() {
                             _signIn = !_signIn;
                           });
@@ -158,7 +161,7 @@ class _AuthPageState extends State<AuthPage> {
             ),
           ],
         ),
-      );
-    }));
+      ),
+    );
   }
 }
