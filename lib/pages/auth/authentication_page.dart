@@ -124,6 +124,7 @@ class _AuthPageState extends State<AuthPage> {
                               //     context);
                             } else {
                               authSignInController.authSignInErrorCleared();
+                              authSignInController.login(signInEmailController.text, signInPassController.text,);
                             }
                           },
                         ),

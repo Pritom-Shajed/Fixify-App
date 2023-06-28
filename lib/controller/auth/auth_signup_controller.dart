@@ -106,6 +106,7 @@ class AuthSignUpController extends GetxController {
         profilePic: profilePicUrl,
         joinedDate: currentDate,
         phoneNumber: phoneNumber,
+        password: pass
       );
       await FirebaseFirestore.instance
           .collection('users')

@@ -5,6 +5,7 @@ class UserModelCustomer {
   String? profilePic;
   String? fullName;
   String? uname;
+  String? password;
   String? email;
   String? uid;
   String? joinedDate;
@@ -15,6 +16,7 @@ class UserModelCustomer {
     required this.profilePic,
     required this.fullName,
     required this.uname,
+    required this.password,
     required this.email,
     required this.uid,
     required this.joinedDate,
@@ -30,6 +32,7 @@ class UserModelCustomer {
       'fullName': fullName,
       'uname': uname,
       'email': email,
+      'password': password,
       'phoneNumber': phoneNumber,
     };
   }
@@ -44,6 +47,7 @@ class UserModelCustomer {
       fullName: data['fullName'],
       uname: data['name'],
       email: data['email'],
+      password: data['password'],
       phoneNumber: data['phoneNumber'],
     );
   }
