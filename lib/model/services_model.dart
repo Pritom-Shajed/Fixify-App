@@ -1,6 +1,6 @@
 class ServicesModel {
   final int id;
-  final String name;
+  final String serviceName;
 
-  ServicesModel({required this.id, required this.name});
+  ServicesModel({required this.id, required this.serviceName});
 }

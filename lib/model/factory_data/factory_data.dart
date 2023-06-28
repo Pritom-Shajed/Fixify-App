@@ -4,15 +4,15 @@ import 'package:fixify_app/model/services_model.dart';
 
 class FactoryData {
   static List<ServicesModel> services = [
-    ServicesModel(id: 1, name: 'Fridge'),
-    ServicesModel(id: 2, name: 'AC'),
-    ServicesModel(id: 3, name: 'Fan'),
-    ServicesModel(id: 4, name: 'Fridge'),
-    ServicesModel(id: 5, name: 'AC'),
-    ServicesModel(id: 6, name: 'Fan'),
-    ServicesModel(id: 7, name: 'Fridge'),
-    ServicesModel(id: 8, name: 'AC'),
-    ServicesModel(id: 9, name: 'Fan'),
+    ServicesModel(id: 1, serviceName: 'Fridge'),
+    ServicesModel(id: 2, serviceName: 'AC'),
+    ServicesModel(id: 3, serviceName: 'Fan'),
+    ServicesModel(id: 4, serviceName: 'Fridge'),
+    ServicesModel(id: 5, serviceName: 'AC'),
+    ServicesModel(id: 6, serviceName: 'Fan'),
+    ServicesModel(id: 7, serviceName: 'Fridge'),
+    ServicesModel(id: 8, serviceName: 'AC'),
+    ServicesModel(id: 9, serviceName: 'Fan'),
   ];
 
   static List<DaysModel> days = [

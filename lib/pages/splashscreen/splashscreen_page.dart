@@ -1,3 +1,4 @@
+import 'package:fixify_app/controller/auth/auth_signin_controller.dart';
 import 'package:fixify_app/pages/auth/authentication_page.dart';
 import 'package:fixify_app/routes/route_helper.dart';
 import 'package:fixify_app/utils/app_colors.dart';
@@ -13,14 +14,21 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-
 class _SplashScreenState extends State<SplashScreen> {
+  final signInController = Get.find<AuthSignInController>();
 
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 2), ()=> Get.offAllNamed(RouteHelper.getAuthPage()));
+    Future.delayed(
+      const Duration(seconds: 2),
+    ).then((value) {
+      return signInController.checkLoginStatus().then((loggedIn) =>
+          {if (!loggedIn) Get.offAllNamed(RouteHelper.getAuthPage())});
+    });
+
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

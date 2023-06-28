@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fixify_app/pages/home/customer/home_page_customer.dart';
 import 'package:fixify_app/pages/home/technician/home_page_technician.dart';
-import 'package:flutter/material.dart';
+import 'package:fixify_app/routes/route_helper.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthSignInController extends GetxController {
   final _obscureTextSignIn = true.obs;
@@ -43,6 +44,7 @@ class AuthSignInController extends GetxController {
   }
 
   Future<void> login(String email, String password) async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
     try {
       final QuerySnapshot<Map<String, dynamic>> snapshot = await _firestore
           .collection('users')
@@ -55,6 +57,8 @@ class AuthSignInController extends GetxController {
         // Login successful, retrieve the user data
         final userData = snapshot.docs.first.data();
         final userRole = userData['userRole'];
+        final userUid = userData['uid'];
+        await preferences.setString('uid', userUid);
 
 
         // Navigate to the appropriate screen based on user role
@@ -70,5 +74,30 @@ class AuthSignInController extends GetxController {
       // Handle any potential errors
     }
   }
+
+  Future<bool> checkLoginStatus() async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    final userId = preferences.getString('uid');
+    if (userId != null) {
+      final DocumentSnapshot<Map<String, dynamic>> snapshot =
+      await _firestore.collection('users').doc(userId).get();
+
+      if (snapshot.exists) {
+        final userData = snapshot.data();
+        print(userData);
+        if (userData!['userRole'] == 'customer') {
+          Get.offAllNamed(RouteHelper.getHomeCustomer());
+        } else if (userData['userRole'] == 'technician') {
+          Get.offAllNamed(RouteHelper.getHomeTechnician());
+        }
+        return true;
+      } else {
+        print('user not found');
+      }
+    }
+    return false;
+  }
+
 
 }

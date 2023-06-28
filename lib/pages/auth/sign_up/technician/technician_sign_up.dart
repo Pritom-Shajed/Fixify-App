@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'package:day_night_time_picker/day_night_time_picker.dart';
-import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:fixify_app/base/show_default_snackbar2.dart';
 import 'package:fixify_app/base/show_text_field_validator.dart';
 import 'package:fixify_app/controller/auth/auth_signup_controller.dart';
@@ -20,16 +18,29 @@ import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:fixify_app/widgets/texts/text_with_star.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import '../../../../utils/dimensions.dart';
 
 class TechnicianSignUpPage1 extends StatefulWidget {
   final VoidCallback onTapBack;
   final VoidCallback onTapProceed;
+  final String userRole;
+  final String fullNameController;
+  final String unameController;
+  final String emailController;
+  final String passController;
+  final String phoneNumberController;
 
   const TechnicianSignUpPage1(
-      {Key? key, required this.onTapBack, required this.onTapProceed})
+      {Key? key,
+      required this.onTapBack,
+      required this.onTapProceed,
+      required this.userRole,
+      required this.fullNameController,
+      required this.unameController,
+      required this.emailController,
+      required this.passController,
+      required this.phoneNumberController})
       : super(key: key);
 
   @override
@@ -39,13 +50,11 @@ class TechnicianSignUpPage1 extends StatefulWidget {
 class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
   late TextEditingController nidCardController;
   late TextEditingController locationController;
-  late PageController _controller;
   int pageIndex = 0;
   DivisionModel? selectedDivision;
 
   @override
   void initState() {
-    _controller = PageController(initialPage: 0);
     nidCardController = TextEditingController();
     locationController = TextEditingController();
     super.initState();
@@ -123,7 +132,7 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
                 height: Dimensions.screenHeight * 0.25,
                 selectedColor: AppColors.primaryColor,
                 items: FactoryData.services
-                    .map((e) => MultiSelectItem(e, e.name))
+                    .map((e) => MultiSelectItem(e, e.serviceName))
                     .toList(),
                 initialValue: _servicesOffered,
                 onConfirm: (values) {
@@ -135,7 +144,7 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
               hintText: 'Select Services',
               children: List.generate(_servicesOffered.length, (index) {
                 var services = _servicesOffered[index];
-                return CustomContainer(titleText: services.name);
+                return CustomContainer(titleText: services.serviceName);
               })),
 
           ///Available Days
@@ -199,7 +208,7 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
             children: [
               CustomButton(
                 text: 'Proceed',
-                onTap: () {
+                onTap: () async {
                   if (selectedDivision == null ||
                       locationController.text.isEmpty ||
                       nidCardController.text.isEmpty ||
@@ -212,6 +221,26 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
                         'Please fill up all required fields', context);
                   } else {
                     authController.authSignUpErrorCleared();
+
+                    await authController.signUpTechnician(
+                      context: context,
+                      userRole: widget.userRole,
+                      fullName: widget.fullNameController,
+                      uname: widget.unameController,
+                      nidNumber: nidCardController.text,
+                      email: widget.emailController,
+                      pass: widget.passController,
+                      phoneNumber: widget.phoneNumberController,
+                      division: selectedDivision!.divisionName,
+                      location: locationController.text,
+                      services:
+                          _servicesOffered.map((e) => e.serviceName).toList(),
+                      availableDays: _availableDays.map((e) => e.day).toList(),
+                      time1:
+                          '${_time1!.hour} : ${_time1!.minute} ${_time1!.period.name}',
+                      time2:
+                          '${_time2!.hour} : ${_time2!.minute} ${_time2!.period.name}',
+                    );
                     widget.onTapProceed();
                   }
                 },

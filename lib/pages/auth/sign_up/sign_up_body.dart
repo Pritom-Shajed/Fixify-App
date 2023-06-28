@@ -365,7 +365,14 @@ class _SignUpBodyState extends State<SignUpBody> {
                   ),
 
                   ///Technician Page
-                  TechnicianSignUpPage1(onTapProceed: () {
+                  TechnicianSignUpPage1(
+                    userRole: selectedRole == UserRole.customer ? 'customer': 'technician',
+                      fullNameController: signUpFullNameController.text,
+                      emailController: signUpEmailController.text,
+                      passController: signUpPassController.text,
+                      phoneNumberController: signUpPhoneController.text,
+                      unameController: signUpPhoneController.text,
+                      onTapProceed: () {
                     widget.onTapProceedTechnician();
                     authController.authSignupImage = null;
                     selectedRole = null;
@@ -379,7 +386,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                     _controller.animateToPage(0,
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeIn);
-                  }),
+                  },),
                 ]),
             pageIndex == 0
                 ? SizedBox(

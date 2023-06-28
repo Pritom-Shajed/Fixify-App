@@ -6,12 +6,14 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fixify_app/base/show_custom_snackbar.dart';
 import 'package:fixify_app/base/show_default_snackbar2.dart';
 import 'package:fixify_app/model/firebase/user_model_customer.dart';
+import 'package:fixify_app/model/firebase/user_model_technician.dart';
 import 'package:fixify_app/routes/route_helper.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 
 class AuthSignUpController extends GetxController {
   final _obscureTextSignUp = true.obs;
@@ -74,50 +76,109 @@ class AuthSignUpController extends GetxController {
               ),
             );
           });
-
-      //Sign in
-      UserCredential credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: pass,
-      );
-
-      await credential.user!.updateDisplayName(uname);
+      final uid = const Uuid().v4();
 
       //Upload Image
       Reference ref = FirebaseStorage.instance
           .ref()
           .child('profile-pic')
-          .child('${userRole}_${credential.user!.uid}');
+          .child('${userRole}_$uid');
 
       TaskSnapshot taskSnapshot = await ref.putFile(authSignupImage!);
 
       String profilePicUrl = await taskSnapshot.ref.getDownloadURL();
 
-      await credential.user!.updatePhotoURL(profilePicUrl);
 
-      //Storing informations
+      //Storing information's
       UserModelCustomer user = UserModelCustomer(
-        uid: credential.user!.uid,
-        userRole: userRole,
-        fullName: fullName,
-        uname: uname,
-        email: email,
-        profilePic: profilePicUrl,
-        joinedDate: currentDate,
-        phoneNumber: phoneNumber,
-        password: pass
-      );
+          uid: uid,
+          userRole: userRole,
+          fullName: fullName,
+          uname: uname,
+          email: email,
+          profilePic: profilePicUrl,
+          joinedDate: currentDate,
+          phoneNumber: phoneNumber,
+          password: pass);
       await FirebaseFirestore.instance
           .collection('users')
-          .doc(credential.user!.uid)
-          .set(user.toJson()).then((value) => showCustomSnackBar('Sign in with your credential',
+          .doc(uid)
+          .set(user.toJson())
+          .then((value) => showCustomSnackBar('Sign in with your credential',
               title: 'Account Registered'))
           .then((value) => Get.offAllNamed(RouteHelper.getAuthPage()));
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'email-already-in-use') {
-        showDefaultSnackBar('The account already exists for $email.', context);
-      }
+    } catch (e) {
+      showDefaultSnackBar('Please try again after some time', context);
+      print(e);
+    }
+  }
+
+  signUpTechnician({
+    required BuildContext context,
+    required String userRole,
+    required String fullName,
+    required String uname,
+    required String nidNumber,
+    required String email,
+    required String pass,
+    required String phoneNumber,
+    required String division,
+    required String location,
+    required List<String> services,
+    required List<String> availableDays,
+    required String time1,
+    required String time2,
+  }) async {
+    try {
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: AppColors.whiteColor,
+              ),
+            );
+          });
+      final uid = const Uuid().v4();
+
+      //Upload Image
+      Reference ref = FirebaseStorage.instance
+          .ref()
+          .child('profile-pic')
+          .child('${userRole}_$uid');
+
+      TaskSnapshot taskSnapshot = await ref.putFile(authSignupImage!);
+
+      String profilePicUrl = await taskSnapshot.ref.getDownloadURL();
+
+
+      UserModelTechnician user = UserModelTechnician(
+          uid: uid,
+          userRole: userRole,
+          fullName: fullName,
+          uname: uname,
+          email: email,
+          profilePic: profilePicUrl,
+          joinedDate: currentDate,
+          phoneNumber: phoneNumber,
+          password: pass,
+          nidNumber: nidNumber,
+          division: division,
+          location: location,
+          services: services,
+          availableDays: availableDays,
+          time1: time1,
+          time2: time2,
+      );
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .set(user.toJson())
+          .then((value) => showCustomSnackBar('Sign in with your credential',
+              title: 'Account Registered'))
+          .then((value) => Get.offAllNamed(RouteHelper.getAuthPage()));
     } catch (e) {
       showDefaultSnackBar('Please try again after some time', context);
       print(e);
