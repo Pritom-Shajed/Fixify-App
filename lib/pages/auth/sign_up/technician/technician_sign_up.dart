@@ -5,6 +5,7 @@ import 'package:fixify_app/base/show_default_snackbar2.dart';
 import 'package:fixify_app/base/show_text_field_validator.dart';
 import 'package:fixify_app/controller/auth/auth_controller.dart';
 import 'package:fixify_app/model/days_model.dart';
+import 'package:fixify_app/model/division_model.dart';
 import 'package:fixify_app/model/factory_data/factory_data.dart';
 import 'package:fixify_app/model/services_model.dart';
 import 'package:fixify_app/utils/app_colors.dart';
@@ -13,6 +14,7 @@ import 'package:fixify_app/widgets/buttons/custom_icon_button.dart';
 import 'package:fixify_app/widgets/buttons/custom_multiselect_button.dart';
 import 'package:fixify_app/widgets/buttons/custom_time_picker.dart';
 import 'package:fixify_app/widgets/container/custom_container.dart';
+import 'package:fixify_app/widgets/text_fields/custom_dropdown_form_field.dart';
 import 'package:fixify_app/widgets/text_fields/custom_text_form_field.dart';
 import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:fixify_app/widgets/texts/text_with_star.dart';
@@ -36,9 +38,11 @@ class TechnicianSignUpPage1 extends StatefulWidget {
 
 class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
   late TextEditingController nidCardController;
+  late TextEditingController locationController;
   File? _image;
   late PageController _controller;
   int pageIndex = 0;
+  DivisionModel? selectedDivision;
 
   Future getProfileImage() async {
     final image = await ImagePicker().pickImage(source: ImageSource.camera);
@@ -54,6 +58,7 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
   void initState() {
     _controller = PageController(initialPage: 0);
     nidCardController = TextEditingController();
+    locationController = TextEditingController();
     super.initState();
   }
 
@@ -84,7 +89,9 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
           ///Error Dialog
           authController.authSignUpError
               ? showCustomAuthValidator((() {
-                  if (nidCardController.text.isEmpty ||
+                  if (selectedDivision == null ||
+                      locationController.text.isEmpty ||
+                      nidCardController.text.isEmpty ||
                       _servicesOffered.isEmpty ||
                       _availableDays.isEmpty ||
                       _time1 == null ||
@@ -144,6 +151,30 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
                   ],
                 ),
               ]),
+
+          ///Division
+          CustomDropDownFormField(
+            hintText: 'Division',
+            titleText: 'Division',
+            items: FactoryData.divisions.map((division) {
+              return DropdownMenuItem(
+                value: division,
+                child: SmallText(
+                  text: division.divisionName,
+                ),
+              );
+            }).toList(),
+            onChanged: (division) {
+              selectedDivision = division;
+            },
+          ),
+
+          ///Location
+          CustomTextFormField(
+            titleText: 'Location',
+            hintText: 'Location',
+            controller: locationController,
+          ),
 
           ///NID Card
           CustomTextFormField(
@@ -239,7 +270,9 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
               CustomButton(
                 text: 'Proceed',
                 onTap: () {
-                  if (nidCardController.text.isEmpty ||
+                  if (selectedDivision == null ||
+                      locationController.text.isEmpty ||
+                      nidCardController.text.isEmpty ||
                       _servicesOffered.isEmpty ||
                       _availableDays.isEmpty ||
                       _time1 == null ||

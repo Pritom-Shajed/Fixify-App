@@ -20,6 +20,8 @@ class AuthBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedCrossFade(
+
+      ///SIGN IN
         firstChild: SizedBox(
           height: Dimensions.authBodyHeight375,
           child: Stack(
@@ -51,9 +53,10 @@ class AuthBody extends StatelessWidget {
             ],
           ),
         ),
+        ///SIGN UP
         secondChild: Container(
           margin: EdgeInsets.all(Dimensions.width10),
-          height: Dimensions.authBodyHeight390,
+          height: Dimensions.authBodyHeight425,
           width: Dimensions.authBodyWidth,
           decoration: BoxDecoration(
               color: AppColors.whiteColor,

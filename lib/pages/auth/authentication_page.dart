@@ -113,7 +113,7 @@ class _AuthPageState extends State<AuthPage> {
                         signInButton: AuthButton(
                           buttonText: 'LOGIN',
                           onTap: () {
-                            if (signInPassController.text.isEmpty ||
+                            if (signInEmailController.text.isEmpty ||
                                 signInPassController.text.isEmpty) {
                               controller.authSignInErrorOccured();
                               // showDefaultSnackBar(

@@ -15,7 +15,7 @@ class Dimensions {
   //Auth Page
   static double authBodyHeight350 = screenHeight / 2.24;
   static double authBodyHeight375 = screenHeight / 2.09;
-  static double authBodyHeight390 = screenHeight / 2;
+  static double authBodyHeight425 = screenHeight / 1.84;
   static double authBodyWidth = screenWidth * 0.75;
 
   //Fonts

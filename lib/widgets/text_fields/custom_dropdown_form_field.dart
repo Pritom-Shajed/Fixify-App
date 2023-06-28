@@ -8,7 +8,7 @@ class CustomDropDownFormField extends StatelessWidget {
   final String hintText;
   final String titleText;
   final bool starEnable;
-    final FormFieldValidator<Object> validator;
+    final Function(dynamic)? onChanged;
 
   const CustomDropDownFormField({
     super.key,
@@ -16,7 +16,7 @@ class CustomDropDownFormField extends StatelessWidget {
     required this.hintText,
     required this.titleText,
     this.starEnable = true,
-    required this.validator,
+    this.onChanged,
   });
 
   @override
@@ -34,8 +34,7 @@ class CustomDropDownFormField extends StatelessWidget {
         ),
         DropdownButtonFormField(
           isExpanded: true,
-          validator: validator,
-          onChanged: (value) {},
+          onChanged: onChanged,
           items: items,
           decoration: InputDecoration(
             hintText: hintText,
