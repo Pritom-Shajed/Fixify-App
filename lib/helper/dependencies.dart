@@ -7,6 +7,5 @@ import 'package:get/get.dart';
 Future<void> init() async {
   Get.lazyPut(() => AuthSignInController(), fenix: true);
   Get.lazyPut(() => AuthSignUpController(), fenix: true);
-  Get.lazyPut(() => SignOutController(), fenix: true);
   Get.lazyPut(() => TechnicianPageController(), fenix: true);
 }

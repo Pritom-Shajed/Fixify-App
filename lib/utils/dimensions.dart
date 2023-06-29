@@ -4,8 +4,12 @@ class Dimensions {
   static double screenHeight = Get.height; //783
   static double screenWidth = Get.width; //392
 
+  //Height
+  static double height5 = screenHeight / 156.6;
   static double height10 = screenHeight / 78.3;
   static double height20 = screenHeight / 39.15;
+
+  //Weight
   static double width10 = screenWidth / 39.2;
 
   static double authLogoSize = screenHeight / 5.22;
@@ -44,4 +48,7 @@ class Dimensions {
   //Splash Screen
   static double splashScreenLogoSize200 = screenHeight / 3.9;
   static double loadingSize16 = screenHeight / 48.94;
+
+  //Buttons
+  static double buttonIconSize = screenHeight / 62.35;
 }

@@ -105,7 +105,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                     padding:
                         EdgeInsets.symmetric(vertical: Dimensions.padding5 * 2),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Row(
                           children: [
@@ -177,7 +177,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                                 height: Dimensions.height10,
                               ),
                         Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
                               height: Dimensions.profileImageSize,
@@ -378,7 +378,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                     emailController: signUpEmailController.text,
                     passController: signUpPassController.text,
                     phoneNumberController: signUpPhoneController.text,
-                    unameController: signUpPhoneController.text,
+                    unameController: signUpNameController.text,
                     onTapProceed: () {
                       widget.onTapProceedTechnician();
                       authController.authSignupImage = null;
