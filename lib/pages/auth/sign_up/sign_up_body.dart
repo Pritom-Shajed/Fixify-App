@@ -290,7 +290,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                                 ///Sign Up As Customer
                                 return CustomButton(
                                   text: 'Sign Up',
-                                  onTap: () async{
+                                  onTap: () async {
                                     if (signUpFullNameController.text.isEmpty ||
                                         signUpNameController.text.isEmpty ||
                                         signUpEmailController.text.isEmpty ||
@@ -310,12 +310,17 @@ class _SignUpBodyState extends State<SignUpBody> {
                                       authController.authSignUpErrorCleared();
                                       await authController.signUpCustomer(
                                           context: context,
-                                          userRole: selectedRole == UserRole.customer ? 'customer': 'technician',
-                                          fullName: signUpFullNameController.text,
+                                          userRole:
+                                              selectedRole == UserRole.customer
+                                                  ? 'customer'
+                                                  : 'technician',
+                                          fullName:
+                                              signUpFullNameController.text,
                                           uname: signUpNameController.text,
                                           email: signUpEmailController.text,
                                           pass: signUpPassController.text,
-                                          phoneNumber: signUpPhoneController.text);
+                                          phoneNumber:
+                                              signUpPhoneController.text);
                                       widget.onTapProceedCustomer();
                                       authController.authSignupImage = null;
                                       selectedRole = null;
@@ -366,27 +371,31 @@ class _SignUpBodyState extends State<SignUpBody> {
 
                   ///Technician Page
                   TechnicianSignUpPage1(
-                    userRole: selectedRole == UserRole.customer ? 'customer': 'technician',
-                      fullNameController: signUpFullNameController.text,
-                      emailController: signUpEmailController.text,
-                      passController: signUpPassController.text,
-                      phoneNumberController: signUpPhoneController.text,
-                      unameController: signUpPhoneController.text,
-                      onTapProceed: () {
-                    widget.onTapProceedTechnician();
-                    authController.authSignupImage = null;
-                    selectedRole = null;
-                    signUpFullNameController.text = '';
-                    signUpNameController.text = '';
-                    signUpPhoneController.text = '';
-                    signUpEmailController.text = '';
-                    signUpPassController.text = '';
-                    _controller.jumpToPage(0);
-                  }, onTapBack: () {
-                    _controller.animateToPage(0,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeIn);
-                  },),
+                    userRole: selectedRole == UserRole.customer
+                        ? 'customer'
+                        : 'technician',
+                    fullNameController: signUpFullNameController.text,
+                    emailController: signUpEmailController.text,
+                    passController: signUpPassController.text,
+                    phoneNumberController: signUpPhoneController.text,
+                    unameController: signUpPhoneController.text,
+                    onTapProceed: () {
+                      widget.onTapProceedTechnician();
+                      authController.authSignupImage = null;
+                      selectedRole = null;
+                      signUpFullNameController.text = '';
+                      signUpNameController.text = '';
+                      signUpPhoneController.text = '';
+                      signUpEmailController.text = '';
+                      signUpPassController.text = '';
+                      _controller.jumpToPage(0);
+                    },
+                    onTapBack: () {
+                      _controller.animateToPage(0,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeIn);
+                    },
+                  ),
                 ]),
             pageIndex == 0
                 ? SizedBox(

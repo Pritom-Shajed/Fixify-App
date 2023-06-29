@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fixify_app/controller/auth/auth_signin_controller.dart';
 import 'package:fixify_app/routes/route_helper.dart';
+import 'package:fixify_app/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'helper/dependencies.dart' as dep;
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Fixify',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
+        appBarTheme: AppBarTheme(color: AppColors.primaryColor),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
       ),
       getPages: RouteHelper.routes,
       initialRoute: RouteHelper.getSplashScreen(),

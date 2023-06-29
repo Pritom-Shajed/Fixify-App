@@ -33,6 +33,9 @@ class Dimensions {
   static double padding5 = screenHeight / 156.6;
   static double padding10 = screenHeight / 78.3;
 
+
+  //margin
+  static double margin10 = screenHeight / 78.3;
   //Icon
   static double icon20 = screenHeight / 39.15;
   static double icon15 = screenHeight / 52.2;
