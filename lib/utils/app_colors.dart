@@ -16,4 +16,8 @@ class AppColors {
 
   //TEXT FIELD
   static Color textFieldColor = const Color(0xFFF9F9F9);
+
+  //Shimmer Effect
+  static Color shimmerColor1 = const Color(0xffb3d9d9);
+  static Color shimmerColor2 = const Color(0xffcce6e6);
 }

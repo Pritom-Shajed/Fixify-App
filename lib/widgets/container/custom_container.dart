@@ -22,6 +22,7 @@ class CustomContainer extends StatelessWidget {
       child: SmallText(
         text: titleText,
         color: AppColors.primaryColor,
+        fontSize: Dimensions.font16,
       ),
     );
   }

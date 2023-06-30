@@ -1,3 +1,4 @@
+import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:fixify_app/base/show_custom_snackbar.dart';
 import 'package:fixify_app/base/show_default_snackbar.dart';
@@ -34,6 +35,7 @@ class _SignUpBodyState extends State<SignUpBody> {
   UserRole? selectedRole;
   late PageController _controller;
   int pageIndex = 0;
+   bool customer = true;
   late TextEditingController signUpNameController;
   late TextEditingController signUpFullNameController;
   late TextEditingController signUpEmailController;
@@ -170,61 +172,25 @@ class _SignUpBodyState extends State<SignUpBody> {
                               }()))
                             : Container(),
 
-                        ///Profile Picture
+                        ///Error Dialog
                         authController.authSignUpError
                             ? Container()
                             : SizedBox(
                                 height: Dimensions.height10,
                               ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: Dimensions.profileImageSize,
-                              width: Dimensions.profileImageSize,
-                              decoration: BoxDecoration(
-                                  color: AppColors.greyColorLight,
-                                  borderRadius: BorderRadius.circular(4),
-                                  image: authController.authSignupImage != null
-                                      ? DecorationImage(
-                                          image: FileImage(
-                                              authController.authSignupImage!),
-                                          fit: BoxFit.cover)
-                                      : null,
-                                  border: Border.all(
-                                      width: 1,
-                                      color: AppColors.primaryColorLight)),
-                              child: authController.authSignupImage == null
-                                  ? GestureDetector(
-                                      onTap: () => authController
-                                          .pickImage(ImageSource.gallery),
-                                      child: Icon(
-                                        Icons.file_upload_outlined,
-                                        color: AppColors.primaryColorLight,
-                                      ))
-                                  : Container(),
-                            ),
-                            SizedBox(
-                              height: Dimensions.height10,
-                            ),
-                            GestureDetector(
-                              onTap: () =>
-                                  authController.pickImage(ImageSource.camera),
-                              child: authController.authSignupImage == null
-                                  ? SmallText(
-                                      text: 'Add Profile Picture',
-                                      color: AppColors.primaryColor)
-                                  : SmallText(
-                                      text: 'Change Profile Picture',
-                                      color: AppColors.greyColor,
-                                    ),
-                            ),
-                          ],
-                        ),
 
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            ///Pick Image
+                            CustomTextFormField(
+                              onTap: () => authController.pickImage(ImageSource.gallery),
+                              isEnabled: false,
+                              titleText: 'Pick Image',
+                              suffixIcon: const Icon(Icons.photo_library_outlined),
+                              hintText: authController.imageName ?? 'Pick Image',
+                            ),
+
                             ///Full Name
                             CustomTextFormField(
                               titleText: 'Full Name',

@@ -10,37 +10,41 @@ class ShowWorkInfo extends StatelessWidget {
   final String title;
   final double? fontSizeTitle;
   final String? subtitle;
-  const ShowWorkInfo({Key? key, required this.number, required this.title, this.fontSizeTitle, this.subtitle}) : super(key: key);
+  final VoidCallback? onTap;
+  const ShowWorkInfo({Key? key, required this.number, required this.title, this.fontSizeTitle, this.subtitle, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: Dimensions.workInfoContainerWidth,
-      height: Dimensions.workInfoContainerHeight,
-      decoration: BoxDecoration(
-          color: AppColors.whiteColor,
-          borderRadius:
-          BorderRadius.circular(Dimensions.radius4*2),
-          boxShadow: [
-            BoxShadow(
-                blurRadius: 5,
-                offset: const Offset(0, 5),
-                color: AppColors.shadowColor),
-          ]),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              LargeText(text: number, fontSize: fontSizeTitle ?? Dimensions.font50,),
-             subtitle == null ? Container(): SmallText(text: subtitle!),
-            ],
-          ),
-          SizedBox(height: Dimensions.height5,),
-          MediumText(text: title, )
-        ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        alignment: Alignment.center,
+        width: Dimensions.workInfoContainerWidth,
+        height: Dimensions.workInfoContainerHeight,
+        decoration: BoxDecoration(
+            color: AppColors.whiteColor,
+            borderRadius:
+            BorderRadius.circular(Dimensions.radius4*2),
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: 5,
+                  offset: const Offset(0, 5),
+                  color: AppColors.shadowColor),
+            ]),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                LargeText(text: number, fontSize: fontSizeTitle ?? Dimensions.font50,),
+               subtitle == null ? Container(): SmallText(text: subtitle!),
+              ],
+            ),
+            SizedBox(height: Dimensions.height5,),
+            MediumText(text: title, )
+          ],
+        ),
       ),
     );
   }

@@ -18,17 +18,17 @@ class CustomTextFormField extends StatelessWidget {
 
   const CustomTextFormField(
       {super.key,
-        required this.titleText,
-        this.required = true,
-        this.controller,
-        required this.hintText,
-        this.textInputType = TextInputType.text,
-        this.suffixIcon,
-        this.suffixIconOnTap,
-        this.prefixIcon,
-        this.onTap,
-        this.isEnabled = true,
-        this.obscureText = false});
+      required this.titleText,
+      this.required = true,
+      this.controller,
+      required this.hintText,
+      this.textInputType = TextInputType.text,
+      this.suffixIcon,
+      this.suffixIconOnTap,
+      this.prefixIcon,
+      this.onTap,
+      this.isEnabled = true,
+      this.obscureText = false});
 
   @override
   Widget build(BuildContext context) {
@@ -46,32 +46,35 @@ class CustomTextFormField extends StatelessWidget {
         SizedBox(
           height: Dimensions.height10,
         ),
-        TextField(
-          controller: controller,
-          obscureText: obscureText,
-          keyboardType: textInputType,
-          enabled: isEnabled,
-          decoration: InputDecoration(
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
-            hintText: hintText,
-            hintStyle: TextStyle(fontSize: Dimensions.font12, color: AppColors.greyColor),
-            filled: true,
-            fillColor: AppColors.textFieldColor,
-            enabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.transparent),
-                borderRadius: BorderRadius.circular(Dimensions.radius4)),
-            focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.transparent),
-                borderRadius: BorderRadius.circular(Dimensions.radius4)),
-            focusedErrorBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: AppColors.redColor),
-                borderRadius: BorderRadius.circular(Dimensions.radius4)),
-            errorBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: AppColors.redColor),
-                borderRadius: BorderRadius.circular(Dimensions.radius4)),
-          ),
+        GestureDetector(
           onTap: onTap,
+          child: TextField(
+            controller: controller,
+            obscureText: obscureText,
+            keyboardType: textInputType,
+            enabled: isEnabled,
+            decoration: InputDecoration(
+              prefixIcon: prefixIcon,
+              suffixIcon: suffixIcon,
+              hintText: hintText,
+              hintStyle: TextStyle(
+                  fontSize: Dimensions.font12, color: AppColors.greyColor),
+              filled: true,
+              fillColor: AppColors.textFieldColor,
+              enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.transparent),
+                  borderRadius: BorderRadius.circular(Dimensions.radius4)),
+              focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.transparent),
+                  borderRadius: BorderRadius.circular(Dimensions.radius4)),
+              focusedErrorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: AppColors.redColor),
+                  borderRadius: BorderRadius.circular(Dimensions.radius4)),
+              errorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: AppColors.redColor),
+                  borderRadius: BorderRadius.circular(Dimensions.radius4)),
+            ),
+          ),
         ),
         SizedBox(
           height: Dimensions.height10,

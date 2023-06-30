@@ -7,6 +7,7 @@ void showCustomSnackBar(String message,
     {bool isError = true, title = 'Error'}) {
   Get.snackbar(title, message,
       titleText: MediumText(
+        textAlign: TextAlign.start,
         text: title,
         color: Colors.white,
         fontWeight: FontWeight.bold,

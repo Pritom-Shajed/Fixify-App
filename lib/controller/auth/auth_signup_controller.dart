@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:fixify_app/base/show_custom_loader.dart';
 import 'package:fixify_app/base/show_custom_snackbar.dart';
 import 'package:fixify_app/base/show_default_snackbar.dart';
 import 'package:fixify_app/model/firebase/user_model_customer.dart';
@@ -14,10 +14,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
+import 'package:path/path.dart' as path;
 
 class AuthSignUpController extends GetxController {
   final _obscureTextSignUp = true.obs;
   File? authSignupImage;
+  String? imageName;
 
   final _authSignUpError = false.obs;
 
@@ -37,6 +39,7 @@ class AuthSignUpController extends GetxController {
     XFile? xfile = await ImagePicker().pickImage(source: src);
     if (xfile != null) {
       authSignupImage = File(xfile.path);
+      imageName = path.basename(authSignupImage!.path);
       update();
     }
   }
@@ -71,9 +74,7 @@ class AuthSignUpController extends GetxController {
           context: context,
           builder: (context) {
             return Center(
-              child: CircularProgressIndicator(
-                color: AppColors.whiteColor,
-              ),
+              child: showCustomLoader(color: AppColors.whiteColor)
             );
           });
       final uid = const Uuid().v4();
@@ -135,8 +136,8 @@ class AuthSignUpController extends GetxController {
           context: context,
           builder: (context) {
             return Center(
-              child: CircularProgressIndicator(
-                color: AppColors.whiteColor,
+              child: Center(
+                  child: showCustomLoader(color: AppColors.whiteColor)
               ),
             );
           });
