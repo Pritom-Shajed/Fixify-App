@@ -1,5 +1,5 @@
 import 'package:day_night_time_picker/day_night_time_picker.dart';
-import 'package:fixify_app/base/show_default_snackbar2.dart';
+import 'package:fixify_app/base/show_default_snackbar.dart';
 import 'package:fixify_app/base/show_text_field_validator.dart';
 import 'package:fixify_app/controller/auth/auth_signup_controller.dart';
 import 'package:fixify_app/model/days_model.dart';

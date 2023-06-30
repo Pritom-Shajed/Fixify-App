@@ -33,7 +33,7 @@ class AuthBody extends StatelessWidget {
                 width: Dimensions.screenWidth*0.75,
                 decoration: BoxDecoration(
                   color: AppColors.whiteColor,
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(Dimensions.radius4*3),
                   boxShadow: [
                     BoxShadow(
                     blurRadius: 5,

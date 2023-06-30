@@ -7,6 +7,7 @@ class Dimensions {
   //Height
   static double height5 = screenHeight / 156.6;
   static double height10 = screenHeight / 78.3;
+  static double height15 = screenHeight / 52.2;
   static double height20 = screenHeight / 39.15;
 
   //Weight
@@ -26,16 +27,20 @@ class Dimensions {
   static double font12 = screenHeight / 65.25;
   static double font14 = screenHeight / 55.93;
   static double font16 = screenHeight / 48.94;
+  static double font22 = screenHeight / 35.6;
   static double font30 = screenHeight / 26.1;
+  static double font50 = screenHeight / 15.66;
 
   //Radius
   static double radius4 = screenHeight / 192.75;
+  static double radius12 = screenHeight / 65.25;
   static double radius20 = screenHeight / 39.15;
   static double iconButtonRadius = screenHeight / 62.54;
 
   //Padding
   static double padding5 = screenHeight / 156.6;
   static double padding10 = screenHeight / 78.3;
+  static double padding15 = screenHeight / 52.2;
 
 
   //margin
@@ -51,4 +56,11 @@ class Dimensions {
 
   //Buttons
   static double buttonIconSize = screenHeight / 62.35;
+
+
+  //Technician
+  static double technicianHomeDpHeight = screenHeight / 3.13;
+  static double technicianHomeDpWidth = screenWidth / 2.31;
+  static double workInfoContainerHeight = screenHeight / 4.35;
+  static double workInfoContainerWidth = screenWidth / 2.31;
 }

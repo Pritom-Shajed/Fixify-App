@@ -10,7 +10,7 @@ void showDefaultSnackBar(
 }) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       backgroundColor: isError ? Colors.redAccent: AppColors.primaryColor,
-      duration: const Duration(seconds: 1),
+      duration: const Duration(seconds: 2),
       content: SmallText(
         text: message,
         color: AppColors.whiteColor,

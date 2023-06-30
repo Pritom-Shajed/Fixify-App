@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fixify_app/base/show_custom_snackbar.dart';
-import 'package:fixify_app/base/show_default_snackbar2.dart';
+import 'package:fixify_app/base/show_default_snackbar.dart';
 import 'package:fixify_app/pages/home/customer/home_page_customer.dart';
 import 'package:fixify_app/pages/home/technician/home_page_technician.dart';
 import 'package:fixify_app/routes/route_helper.dart';

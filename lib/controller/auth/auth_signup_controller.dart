@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fixify_app/base/show_custom_snackbar.dart';
-import 'package:fixify_app/base/show_default_snackbar2.dart';
+import 'package:fixify_app/base/show_default_snackbar.dart';
 import 'package:fixify_app/model/firebase/user_model_customer.dart';
 import 'package:fixify_app/model/firebase/user_model_technician.dart';
 import 'package:fixify_app/routes/route_helper.dart';
@@ -168,6 +168,7 @@ class AuthSignUpController extends GetxController {
           location: location,
           services: services,
           availableDays: availableDays,
+          worksDone: 0,
           time1: time1,
           time2: time2,
       );

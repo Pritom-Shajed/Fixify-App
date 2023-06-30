@@ -1,6 +1,6 @@
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:fixify_app/base/show_custom_snackbar.dart';
-import 'package:fixify_app/base/show_default_snackbar2.dart';
+import 'package:fixify_app/base/show_default_snackbar.dart';
 import 'package:fixify_app/base/show_text_field_validator.dart';
 import 'package:fixify_app/controller/auth/auth_signup_controller.dart';
 import 'package:fixify_app/pages/auth/sign_up/technician/technician_sign_up.dart';
@@ -209,7 +209,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                             ),
                             GestureDetector(
                               onTap: () =>
-                                  authController.pickImage(ImageSource.gallery),
+                                  authController.pickImage(ImageSource.camera),
                               child: authController.authSignupImage == null
                                   ? SmallText(
                                       text: 'Add Profile Picture',

@@ -3,7 +3,7 @@ import 'package:fixify_app/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-Widget showCustomLoading ({Color? color}){
+Widget showCustomLoader ({Color? color}){
  return SpinKitWave(
     color: color ?? AppColors.primaryColor,
     size: Dimensions.loadingSize16,

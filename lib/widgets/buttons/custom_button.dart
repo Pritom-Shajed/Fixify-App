@@ -7,7 +7,8 @@ class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
   final Color? color;
-  const CustomButton({Key? key, required this.text, required this.onTap, this.color}) : super(key: key);
+  final Color? textColor;
+  const CustomButton({Key? key, required this.text, required this.onTap, this.color, this.textColor}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +18,11 @@ class CustomButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(
             vertical: Dimensions.padding5, horizontal: Dimensions.padding10),
         decoration: BoxDecoration(
-            color: color ?? AppColors.primaryColor,
-            borderRadius: BorderRadius.circular(6)),
+            color: color ?? AppColors.buttonColor,
+            borderRadius: BorderRadius.circular(Dimensions.radius4*2)),
         child: SmallText(
           text: text,
-          color: AppColors.whiteColor,
+          color: textColor ?? AppColors.whiteColor,
         ),
       ),
     );

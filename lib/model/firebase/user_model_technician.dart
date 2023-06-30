@@ -15,6 +15,7 @@ class UserModelTechnician {
   String? location;
   List<String>? services;
   List<String>? availableDays;
+  int? worksDone;
   String? time1;
   String? time2;
 
@@ -33,6 +34,7 @@ class UserModelTechnician {
     required this.location,
     required this.services,
     required this.availableDays,
+    required this.worksDone,
     required this.time1,
     required this.time2,
   });
@@ -53,6 +55,7 @@ class UserModelTechnician {
       'location': location,
       'services': services,
       'availableDays': availableDays,
+      'worksDone': worksDone,
       'time1': time1,
       'time2': time2,
     };
