@@ -26,7 +26,7 @@ class RoleButton extends StatelessWidget {
         ),
         child:  Column(
           children: [
-            SmallText(text: text, color: textIconColor ?? AppColors.primaryColor, fontSize: 10,),
+            SmallText(text: text, color: textIconColor ?? AppColors.primaryColor,),
             Icon(icon, color: textIconColor ?? AppColors.primaryColor,),
           ],
         ),
