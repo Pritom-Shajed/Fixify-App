@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fixify_app/base/show_default_snackbar.dart';
+import 'package:fixify_app/widgets/home/technician/technician_dp_with_edit_btn.dart';
 import 'package:fixify_app/widgets/shimmer_effect/circle_shimmer_widget.dart';
 import 'package:fixify_app/widgets/shimmer_effect/container_shimmer_widget.dart';
 import 'package:fixify_app/base/show_fixify_footer.dart';
@@ -22,7 +24,9 @@ class ViewProfileTechnician extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColors.mainBgColor,
-        appBar: AppBar(title: const Text('PROFILE'),),
+        appBar: AppBar(
+          title: const Text('PROFILE'),
+        ),
         body: GetBuilder<TechnicianPageController>(builder: (controller) {
           var userData = controller.userInfoTechnician!;
           return Padding(
@@ -37,10 +41,9 @@ class ViewProfileTechnician extends StatelessWidget {
                   children: [
                     CachedNetworkImage(
                         imageUrl: userData.profilePic!,
-                        imageBuilder: (context, imageProvider) => CircleAvatar(
-                          radius: Dimensions.technicianViewProfileDpRadius,
-                          backgroundImage: imageProvider,
-                        ),
+                        imageBuilder: (context, imageProvider) =>
+                            TechnicianDpWithEditBtn(
+                                imageProvider: imageProvider, onTapEdit: () {}),
                         placeholder: (context, url) => ShimmerWidgetCircle(
                               radius: Dimensions.technicianViewProfileDpRadius,
                             )),
@@ -78,41 +81,50 @@ class ViewProfileTechnician extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: TechnicianProfilePreviewCard(children: [
                       TechnicianInfoText(
-                          text1: 'User Role',
-                          text2: 'Technician',
-                          fontSize: Dimensions.font14,),
+                        text1: 'Full Name',
+                        text2: userData.fullName!,
+                        fontSize: Dimensions.font14,
+                      ),
                       TechnicianInfoText(
-                          text1: 'Member Since',
-                          text2: userData.joinedDate!,
-                          fontSize: Dimensions.font14,),
+                        text1: 'Email',
+                        text2: userData.email!,
+                        fontSize: Dimensions.font14,
+                      ),
                       TechnicianInfoText(
-                          text1: 'Works Done',
-                          text2: '${userData.worksDone!}',
-                          fontSize: Dimensions.font14,),
+                        text1: 'Phone',
+                        text2: userData.phoneNumber!,
+                        fontSize: Dimensions.font14,
+                      ),
                       TechnicianInfoText(
-                          text1: 'Full Name',
-                          text2: userData.fullName!,
-                          fontSize: Dimensions.font14,),
+                        text1: 'User Role',
+                        text2: 'Technician',
+                        fontSize: Dimensions.font14,
+                      ),
                       TechnicianInfoText(
-                          text1: 'Services Offered',
-                          text2: userData.services!.join(', '),
-                          fontSize: Dimensions.font14,),
+                        text1: 'Member Since',
+                        text2: userData.joinedDate!,
+                        fontSize: Dimensions.font14,
+                      ),
                       TechnicianInfoText(
-                          text1: 'Email',
-                          text2: userData.email!,
-                          fontSize: Dimensions.font14,),
+                        text1: 'Works Done',
+                        text2: '${userData.worksDone!}',
+                        fontSize: Dimensions.font14,
+                      ),
                       TechnicianInfoText(
-                          text1: 'NID Number',
-                          text2: userData.nidNumber!,
-                          fontSize: Dimensions.font14,),
+                        text1: 'Services Offered',
+                        text2: userData.services!.join(', '),
+                        fontSize: Dimensions.font14,
+                      ),
                       TechnicianInfoText(
-                          text1: 'Preferred Area',
-                          text2: '${userData.location}, ${userData.division}',
-                          fontSize: Dimensions.font14,),
+                        text1: 'NID Number',
+                        text2: userData.nidNumber!,
+                        fontSize: Dimensions.font14,
+                      ),
                       TechnicianInfoText(
-                          text1: 'Work Days',
-                          text2: userData.availableDays!.join(', '),
-                          fontSize: Dimensions.font14,),
+                        text1: 'Work Days',
+                        text2: userData.availableDays!.join(', '),
+                        fontSize: Dimensions.font14,
+                      ),
                       TechnicianInfoText(
                           text1: 'Work Time',
                           text2: '${userData.time1} to ${userData.time2}',
@@ -124,8 +136,6 @@ class ViewProfileTechnician extends StatelessWidget {
                     ]),
                   ),
                 ),
-
-
               ],
             ),
           );

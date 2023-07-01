@@ -64,6 +64,7 @@ class Dimensions {
   static double technicianHomeDpWidth = screenWidth / 2.8; //140
   static double technicianViewProfileDpHeight = screenHeight / 9.79; //80
   static double technicianViewProfileDpWidth = screenWidth / 4.9; //80
+  static double technicianDpEditBtnSize = screenHeight / 78.3; //10
   static double technicianViewProfileDpRadius = screenHeight / 19.58; //40
   static double workInfoContainerHeight = screenHeight / 4.35;
   static double workInfoContainerWidth = screenWidth / 2.31;
