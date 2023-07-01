@@ -20,4 +20,7 @@ class AppColors {
   //Shimmer Effect
   static Color shimmerColor1 = const Color(0xffb3d9d9);
   static Color shimmerColor2 = const Color(0xffcce6e6);
+
+  //App Bar
+  static Color appBarColor = const Color(0xffcce6e6);
 }

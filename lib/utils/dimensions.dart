@@ -45,6 +45,7 @@ class Dimensions {
 
   //margin
   static double margin10 = screenHeight / 78.3;
+  static double margin15 = screenHeight / 52.2;
   //Icon
   static double icon20 = screenHeight / 39.15;
   static double icon15 = screenHeight / 52.2;
@@ -59,8 +60,15 @@ class Dimensions {
 
 
   //Technician
-  static double technicianHomeDpHeight = screenHeight / 3.13;
-  static double technicianHomeDpWidth = screenWidth / 2.31;
+  static double technicianHomeDpHeight = screenHeight / 3.73; //210
+  static double technicianHomeDpWidth = screenWidth / 2.8; //140
+  static double technicianViewProfileDpHeight = screenHeight / 9.79; //80
+  static double technicianViewProfileDpWidth = screenWidth / 4.9; //80
+  static double technicianViewProfileDpRadius = screenHeight / 19.58; //40
   static double workInfoContainerHeight = screenHeight / 4.35;
   static double workInfoContainerWidth = screenWidth / 2.31;
+
+  //Footer
+static double footerLogoSize = screenHeight / 7.83; //90
+
 }

@@ -1,14 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fixify_app/base/custom_shimmer_widget.dart';
+import 'package:fixify_app/widgets/shimmer_effect/container_shimmer_widget.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/buttons/custom_button.dart';
 import 'package:fixify_app/widgets/texts/large_text.dart';
 import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
 
-class TechnicianProfileViewShort extends StatelessWidget {
+class TechnicianHomeProfileViewShort extends StatelessWidget {
   final String fullName;
   final String email;
   final String phoneNumber;
@@ -16,7 +15,7 @@ class TechnicianProfileViewShort extends StatelessWidget {
   final String profilePicUrl;
   final VoidCallback onTapEditProfile;
 
-  const TechnicianProfileViewShort(
+  const TechnicianHomeProfileViewShort(
       {Key? key,
       required this.fullName,
       required this.email,
@@ -47,12 +46,23 @@ class TechnicianProfileViewShort extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                LargeText(
-                  text: fullName,
+                const LargeText(
+                  text: 'Technician',
                   textAlign: TextAlign.start,
                 ),
                 SizedBox(
-                  height: Dimensions.height20,
+                  height: Dimensions.height10,
+                ),
+                SmallText(
+                  text: 'Name',
+                  color: AppColors.greyColor,
+                ),
+                SmallText(
+                  text: fullName,
+                  fontWeight: FontWeight.w600,
+                ),
+                SizedBox(
+                  height: Dimensions.height10,
                 ),
                 SmallText(
                   text: 'Email',
@@ -74,20 +84,9 @@ class TechnicianProfileViewShort extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
                 SizedBox(
-                  height: Dimensions.height10,
+                  height: Dimensions.height15,
                 ),
-                SmallText(
-                  text: 'Joined Date',
-                  color: AppColors.greyColor,
-                ),
-                SmallText(
-                  text: joinedDate,
-                  fontWeight: FontWeight.w600,
-                ),
-                SizedBox(
-                  height: Dimensions.height20,
-                ),
-                CustomButton(text: 'Edit Profile', onTap: onTapEditProfile),
+                CustomButton(text: 'View Profile', onTap: onTapEditProfile),
               ],
             ),
           ),
@@ -102,7 +101,7 @@ class TechnicianProfileViewShort extends StatelessWidget {
                         image: DecorationImage(
                             image: imageProvider, fit: BoxFit.cover)),
                   ),
-              placeholder: (context, url) => ShimmerWidget(
+              placeholder: (context, url) => ShimmerWidgetContainer(
                   height: Dimensions.technicianHomeDpHeight,
                   width: Dimensions.technicianHomeDpWidth)),
         ],

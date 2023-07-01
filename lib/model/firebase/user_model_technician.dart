@@ -2,7 +2,7 @@ class UserModelTechnician {
   String? userRole;
   String? profilePic;
   String? fullName;
-  String? uname;
+  String? nickName;
   String? nidNumber;
   String? password;
   String? email;
@@ -21,7 +21,7 @@ class UserModelTechnician {
     required this.userRole,
     required this.profilePic,
     required this.fullName,
-    required this.uname,
+    required this.nickName,
     required this.nidNumber,
     required this.password,
     required this.email,
@@ -44,7 +44,7 @@ class UserModelTechnician {
       'profilePic': profilePic,
       'joinedDate': joinedDate,
       'fullName': fullName,
-      'uname': uname,
+      'nickName': nickName!.toUpperCase(),
       'nid': nidNumber,
       'email': email,
       'password': password,

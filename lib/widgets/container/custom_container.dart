@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 
 class CustomContainer extends StatelessWidget {
   final String titleText;
-  const CustomContainer({Key? key, required this.titleText}) : super(key: key);
+  final double? fontSize;
+  const CustomContainer({Key? key, required this.titleText, this.fontSize}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class CustomContainer extends StatelessWidget {
       child: SmallText(
         text: titleText,
         color: AppColors.primaryColor,
-        fontSize: Dimensions.font16,
+        fontSize: fontSize ?? Dimensions.font12,
       ),
     );
   }

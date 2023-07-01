@@ -26,7 +26,7 @@ class TechnicianSignUpPage1 extends StatefulWidget {
   final VoidCallback onTapProceed;
   final String userRole;
   final String fullNameController;
-  final String unameController;
+  final String nickNameController;
   final String emailController;
   final String passController;
   final String phoneNumberController;
@@ -37,7 +37,7 @@ class TechnicianSignUpPage1 extends StatefulWidget {
       required this.onTapProceed,
       required this.userRole,
       required this.fullNameController,
-      required this.unameController,
+      required this.nickNameController,
       required this.emailController,
       required this.passController,
       required this.phoneNumberController})
@@ -108,10 +108,10 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
             },
           ),
 
-          ///Location
+          ///Preferred Area
           CustomTextFormField(
-            titleText: 'Location',
-            hintText: 'Location',
+            titleText: 'Preferred Area',
+            hintText: 'Preferred Area',
             controller: locationController,
           ),
 
@@ -147,10 +147,10 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
                 return CustomContainer(titleText: services.serviceName);
               })),
 
-          ///Available Days
+          ///Work Days
           CustomMultiSelectButton(
               required: true,
-              titleText: 'Available Days',
+              titleText: 'Work Days',
               multiSelectWidget: MultiSelectDialog(
                 height: Dimensions.screenHeight * 0.25,
                 selectedColor: AppColors.primaryColor,
@@ -164,13 +164,13 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
                 },
               ),
               initialValue: _availableDays,
-              hintText: 'Available Days',
+              hintText: 'Work Days',
               children: List.generate(_availableDays.length, (index) {
                 var days = _availableDays[index];
                 return CustomContainer(titleText: days.day);
               })),
 
-          ///Available Time
+          ///Work Time
           _availableDays.isEmpty
               ? Container()
               : Column(
@@ -178,7 +178,7 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
                   children: [
                     TextWithStar(
                       fontSize: Dimensions.font12,
-                      text: 'Available Time',
+                      text: 'Work Time',
                       starEnable: true,
                     ),
                     SizedBox(
@@ -226,7 +226,7 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
                       context: context,
                       userRole: widget.userRole,
                       fullName: widget.fullNameController,
-                      uname: widget.unameController,
+                      nickName: widget.nickNameController,
                       nidNumber: nidCardController.text,
                       email: widget.emailController,
                       pass: widget.passController,

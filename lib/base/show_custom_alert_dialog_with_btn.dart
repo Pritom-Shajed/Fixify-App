@@ -1,33 +1,20 @@
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/buttons/custom_button.dart';
-import 'package:fixify_app/widgets/texts/large_text.dart';
 import 'package:fixify_app/widgets/texts/medium_text.dart';
 import 'package:flutter/material.dart';
 
-class CustomAlertDialogWithBtn extends StatelessWidget {
-  final String titleText;
-  final String? subtitleText;
-  final String button1Text;
-  final String button2Text;
-  final Color? titleTextColor;
-  final VoidCallback onTapYes;
-  final VoidCallback onTapNo;
-  final bool isNoButtonEnabled;
-
-  const CustomAlertDialogWithBtn(
-      {super.key,
-      this.button1Text = 'Yes',
-      this.button2Text = 'No',
-      required this.titleText,
-      this.titleTextColor,
-       this.subtitleText,
-      required this.onTapYes,
-      this.isNoButtonEnabled = true,
-      required this.onTapNo});
-
-  @override
-  Widget build(BuildContext context) {
+void showCustomAlertDialogWithBtn (BuildContext context, {
+  required String titleText,
+   String? subtitleText,
+   String button1Text = 'Yes',
+   String button2Text = 'No',
+   Color? titleTextColor,
+   required VoidCallback onTapYes,
+   required VoidCallback onTapNo,
+   bool isNoButtonEnabled = true,
+}){
+  showDialog(context: context, builder: (context){
     return SimpleDialog(
       alignment: Alignment.center,
       backgroundColor: Colors.white,
@@ -52,7 +39,7 @@ class CustomAlertDialogWithBtn extends StatelessWidget {
             subtitleText == null ? Container(): Center(
                 child: MediumText(
                   textAlign: TextAlign.center,
-                  text: subtitleText!,
+                  text: subtitleText,
                   fontSize: Dimensions.font14,
                 )),
           ],
@@ -72,16 +59,16 @@ class CustomAlertDialogWithBtn extends StatelessWidget {
               ),
               isNoButtonEnabled
                   ? Expanded(
-                      child: CustomButton(
-                          textColor: AppColors.primaryColor,
-                          color: AppColors.primaryColorLight.withOpacity(0.3),
-                          onTap: onTapNo,
-                          text: button2Text))
+                  child: CustomButton(
+                      textColor: AppColors.primaryColor,
+                      color: AppColors.primaryColorLight.withOpacity(0.3),
+                      onTap: onTapNo,
+                      text: button2Text))
                   : Container(),
             ],
           ),
         )
       ],
     );
-  }
+  });
 }

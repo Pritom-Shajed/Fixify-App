@@ -1,8 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fixify_app/base/show_custom_snackbar.dart';
-import 'package:fixify_app/base/show_default_snackbar.dart';
-import 'package:fixify_app/pages/home/customer/home_page_customer.dart';
-import 'package:fixify_app/pages/home/technician/home_page_technician.dart';
 import 'package:fixify_app/routes/route_helper.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -56,7 +53,6 @@ class AuthSignInController extends GetxController {
         final userUid = userData['uid'];
         await preferences.setString('uid', userUid);
 
-        // Navigate to the appropriate screen based on user role
         if (userRole == 'customer') {
           Get.offAllNamed(RouteHelper.getHomeCustomer());
         } else if (userRole == 'technician') {
@@ -87,7 +83,7 @@ class AuthSignInController extends GetxController {
         }
         return true;
       } else {
-        print('user not found');
+        showCustomSnackBar('User not found!', title: 'Error');
       }
     }
     return false;

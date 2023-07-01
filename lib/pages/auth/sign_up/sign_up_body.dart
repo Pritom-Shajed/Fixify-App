@@ -12,7 +12,6 @@ import 'package:fixify_app/widgets/auth/role_button.dart';
 import 'package:fixify_app/widgets/auth/sign_up_role_sign.dart';
 import 'package:fixify_app/widgets/buttons/custom_button.dart';
 import 'package:fixify_app/widgets/text_fields/custom_text_form_field.dart';
-import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -36,7 +35,7 @@ class _SignUpBodyState extends State<SignUpBody> {
   late PageController _controller;
   int pageIndex = 0;
    bool customer = true;
-  late TextEditingController signUpNameController;
+  late TextEditingController signUpNickNameController;
   late TextEditingController signUpFullNameController;
   late TextEditingController signUpEmailController;
   late TextEditingController signUpPassController;
@@ -45,7 +44,7 @@ class _SignUpBodyState extends State<SignUpBody> {
   @override
   void initState() {
     _controller = PageController(initialPage: 0);
-    signUpNameController = TextEditingController();
+    signUpNickNameController = TextEditingController();
     signUpFullNameController = TextEditingController();
     signUpEmailController = TextEditingController();
     signUpPassController = TextEditingController();
@@ -161,7 +160,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                         authController.authSignUpError
                             ? showCustomAuthValidator((() {
                                 if (signUpFullNameController.text.isEmpty ||
-                                    signUpNameController.text.isEmpty ||
+                                    signUpNickNameController.text.isEmpty ||
                                     signUpEmailController.text.isEmpty ||
                                     signUpPassController.text.isEmpty ||
                                     signUpPhoneController.text.isEmpty) {
@@ -200,9 +199,9 @@ class _SignUpBodyState extends State<SignUpBody> {
 
                             ///Username
                             CustomTextFormField(
-                              titleText: 'Username',
-                              hintText: 'Username',
-                              controller: signUpNameController,
+                              titleText: 'Nickname',
+                              hintText: 'Nickname',
+                              controller: signUpNickNameController,
                             ),
 
                             ///Email Address
@@ -258,7 +257,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                                   text: 'Sign Up',
                                   onTap: () async {
                                     if (signUpFullNameController.text.isEmpty ||
-                                        signUpNameController.text.isEmpty ||
+                                        signUpNickNameController.text.isEmpty ||
                                         signUpEmailController.text.isEmpty ||
                                         signUpPassController.text.isEmpty ||
                                         signUpPhoneController.text.isEmpty) {
@@ -282,7 +281,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                                                   : 'technician',
                                           fullName:
                                               signUpFullNameController.text,
-                                          uname: signUpNameController.text,
+                                          uname: signUpNickNameController.text,
                                           email: signUpEmailController.text,
                                           pass: signUpPassController.text,
                                           phoneNumber:
@@ -291,7 +290,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                                       authController.authSignupImage = null;
                                       selectedRole = null;
                                       signUpFullNameController.text = '';
-                                      signUpNameController.text = '';
+                                      signUpNickNameController.text = '';
                                       signUpPhoneController.text = '';
                                       signUpEmailController.text = '';
                                       signUpPassController.text = '';
@@ -304,7 +303,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                                   text: 'Proceed',
                                   onTap: () {
                                     if (signUpFullNameController.text.isEmpty ||
-                                        signUpNameController.text.isEmpty ||
+                                        signUpNickNameController.text.isEmpty ||
                                         signUpEmailController.text.isEmpty ||
                                         signUpPassController.text.isEmpty ||
                                         signUpPhoneController.text.isEmpty) {
@@ -344,13 +343,13 @@ class _SignUpBodyState extends State<SignUpBody> {
                     emailController: signUpEmailController.text,
                     passController: signUpPassController.text,
                     phoneNumberController: signUpPhoneController.text,
-                    unameController: signUpNameController.text,
+                    nickNameController: signUpNickNameController.text,
                     onTapProceed: () {
                       widget.onTapProceedTechnician();
                       authController.authSignupImage = null;
                       selectedRole = null;
                       signUpFullNameController.text = '';
-                      signUpNameController.text = '';
+                      signUpNickNameController.text = '';
                       signUpPhoneController.text = '';
                       signUpEmailController.text = '';
                       signUpPassController.text = '';

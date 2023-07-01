@@ -47,7 +47,7 @@ void showCustomAlertDialog(
                 SizedBox(
                   height: Dimensions.height10,
                 ),
-                CustomContainer(titleText: bodyText),
+                CustomContainer(titleText: bodyText, fontSize: Dimensions.font16,),
                 subtitleText == null
                     ? Container()
                     : SizedBox(
