@@ -3,10 +3,10 @@ import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/texts/text_with_star.dart';
 import 'package:flutter/material.dart';
 
-class CustomTextFormField extends StatelessWidget {
+class CustomTextField extends StatelessWidget {
   final String titleText;
   final bool required;
-  final String hintText;
+  final String? hintText;
   final TextInputType textInputType;
   final bool obscureText;
   final TextEditingController? controller;
@@ -16,12 +16,12 @@ class CustomTextFormField extends StatelessWidget {
   final Icon? prefixIcon;
   final VoidCallback? suffixIconOnTap;
 
-  const CustomTextFormField(
+  const CustomTextField(
       {super.key,
       required this.titleText,
       this.required = true,
       this.controller,
-      required this.hintText,
+      this.hintText,
       this.textInputType = TextInputType.text,
       this.suffixIcon,
       this.suffixIconOnTap,
@@ -53,6 +53,7 @@ class CustomTextFormField extends StatelessWidget {
             obscureText: obscureText,
             keyboardType: textInputType,
             enabled: isEnabled,
+            style: TextStyle(fontSize: Dimensions.font12),
             decoration: InputDecoration(
               prefixIcon: prefixIcon,
               suffixIcon: suffixIcon,

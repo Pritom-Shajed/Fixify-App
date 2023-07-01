@@ -38,7 +38,7 @@ class CustomDropDownFormField extends StatelessWidget {
           items: items,
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: TextStyle(fontSize: Dimensions.font14, color: AppColors.greyColor),
+            hintStyle: TextStyle(fontSize: Dimensions.font12, color: AppColors.blackColor),
             filled: true,
             fillColor: AppColors.textFieldColor,
             enabledBorder: OutlineInputBorder(

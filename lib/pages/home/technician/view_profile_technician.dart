@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fixify_app/base/show_default_snackbar.dart';
+import 'package:fixify_app/routes/route_helper.dart';
+import 'package:fixify_app/widgets/buttons/custom_button2.dart';
 import 'package:fixify_app/widgets/home/technician/technician_dp_with_edit_btn.dart';
 import 'package:fixify_app/widgets/shimmer_effect/circle_shimmer_widget.dart';
 import 'package:fixify_app/widgets/shimmer_effect/container_shimmer_widget.dart';
@@ -37,38 +39,48 @@ class ViewProfileTechnician extends StatelessWidget {
               children: [
                 ///Header
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CachedNetworkImage(
-                        imageUrl: userData.profilePic!,
-                        imageBuilder: (context, imageProvider) =>
-                            TechnicianDpWithEditBtn(
-                                imageProvider: imageProvider, onTapEdit: () {}),
-                        placeholder: (context, url) => ShimmerWidgetCircle(
-                              radius: Dimensions.technicianViewProfileDpRadius,
-                            )),
-                    SizedBox(
-                      width: Dimensions.width10,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
                       children: [
-                        MediumText(
-                          text: userData.nickName!,
-                          fontWeight: FontWeight.w600,
-                        ),
+                        CachedNetworkImage(
+                            imageUrl: userData.profilePic!,
+                            imageBuilder: (context, imageProvider) =>
+                                TechnicianDpWithEditBtn(
+                                    imageProvider: imageProvider),
+                            placeholder: (context, url) => ShimmerWidgetCircle(
+                                  radius:
+                                      Dimensions.technicianViewProfileDpRadius,
+                                )),
                         SizedBox(
-                          height: Dimensions.height5,
+                          width: Dimensions.width10,
                         ),
-                        SmallText(
-                            text:
-                                '${userData.location}, ${userData.division!}'),
-                        SizedBox(
-                          height: Dimensions.height5,
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            MediumText(
+                              text: userData.nickName!,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            SizedBox(
+                              height: Dimensions.height5,
+                            ),
+                            SmallText(
+                              text: 'Joined: ${userData.joinedDate}',
+                            ),
+                            SizedBox(
+                              height: Dimensions.height5,
+                            ),
+                          ],
                         ),
-                        CustomButton(text: 'Edit Profile', onTap: () {}),
                       ],
+                    ),
+                    CustomButton2(
+                      text: 'Edit Profile',
+                      icon: Icons.edit,
+                      onTap: () => Get.toNamed(
+                          RouteHelper.getEditProfileTechnician()),
                     ),
                   ],
                 ),
@@ -80,6 +92,11 @@ class ViewProfileTechnician extends StatelessWidget {
                 Expanded(
                   child: SingleChildScrollView(
                     child: TechnicianProfilePreviewCard(children: [
+                      TechnicianInfoText(
+                        text1: 'Role',
+                        text2: 'Technician',
+                        fontSize: Dimensions.font14,
+                      ),
                       TechnicianInfoText(
                         text1: 'Full Name',
                         text2: userData.fullName!,
@@ -96,13 +113,8 @@ class ViewProfileTechnician extends StatelessWidget {
                         fontSize: Dimensions.font14,
                       ),
                       TechnicianInfoText(
-                        text1: 'User Role',
-                        text2: 'Technician',
-                        fontSize: Dimensions.font14,
-                      ),
-                      TechnicianInfoText(
-                        text1: 'Member Since',
-                        text2: userData.joinedDate!,
+                        text1: 'Preferred Area',
+                        text2: "${userData.preferredArea!}, ${userData.division}",
                         fontSize: Dimensions.font14,
                       ),
                       TechnicianInfoText(
@@ -122,7 +134,7 @@ class ViewProfileTechnician extends StatelessWidget {
                       ),
                       TechnicianInfoText(
                         text1: 'Work Days',
-                        text2: userData.availableDays!.join(', '),
+                        text2: userData.workDays!.join(', '),
                         fontSize: Dimensions.font14,
                       ),
                       TechnicianInfoText(

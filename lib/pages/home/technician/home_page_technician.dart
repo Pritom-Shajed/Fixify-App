@@ -62,7 +62,7 @@ class _HomePageTechnicianState extends State<HomePageTechnician> {
                               joinedDate: userData.joinedDate!,
                               profilePicUrl: userData.profilePic!,
                               onTapEditProfile: () => Get.toNamed(
-                                  RouteHelper.getViewProfileTechnician(userData.profilePic!))),
+                                  RouteHelper.getViewProfileTechnician())),
                           SizedBox(
                             height: Dimensions.height20,
                           ),
@@ -110,7 +110,7 @@ class _HomePageTechnicianState extends State<HomePageTechnician> {
                                   onTap4: () => showCustomAlertDialog(context,
                                       titleText: 'Weekly Free',
                                       bodyText:
-                                          userData.availableDays!.join(', ')),
+                                          userData.workDays!.join(', ')),
                                   title1: 'Current Works',
                                   number1: '0',
                                   title2: 'Works Done',
@@ -118,7 +118,7 @@ class _HomePageTechnicianState extends State<HomePageTechnician> {
                                   title3: 'Services Offered',
                                   number3: '${userData.services!.length}',
                                   title4: 'Weekly Free',
-                                  number4: '${userData.availableDays!.length}',
+                                  number4: '${userData.workDays!.length}',
                                   subtitle4: 'days',
                                 ),
                                 secondChild: const Center(

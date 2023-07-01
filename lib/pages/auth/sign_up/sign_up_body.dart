@@ -11,7 +11,7 @@ import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/auth/role_button.dart';
 import 'package:fixify_app/widgets/auth/sign_up_role_sign.dart';
 import 'package:fixify_app/widgets/buttons/custom_button.dart';
-import 'package:fixify_app/widgets/text_fields/custom_text_form_field.dart';
+import 'package:fixify_app/widgets/text_fields/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -182,7 +182,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             ///Pick Image
-                            CustomTextFormField(
+                            CustomTextField(
                               onTap: () => authController.pickImage(ImageSource.gallery),
                               isEnabled: false,
                               titleText: 'Pick Image',
@@ -191,21 +191,21 @@ class _SignUpBodyState extends State<SignUpBody> {
                             ),
 
                             ///Full Name
-                            CustomTextFormField(
+                            CustomTextField(
                               titleText: 'Full Name',
                               hintText: 'Full Name',
                               controller: signUpFullNameController,
                             ),
 
                             ///Username
-                            CustomTextFormField(
+                            CustomTextField(
                               titleText: 'Nickname',
                               hintText: 'Nickname',
                               controller: signUpNickNameController,
                             ),
 
                             ///Email Address
-                            CustomTextFormField(
+                            CustomTextField(
                               titleText: 'Email Address',
                               textInputType: TextInputType.emailAddress,
                               hintText: 'Email Address',
@@ -213,7 +213,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                             ),
 
                             ///Password
-                            CustomTextFormField(
+                            CustomTextField(
                               titleText: 'Password',
                               suffixIcon: GestureDetector(
                                 onTap: () =>
@@ -229,7 +229,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                               hintText: 'Password',
                               controller: signUpPassController,
                             ),
-                            CustomTextFormField(
+                            CustomTextField(
                               titleText: 'Phone Number',
                               textInputType: TextInputType.number,
                               hintText: '01xxxxxxxxx',

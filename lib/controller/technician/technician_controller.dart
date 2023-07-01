@@ -32,9 +32,9 @@ class TechnicianPageController extends GetxController {
             joinedDate: userData['joinedDate'],
             phoneNumber: userData['phoneNumber'],
             division: userData['division'],
-            location: userData['location'],
+            preferredArea: userData['preferredArea'],
             services: (userData['services'] as List<dynamic>).cast<String>(),
-            availableDays: (userData['availableDays'] as List<dynamic>).cast<String>(),
+            workDays: (userData['workDays'] as List<dynamic>).cast<String>(),
             worksDone: userData['worksDone'],
             time1: userData['time1'],
             time2: userData['time2']);

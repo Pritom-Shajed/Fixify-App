@@ -2,7 +2,7 @@ import 'package:fixify_app/base/show_text_field_validator.dart';
 import 'package:fixify_app/controller/auth/auth_signin_controller.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
-import 'package:fixify_app/widgets/text_fields/custom_text_form_field.dart';
+import 'package:fixify_app/widgets/text_fields/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -45,7 +45,7 @@ class SignInBody extends StatelessWidget {
                 : Container(),
 
             ///Email Address
-            CustomTextFormField(
+            CustomTextField(
               titleText: 'Email Address',
               prefixIcon: Icon(
                 Icons.email,
@@ -56,7 +56,7 @@ class SignInBody extends StatelessWidget {
             ),
 
             ///Password
-            CustomTextFormField(
+            CustomTextField(
               titleText: 'Password',
               suffixIcon: GestureDetector(
                 onTap: () => controller.changeObscureTextSignIn(),

@@ -7,12 +7,6 @@ class FactoryData {
     ServicesModel(id: 1, serviceName: 'Fridge'),
     ServicesModel(id: 2, serviceName: 'AC'),
     ServicesModel(id: 3, serviceName: 'Fan'),
-    ServicesModel(id: 4, serviceName: 'Fridge'),
-    ServicesModel(id: 5, serviceName: 'AC'),
-    ServicesModel(id: 6, serviceName: 'Fan'),
-    ServicesModel(id: 7, serviceName: 'Fridge'),
-    ServicesModel(id: 8, serviceName: 'AC'),
-    ServicesModel(id: 9, serviceName: 'Fan'),
   ];
 
   static List<DaysModel> days = [

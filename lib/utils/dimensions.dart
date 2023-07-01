@@ -11,6 +11,7 @@ class Dimensions {
   static double height20 = screenHeight / 39.15;
 
   //Weight
+  static double width5 = screenWidth / 78.4;
   static double width10 = screenWidth / 39.2;
 
   static double authLogoSize = screenHeight / 5.22;
@@ -42,14 +43,13 @@ class Dimensions {
   static double padding10 = screenHeight / 78.3;
   static double padding15 = screenHeight / 52.2;
 
-
   //margin
   static double margin10 = screenHeight / 78.3;
   static double margin15 = screenHeight / 52.2;
+
   //Icon
   static double icon20 = screenHeight / 39.15;
   static double icon15 = screenHeight / 52.2;
-
 
   //Splash Screen
   static double splashScreenLogoSize200 = screenHeight / 3.9;
@@ -57,7 +57,6 @@ class Dimensions {
 
   //Buttons
   static double buttonIconSize = screenHeight / 62.35;
-
 
   //Technician
   static double technicianHomeDpHeight = screenHeight / 3.73; //210
@@ -70,6 +69,8 @@ class Dimensions {
   static double workInfoContainerWidth = screenWidth / 2.31;
 
   //Footer
-static double footerLogoSize = screenHeight / 7.83; //90
+  static double footerLogoSize = screenHeight / 7.83; //90
 
+  //dot
+  static double sliderDotSize = screenHeight / 145.5;
 }

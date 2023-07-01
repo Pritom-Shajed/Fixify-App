@@ -13,7 +13,7 @@ import 'package:fixify_app/widgets/buttons/custom_multiselect_button.dart';
 import 'package:fixify_app/widgets/buttons/custom_time_picker.dart';
 import 'package:fixify_app/widgets/container/custom_container.dart';
 import 'package:fixify_app/widgets/text_fields/custom_dropdown_form_field.dart';
-import 'package:fixify_app/widgets/text_fields/custom_text_form_field.dart';
+import 'package:fixify_app/widgets/text_fields/custom_text_field.dart';
 import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:fixify_app/widgets/texts/text_with_star.dart';
 import 'package:flutter/material.dart';
@@ -109,14 +109,14 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
           ),
 
           ///Preferred Area
-          CustomTextFormField(
+          CustomTextField(
             titleText: 'Preferred Area',
             hintText: 'Preferred Area',
             controller: locationController,
           ),
 
           ///NID Card
-          CustomTextFormField(
+          CustomTextField(
             titleText: 'NID Card',
             hintText: 'NID Card number',
             textInputType: TextInputType.number,

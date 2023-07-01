@@ -10,9 +10,9 @@ class UserModelTechnician {
   String? joinedDate;
   String? phoneNumber;
   String? division;
-  String? location;
+  String? preferredArea;
   List<String>? services;
-  List<String>? availableDays;
+  List<String>? workDays;
   int? worksDone;
   String? time1;
   String? time2;
@@ -29,9 +29,9 @@ class UserModelTechnician {
     required this.joinedDate,
     required this.phoneNumber,
     required this.division,
-    required this.location,
+    required this.preferredArea,
     required this.services,
-    required this.availableDays,
+    required this.workDays,
     required this.worksDone,
     required this.time1,
     required this.time2,
@@ -50,9 +50,9 @@ class UserModelTechnician {
       'password': password,
       'phoneNumber': phoneNumber,
       'division': division,
-      'location': location,
+      'preferredArea': preferredArea,
       'services': services,
-      'availableDays': availableDays,
+      'workDays': workDays,
       'worksDone': worksDone,
       'time1': time1,
       'time2': time2,
