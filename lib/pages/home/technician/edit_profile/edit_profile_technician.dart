@@ -4,8 +4,8 @@ import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:fixify_app/controller/technician/technician_controller.dart';
 import 'package:fixify_app/model/days_model.dart';
 import 'package:fixify_app/model/factory_data/factory_data.dart';
-import 'package:fixify_app/pages/home/technician/edit_profile/edit_profile_info_1st_part.dart';
-import 'package:fixify_app/pages/home/technician/edit_profile/edit_profile_info_2nd_part.dart';
+import 'package:fixify_app/widgets/home/technician/edit_profile/edit_profile_info_1st_part.dart';
+import 'package:fixify_app/widgets/home/technician/edit_profile/edit_profile_info_2nd_part.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/buttons/custom_button2.dart';
@@ -96,7 +96,7 @@ class _EditProfileTechnicianState extends State<EditProfileTechnician> {
         body: Padding(
           padding: EdgeInsets.symmetric(
               vertical: Dimensions.height10,
-              horizontal: Dimensions.width10 * 2),
+              horizontal: Dimensions.width10),
           child: SingleChildScrollView(
             child: Center(
               child: Column(

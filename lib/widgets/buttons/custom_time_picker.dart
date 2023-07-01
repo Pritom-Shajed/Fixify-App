@@ -45,7 +45,7 @@ class CustomTimePicker extends StatelessWidget {
                     Navigator.of(context).push(
                       showPicker(
                         context: context,
-                        value: Time(hour: 11, minute: 50),
+                        value: time1 == null ? Time(hour: 11, minute: 50):Time(hour: time1!.hour, minute: time1!.minute),
                         onChange: onTimeChanged1,
                         minuteInterval: TimePickerInterval.FIVE,
                       ),
@@ -65,7 +65,7 @@ class CustomTimePicker extends StatelessWidget {
                     Navigator.of(context).push(
                       showPicker(
                         context: context,
-                        value: Time(hour: 11, minute: 50),
+                        value: time2 == null ? Time(hour: 11, minute: 50): Time(hour: time2!.hour, minute: time2!.minute),
                         onChange: onTimeChanged2,
                         minuteInterval: TimePickerInterval.FIVE,
                         // Optional onChange to receive value as DateTime
