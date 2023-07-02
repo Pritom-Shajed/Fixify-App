@@ -124,7 +124,7 @@ class TechnicianPageController extends GetxController {
             );
           });
       userInfoTechnician!.fullName = fullName;
-      userInfoTechnician!.nickName = nickName;
+      userInfoTechnician!.nickName = nickName.toUpperCase();
       userInfoTechnician!.phoneNumber = phoneNumber;
       userInfoTechnician!.division = division;
       userInfoTechnician!.preferredArea = preferredArea;
@@ -138,7 +138,7 @@ class TechnicianPageController extends GetxController {
           .doc(uid)
           .update({
             'fullName': fullName,
-            'nickName': nickName,
+            'nickName': nickName.toUpperCase(),
             'phoneNumber': phoneNumber,
             'division': division,
             'preferredArea': preferredArea,
