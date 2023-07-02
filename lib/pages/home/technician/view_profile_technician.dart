@@ -9,7 +9,6 @@ import 'package:fixify_app/base/show_fixify_footer.dart';
 import 'package:fixify_app/controller/technician/technician_controller.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
-import 'package:fixify_app/widgets/buttons/custom_button.dart';
 import 'package:fixify_app/widgets/home/technician/technician_info_text.dart';
 import 'package:fixify_app/widgets/home/technician/technician_profile_preview_card.dart';
 import 'package:fixify_app/widgets/texts/medium_text.dart';
@@ -80,7 +79,7 @@ class ViewProfileTechnician extends StatelessWidget {
                       text: 'Edit Profile',
                       icon: Icons.edit,
                       onTap: () => Get.toNamed(
-                          RouteHelper.getEditProfileTechnician()),
+                          RouteHelper.getEditProfileTechnician(userData.uid!)),
                     ),
                   ],
                 ),

@@ -1,27 +1,42 @@
 import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/home/technician/technician_profile_preview_card.dart';
+import 'package:fixify_app/widgets/text_fields/custom_dropdown_form_field.dart';
 import 'package:fixify_app/widgets/text_fields/custom_text_field.dart';
+import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:flutter/material.dart';
 
 class EditProfileInfo1stPart extends StatelessWidget {
-  final String nidNumber;
   final TextEditingController nickNameController;
   final TextEditingController fullNameController;
-  final TextEditingController emailController;
+
   final TextEditingController phoneController;
-  const EditProfileInfo1stPart({Key? key, required this.nidNumber, required this.fullNameController, required this.emailController, required this.phoneController, required this.nickNameController}) : super(key: key);
+  final String currentDivision;
+  final Function(dynamic)? onChangedDivision;
+  final List divisionName = [
+    'Dhaka',
+    'Chattogram',
+    'Barishal',
+    'Khulna',
+    'Mymensignh',
+    'Rajshahi',
+    'Sylhet',
+    'Rangpur',
+  ];
+
+   EditProfileInfo1stPart(
+      {Key? key,
+      required this.fullNameController,
+      required this.phoneController,
+      required this.nickNameController,
+      required this.currentDivision,
+      required this.onChangedDivision})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: Dimensions.margin10),
       child: TechnicianProfilePreviewCard(children: [
-        CustomTextField(
-          required: false,
-          isEnabled: false,
-          titleText: 'NID Number',
-          hintText: nidNumber,
-        ),
         CustomTextField(
           required: false,
           titleText: 'Full Name',
@@ -34,13 +49,21 @@ class EditProfileInfo1stPart extends StatelessWidget {
         ),
         CustomTextField(
           required: false,
-          titleText: 'Email',
-          controller: emailController,
-        ),
-        CustomTextField(
-          required: false,
           titleText: 'Phone',
           controller: phoneController,
+        ),
+        CustomDropDownFormField(
+          hintText: currentDivision,
+          titleText: 'Division',
+          items: divisionName.map((division) {
+            return DropdownMenuItem(
+              value: division,
+              child: SmallText(
+                text: division,
+              ),
+            );
+          }).toList(),
+          onChanged: onChangedDivision,
         ),
       ]),
     );

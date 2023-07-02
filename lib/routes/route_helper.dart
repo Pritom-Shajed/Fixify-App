@@ -25,7 +25,7 @@ class RouteHelper {
 
   static String getViewProfileTechnician() => viewProfileTechnician;
 
-  static String getEditProfileTechnician() => editProfileTechnician;
+  static String getEditProfileTechnician(String uid) => '$editProfileTechnician?uid=$uid';
 
   static List<GetPage> routes = [
     GetPage(name: splashScreen, page: () => const SplashScreen()),
@@ -48,6 +48,9 @@ class RouteHelper {
     GetPage(
         name: editProfileTechnician,
         transition: Transition.fadeIn,
-        page: () => const EditProfileTechnician()),
+        page: () {
+          var uid = Get.parameters['uid'];
+          return EditProfileTechnician(uid: uid!,);
+        }),
   ];
 }

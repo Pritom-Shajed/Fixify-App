@@ -1,6 +1,6 @@
 class DivisionModel {
-  final int id;
-  final String divisionName;
+   int id;
+   String divisionName;
 
   DivisionModel({required this.id, required this.divisionName});
 
