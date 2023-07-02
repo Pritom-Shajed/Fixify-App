@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:fixify_app/base/show_custom_alert_dialog_with_btn.dart';
+import 'package:fixify_app/base/show_default_snackbar.dart';
 import 'package:fixify_app/controller/technician/technician_controller.dart';
 import 'package:fixify_app/model/division_model.dart';
 import 'package:fixify_app/model/factory_data/factory_data.dart';
@@ -86,16 +87,18 @@ class _EditProfileTechnicianState extends State<EditProfileTechnician> {
                   imageBuilder: (context, imageProvider) =>
                       TechnicianDpWithEditBtn(
                         imageProvider: imageProvider,
-                        onTapEdit: ()  {
-                           technicianController
+                        onTapEdit: () {
+                          technicianController
                               .pickImage(ImageSource.gallery)
                               .then((value) {
-                            technicianController.technicianProfilePic != null ? showCustomAlertDialogWithBtn(context,
-                                titleText: 'Update Profile Picture?',
-                                onTapYes: () => technicianController
-                                    .updateTechnicianProfilePicture(
-                                        widget.uid, context),
-                                onTapNo: () => Get.back()):null;
+                            technicianController.technicianProfilePic != null
+                                ? showCustomAlertDialogWithBtn(context,
+                                    titleText: 'Update Profile Picture?',
+                                    onTapYes: () => technicianController
+                                        .updateTechnicianProfilePicture(
+                                            widget.uid, context),
+                                    onTapNo: () => Get.back())
+                                : null;
                           });
                         },
                       ),
@@ -174,21 +177,39 @@ class _EditProfileTechnicianState extends State<EditProfileTechnician> {
                         height: Dimensions.height20,
                       ),
                       CustomButton(
-                          text: 'EDIT PROFILE',
+                          text: 'UPDATE PROFILE',
                           onTap: () {
-                            technicianController.updateTechnicianUserInfo(
-                                widget.uid, context,
-                                fullName: fullNameController.text,
-                                nickName: nickNameController.text,
-                                phoneNumber: phoneController.text,
-                                division: selectedDivision,
-                                preferredArea: preferredAreaController.text,
-                                services: _newServices,
-                                workDays: _newWorkDays,
-                                time1:
-                                    '${_time1!.hour} : ${_time1!.minute} ${_time1!.period.name}',
-                                time2:
-                                    '${_time2!.hour} : ${_time2!.minute} ${_time2!.period.name}');
+                              if (fullNameController.text !=
+                                      userData.fullName ||
+                                  nickNameController.text !=
+                                      userData.nickName ||
+                                  phoneController.text !=
+                                      userData.phoneNumber ||
+                                  selectedDivision != userData.division ||
+                                  preferredAreaController.text !=
+                                      userData.preferredArea ||
+                                  _newServices != userData.services ||
+                                  _newWorkDays != userData.workDays ||
+                                  '${_time1!.hour} : ${_time1!.minute} ${_time1!.period.name}' !=
+                                      userData.time1 ||
+                                  '${_time2!.hour} : ${_time2!.minute} ${_time2!.period.name}' !=
+                                      userData.time2) {
+                                technicianController.updateTechnicianUserInfo(
+                                    widget.uid, context,
+                                    fullName: fullNameController.text,
+                                    nickName: nickNameController.text,
+                                    phoneNumber: phoneController.text,
+                                    division: selectedDivision,
+                                    preferredArea: preferredAreaController.text,
+                                    services: _newServices,
+                                    workDays: _newWorkDays,
+                                    time1:
+                                        '${_time1!.hour} : ${_time1!.minute} ${_time1!.period.name}',
+                                    time2:
+                                        '${_time2!.hour} : ${_time2!.minute} ${_time2!.period.name}');
+                              } else {
+                                showDefaultSnackBar(isError: false,'Make some changes to update', context);
+                              }
                           }),
                       SizedBox(
                         height: Dimensions.height20,
