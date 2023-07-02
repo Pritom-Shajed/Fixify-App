@@ -129,7 +129,6 @@ class _EditProfileTechnicianState extends State<EditProfileTechnician> {
                                   setState(() {
                                     selectedDivision = value;
                                   });
-                                  print(selectedDivision);
                                 }),
                             EditProfileInfo2ndPart(
                               newServicesOffered: _newServices,

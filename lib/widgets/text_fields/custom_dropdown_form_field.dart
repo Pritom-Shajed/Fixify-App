@@ -7,7 +7,7 @@ class CustomDropDownFormField extends StatelessWidget {
   final List<DropdownMenuItem<Object>>? items;
   final String hintText;
   final String titleText;
-  final bool starEnable;
+  final bool required;
     final Function(dynamic)? onChanged;
 
   const CustomDropDownFormField({
@@ -15,7 +15,7 @@ class CustomDropDownFormField extends StatelessWidget {
     required this.items,
     required this.hintText,
     required this.titleText,
-    this.starEnable = true,
+    this.required = true,
     this.onChanged,
   });
 
@@ -27,7 +27,7 @@ class CustomDropDownFormField extends StatelessWidget {
         TextWithStar(
           fontSize: Dimensions.font12,
               text: titleText,
-              starEnable: starEnable,
+              starEnable: required,
             ),
         SizedBox(
           height: Dimensions.height10,

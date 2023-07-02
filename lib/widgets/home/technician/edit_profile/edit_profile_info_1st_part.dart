@@ -53,6 +53,7 @@ class EditProfileInfo1stPart extends StatelessWidget {
           controller: phoneController,
         ),
         CustomDropDownFormField(
+          required: false,
           hintText: currentDivision,
           titleText: 'Division',
           items: divisionName.map((division) {

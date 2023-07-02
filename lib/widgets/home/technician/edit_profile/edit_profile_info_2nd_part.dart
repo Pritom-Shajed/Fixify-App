@@ -60,7 +60,7 @@ class EditProfileInfo2ndPart extends StatelessWidget {
           controller: preferredAreaController,
         ),
         CustomMultiSelectButton(
-            required: true,
+            required: false,
             titleText: 'Services',
             multiSelectWidget: MultiSelectDialog(
               height: Dimensions.screenHeight * 0.25,
@@ -78,7 +78,7 @@ class EditProfileInfo2ndPart extends StatelessWidget {
               return CustomContainer(titleText: services);
             })),
         CustomMultiSelectButton(
-            required: true,
+            required: false,
             titleText: 'Work Days',
             multiSelectWidget: MultiSelectDialog(
                 height: Dimensions.screenHeight * 0.25,
