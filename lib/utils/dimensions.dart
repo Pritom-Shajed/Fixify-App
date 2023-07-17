@@ -13,6 +13,7 @@ class Dimensions {
   //Weight
   static double width5 = screenWidth / 78.4;
   static double width10 = screenWidth / 39.2;
+  static double width150 = screenWidth / 2.61;
 
   static double authLogoSize = screenHeight / 5.22;
 
@@ -73,4 +74,7 @@ class Dimensions {
 
   //dot
   static double sliderDotSize = screenHeight / 145.5;
+
+  //Navigation Bar
+  static double bottomNavIconSize = screenHeight / 36.375;
 }

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fixify_app/base/show_custom_snackbar.dart';
 import 'package:fixify_app/routes/route_helper.dart';
+import 'package:fixify_app/utils/app_constans.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,6 +10,9 @@ class AuthSignInController extends GetxController {
 
   final _authSignInError = false.obs;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final SharedPreferences preferences;
+
+  AuthSignInController({required this.preferences});
 
   get obscureTextSignIn => _obscureTextSignIn.value;
 
@@ -38,7 +42,6 @@ class AuthSignInController extends GetxController {
   }
 
   Future<void> login(String email, String password) async {
-    final SharedPreferences preferences = await SharedPreferences.getInstance();
     try {
       final QuerySnapshot<Map<String, dynamic>> snapshot = await _firestore
           .collection('users')
@@ -51,7 +54,7 @@ class AuthSignInController extends GetxController {
         final userData = snapshot.docs.first.data();
         final userRole = userData['userRole'];
         final userUid = userData['uid'];
-        await preferences.setString('uid', userUid);
+        await preferences.setString(AppConstants.preferenceUid, userUid);
 
         if (userRole == 'customer') {
           Get.offAllNamed(RouteHelper.getHomeCustomer());
@@ -67,9 +70,8 @@ class AuthSignInController extends GetxController {
   }
 
   Future<bool> checkLoginStatus() async {
-    final SharedPreferences preferences = await SharedPreferences.getInstance();
 
-    final userId = preferences.getString('uid');
+    final userId = preferences.getString(AppConstants.preferenceUid);
     if (userId != null) {
       final DocumentSnapshot<Map<String, dynamic>> snapshot =
           await _firestore.collection('users').doc(userId).get();

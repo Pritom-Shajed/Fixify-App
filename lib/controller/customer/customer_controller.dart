@@ -3,35 +3,40 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fixify_app/base/show_custom_loader.dart';
 import 'package:fixify_app/base/show_custom_snackbar.dart';
-import 'package:fixify_app/model/firebase/user_model_technician.dart';
+import 'package:fixify_app/model/firebase/user_model_customer.dart';
 import 'package:fixify_app/utils/app_colors.dart';
+import 'package:fixify_app/utils/app_constans.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path/path.dart' as path;
 
-class TechnicianPageController extends GetxController {
+class CustomerController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final SharedPreferences preferences;
-  File? technicianProfilePic;
+  final SharedPreferences sharedPreferences;
+  File? customerProfilePic;
   String? imageName;
 
-  TechnicianPageController({required this.preferences});
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
+  CustomerController({required this.sharedPreferences});
 
   Future<void> pickImage(ImageSource src) async {
     XFile? xfile = await ImagePicker().pickImage(source: src);
     if (xfile != null) {
-      technicianProfilePic = File(xfile.path);
-      imageName = path.basename(technicianProfilePic!.path);
+      customerProfilePic = File(xfile.path);
+      imageName = path.basename(customerProfilePic!.path);
       update();
     }
   }
 
-  UserModelTechnician? userInfoTechnician;
+  UserModelCustomer? userInfoCustomer;
 
-  Future<void> fetchTechnicianUserInfo() async {
-    final uid = preferences.getString('uid');
+  Future<void> fetchCustomerUserInfo() async {
+    var uid = sharedPreferences.getString(AppConstants.preferenceUid);
+
     try {
       final DocumentSnapshot<Map<String, dynamic>> snapshot =
           await _firestore.collection('users').doc(uid).get();
@@ -39,36 +44,31 @@ class TechnicianPageController extends GetxController {
       if (snapshot.exists) {
         final userData = snapshot.data();
 
-        userInfoTechnician = UserModelTechnician(
-            userRole: userData!['userRole'],
-            profilePic: userData['profilePic'],
-            fullName: userData['fullName'],
-            nickName: userData['nickName'],
-            nidNumber: userData['nid'],
-            password: userData['password'],
-            email: userData['email'],
-            uid: userData['uid'],
-            joinedDate: userData['joinedDate'],
-            phoneNumber: userData['phoneNumber'],
-            division: userData['division'],
-            preferredArea: userData['preferredArea'],
-            services: (userData['services'] as List<dynamic>).cast<String>(),
-            workDays: (userData['workDays'] as List<dynamic>).cast<String>(),
-            worksDone: userData['worksDone'],
-            time1: userData['time1'],
-            time2: userData['time2']);
+        userInfoCustomer = UserModelCustomer(
+          userRole: userData!['userRole'],
+          profilePic: userData['profilePic'],
+          fullName: userData['fullName'],
+          uname: userData['uname'],
+          password: userData['password'],
+          email: userData['email'],
+          uid: userData['uid'],
+          joinedDate: userData['joinedDate'],
+          phoneNumber: userData['phoneNumber'],
+        );
 
         update();
       } else {
         showCustomSnackBar('Kindly login in again', title: 'Error');
       }
+
     } catch (e) {
-      print(e.toString());
       showCustomSnackBar(e.toString(), title: 'Error');
+      throw Exception(e.toString());
     }
   }
 
-  Future<void> updateTechnicianProfilePicture(String uid, BuildContext context) async{
+  Future<void> updateTechnicianProfilePicture(
+      String uid, BuildContext context) async {
     try {
       showDialog(
           barrierDismissible: false,
@@ -76,7 +76,7 @@ class TechnicianPageController extends GetxController {
           builder: (context) {
             return Center(
               child:
-              Center(child: showCustomLoader(color: AppColors.whiteColor)),
+                  Center(child: showCustomLoader(color: AppColors.whiteColor)),
             );
           });
       //Upload Image
@@ -85,23 +85,27 @@ class TechnicianPageController extends GetxController {
           .child('profile-pic')
           .child('technician_$uid');
 
-      TaskSnapshot taskSnapshot = await ref.putFile(technicianProfilePic!);
+      TaskSnapshot taskSnapshot = await ref.putFile(customerProfilePic!);
 
       String profilePicUrl = await taskSnapshot.ref.getDownloadURL();
 
-      userInfoTechnician!.profilePic = profilePicUrl;
-      technicianProfilePic = null;
+      userInfoCustomer!.profilePic = profilePicUrl;
+      customerProfilePic = null;
       update();
 
-      await _firestore.collection('users').doc(uid).update({'profilePic': profilePicUrl}).then((value) => Get.back())
-          .then((value) => Get.back()).then((value) => Get.back())
-          .then((value) => showCustomSnackBar('Profile Picture Successfully Updated',
-          title: 'Updated'));
-    } catch (e){
-      showCustomSnackBar(isError: true,e.toString(), title: 'Error');
+      await _firestore
+          .collection('users')
+          .doc(uid)
+          .update({'profilePic': profilePicUrl})
+          .then((value) => Get.back())
+          .then((value) => Get.back())
+          .then((value) => Get.back())
+          .then((value) => showCustomSnackBar(
+              'Profile Picture Successfully Updated',
+              title: 'Updated'));
+    } catch (e) {
+      showCustomSnackBar(isError: true, e.toString(), title: 'Error');
     }
-
-
   }
 
   Future<void> updateTechnicianUserInfo(String uid, BuildContext context,
@@ -124,15 +128,15 @@ class TechnicianPageController extends GetxController {
                   Center(child: showCustomLoader(color: AppColors.whiteColor)),
             );
           });
-      userInfoTechnician!.fullName = fullName;
-      userInfoTechnician!.nickName = nickName.toUpperCase();
-      userInfoTechnician!.phoneNumber = phoneNumber;
-      userInfoTechnician!.division = division;
-      userInfoTechnician!.preferredArea = preferredArea;
-      userInfoTechnician!.services = services.cast<String>();
-      userInfoTechnician!.workDays = workDays.cast<String>();
-      userInfoTechnician!.time1 = time1;
-      userInfoTechnician!.time2 = time2;
+      // userInfoTechnician!.fullName = fullName;
+      // userInfoTechnician!.nickName = nickName.toUpperCase();
+      // userInfoTechnician!.phoneNumber = phoneNumber;
+      // userInfoTechnician!.division = division;
+      // userInfoTechnician!.preferredArea = preferredArea;
+      // userInfoTechnician!.services = services.cast<String>();
+      // userInfoTechnician!.workDays = workDays.cast<String>();
+      // userInfoTechnician!.time1 = time1;
+      // userInfoTechnician!.time2 = time2;
       update();
       await FirebaseFirestore.instance
           .collection('users')
