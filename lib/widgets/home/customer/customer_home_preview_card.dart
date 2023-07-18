@@ -1,6 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
-import 'package:fixify_app/widgets/buttons/custom_button.dart';
+import 'package:fixify_app/widgets/shimmer_effect/container_shimmer_widget.dart';
 import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,6 @@ class CustomerHomeProfileViewShort extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(Dimensions.margin10),
       padding: EdgeInsets.all(Dimensions.padding10),
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.primaryColor),
@@ -21,19 +21,20 @@ class CustomerHomeProfileViewShort extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Container(
-            width: Dimensions.height20*3,
-            height: Dimensions.height20*3,
-            decoration: BoxDecoration(
-                border:
-                Border.all(color: AppColors.greyColorLight),
-                borderRadius:
-                BorderRadius.circular(Dimensions.radius4 * 2),
-                color: AppColors.mainBgColor,
-                image: DecorationImage(
-                    image: NetworkImage(profilePicUrl),
-                    fit: BoxFit.cover)),
-          ),
+          CachedNetworkImage(
+              imageUrl: profilePicUrl,
+              imageBuilder: (context, imageProvider) => Container(
+                height: Dimensions.height20*3,
+                width: Dimensions.height20*3,
+                decoration: BoxDecoration(
+                    borderRadius:
+                    BorderRadius.circular(Dimensions.radius4 * 3),
+                    image: DecorationImage(
+                        image: imageProvider, fit: BoxFit.cover)),
+              ),
+              placeholder: (context, url) => ShimmerWidgetContainer(
+                  height: Dimensions.height20*3,
+                  width: Dimensions.height20*3)),
           SizedBox(
             width: Dimensions.width10,
           ),

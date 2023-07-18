@@ -10,8 +10,6 @@ import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/buttons/custom_button.dart';
 import 'package:fixify_app/widgets/home/technician/technician_home_profile_view.dart';
 import 'package:fixify_app/widgets/switches/toggle_switch.dart';
-import 'package:fixify_app/widgets/texts/medium_text.dart';
-import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
