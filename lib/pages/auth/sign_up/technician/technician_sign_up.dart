@@ -51,7 +51,7 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
   late TextEditingController nidCardController;
   late TextEditingController locationController;
   int pageIndex = 0;
-  DivisionModel? selectedDivision;
+  String? selectedDivision;
 
   @override
   void initState() {
@@ -229,7 +229,7 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
                       email: widget.emailController,
                       pass: widget.passController,
                       phoneNumber: widget.phoneNumberController,
-                      division: selectedDivision!.divisionName,
+                      division: selectedDivision!,
                       location: locationController.text,
                       services:
                           _servicesOffered.map((e) => e.serviceName).toList(),
