@@ -19,16 +19,14 @@ class FactoryData {
     DaysModel(id: 7, day: 'Sat'),
   ];
 
-  static List<DivisionModel> divisions = [
-    DivisionModel(id: 1, divisionName: 'Dhaka'),
-    DivisionModel(id: 2, divisionName: 'Chattogram'),
-    DivisionModel(id: 3, divisionName: 'Barishal'),
-    DivisionModel(id: 4, divisionName: 'Khulna'),
-    DivisionModel(id: 5, divisionName: 'Mymensingh'),
-    DivisionModel(id: 6, divisionName: 'Rajshahi'),
-    DivisionModel(id: 7, divisionName: 'Sylhet'),
-    DivisionModel(id: 8, divisionName: 'Rangpur'),
-
+  static List<String> divisions = [
+    'Dhaka',
+    'Chattogram',
+    'Barishal',
+    'Khulna',
+    'Mymensingh',
+    'Rajshahi',
+    'Sylhet',
+    'Rangpur'
   ];
-
 }

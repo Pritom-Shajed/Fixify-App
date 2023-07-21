@@ -4,6 +4,7 @@ import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/shimmer_effect/container_shimmer_widget.dart';
 import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
 class DashboardTechnicianCard extends StatelessWidget {
   final String imageUrl;
@@ -17,6 +18,7 @@ class DashboardTechnicianCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(Dimensions.padding10),
+      margin: EdgeInsets.symmetric(horizontal: Dimensions.margin10),
       decoration: BoxDecoration(
           color: AppColors.whiteColor,
           borderRadius: BorderRadius.circular(Dimensions.radius4 * 3),

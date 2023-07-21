@@ -1,6 +1,7 @@
 import 'package:fixify_app/base/show_custom_loader.dart';
 import 'package:fixify_app/controller/customer/customer_controller.dart';
-import 'package:fixify_app/controller/customer/home_page_controller.dart';
+import 'package:fixify_app/controller/customer/customer_dashboard_controller.dart';
+import 'package:fixify_app/controller/customer/customer_home_page_controller.dart';
 import 'package:fixify_app/pages/home/customer/dashboard/dashboard_page_customer.dart';
 import 'package:fixify_app/pages/home/customer/profile/profile_page_customer.dart';
 import 'package:fixify_app/utils/app_colors.dart';
@@ -23,6 +24,7 @@ class _HomePageCustomerState extends State<HomePageCustomer> {
 
   Future<void> _loadAllData() async {
     await Get.find<CustomerController>().fetchCustomerUserInfo();
+    await Get.find<CustomerDashboardController>().fetchAllTechnician();
     setState(() {
       _isLoading = false;
     });

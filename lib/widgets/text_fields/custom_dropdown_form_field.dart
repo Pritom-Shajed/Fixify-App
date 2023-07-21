@@ -6,17 +6,25 @@ import 'package:flutter/material.dart';
 class CustomDropDownFormField extends StatelessWidget {
   final List<DropdownMenuItem<Object>>? items;
   final String hintText;
-  final String titleText;
+  final String? titleText;
   final bool required;
-    final Function(dynamic)? onChanged;
+  final bool turnOffTitleText;
+  final Color? fillColor;
+  final FontWeight? fontWeight;
+  final Function(dynamic)? onChanged;
+  final String? value;
 
   const CustomDropDownFormField({
     super.key,
     required this.items,
     required this.hintText,
-    required this.titleText,
+    this.titleText,
+    this.turnOffTitleText = false,
     this.required = true,
     this.onChanged,
+    this.fillColor,
+    this.fontWeight,
+    this.value,
   });
 
   @override
@@ -24,23 +32,32 @@ class CustomDropDownFormField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TextWithStar(
-          fontSize: Dimensions.font12,
-              text: titleText,
-              starEnable: required,
-            ),
-        SizedBox(
-          height: Dimensions.height10,
-        ),
+        turnOffTitleText
+            ? Container()
+            : TextWithStar(
+                fontSize: Dimensions.font12,
+                text: titleText ?? 'title',
+                starEnable: required,
+              ),
+        turnOffTitleText
+            ? Container()
+            : SizedBox(
+                height: Dimensions.height10,
+              ),
         DropdownButtonFormField(
-          isExpanded: true,
+          isDense: true,
+          padding: EdgeInsets.zero,
           onChanged: onChanged,
+          value: value,
           items: items,
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: TextStyle(fontSize: Dimensions.font12, color: AppColors.blackColor),
+            hintStyle: TextStyle(
+                fontSize: Dimensions.font12,
+                color: AppColors.blackColor,
+                fontWeight: fontWeight),
             filled: true,
-            fillColor: AppColors.textFieldColor,
+            fillColor: fillColor ?? AppColors.textFieldColor,
             enabledBorder: OutlineInputBorder(
                 borderSide: const BorderSide(color: Colors.transparent),
                 borderRadius: BorderRadius.circular(Dimensions.radius4)),
@@ -55,9 +72,11 @@ class CustomDropDownFormField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(Dimensions.radius4)),
           ),
         ),
-        SizedBox(
-          height: Dimensions.height10,
-        ),
+        turnOffTitleText
+            ? Container()
+            : SizedBox(
+                height: Dimensions.height10,
+              ),
       ],
     );
   }

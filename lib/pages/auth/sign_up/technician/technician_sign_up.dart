@@ -86,9 +86,7 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
 
           ///Error Dialog
           authController.authSignUpError
-              ? showCustomAuthValidator((() {
-                  return 'Please fill up all required fields';
-                }()))
+              ? showCustomAuthValidator('Please fill up all required fields')
               : Container(),
 
           ///Division
@@ -99,7 +97,7 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
               return DropdownMenuItem(
                 value: division,
                 child: SmallText(
-                  text: division.divisionName,
+                  text: division,
                 ),
               );
             }).toList(),
