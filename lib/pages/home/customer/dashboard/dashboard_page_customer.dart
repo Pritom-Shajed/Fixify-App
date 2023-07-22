@@ -1,6 +1,7 @@
 import 'package:fixify_app/base/side_bar.dart';
 import 'package:fixify_app/controller/customer/customer_controller.dart';
 import 'package:fixify_app/controller/customer/customer_dashboard_controller.dart';
+import 'package:fixify_app/pages/home/customer/technician_info/technician_info_page_customer.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/buttons/custom_icon_button.dart';
@@ -124,6 +125,7 @@ class DashboardPageCustomer extends StatelessWidget {
                                                 .selectedDivision)
                                         .toList()[index];
                                     return DashboardTechnicianCard(
+                                      onTap: () => Get.to(()=> TechnicianInfoPageCustomer(uid: technician.uid!)),
                                       name: technician.nickName ?? 'Null',
                                       imageUrl: technician.profilePic ??
                                           'https://i.pinimg.com/736x/bb/e3/02/bbe302ed8d905165577c638e908cec76.jpg',

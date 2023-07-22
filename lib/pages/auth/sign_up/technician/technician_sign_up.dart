@@ -3,7 +3,6 @@ import 'package:fixify_app/base/show_default_snackbar.dart';
 import 'package:fixify_app/base/show_text_field_validator.dart';
 import 'package:fixify_app/controller/auth/auth_signup_controller.dart';
 import 'package:fixify_app/model/days_model.dart';
-import 'package:fixify_app/model/division_model.dart';
 import 'package:fixify_app/model/factory_data/factory_data.dart';
 import 'package:fixify_app/model/services_model.dart';
 import 'package:fixify_app/utils/app_colors.dart';
