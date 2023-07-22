@@ -114,6 +114,11 @@ class TechnicianInfoPageCustomer extends StatelessWidget {
                           SizedBox(height: Dimensions.height10,),
 
                           TechnicianInfoText(
+                            text1: 'Nickname',
+                            text2: userData.nickName!,
+                            fontSize: Dimensions.font14,
+                          ),
+                          TechnicianInfoText(
                             text1: 'Email',
                             text2: userData.email!,
                             fontSize: Dimensions.font14,

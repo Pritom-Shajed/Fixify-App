@@ -62,7 +62,7 @@ class TechnicianInfoHeaderCustomer extends StatelessWidget {
                   textAlign: TextAlign.start,
                   text: fullName,
                   fontWeight: FontWeight.w600,
-                  fontSize: Dimensions.font16 * 1.1,
+                  fontSize: Dimensions.font16,
                 ),
                 SizedBox(
                   height: Dimensions.height5,
@@ -70,7 +70,7 @@ class TechnicianInfoHeaderCustomer extends StatelessWidget {
                 RichText(
                     text: TextSpan(
                         text: '$division | ',
-                        style: TextStyle(color: AppColors.primaryColor, fontSize: Dimensions.font14),
+                        style: TextStyle(color: AppColors.primaryColor, fontSize: Dimensions.font12),
                         children: [
                           TextSpan(text: area)
                         ])),
@@ -79,7 +79,7 @@ class TechnicianInfoHeaderCustomer extends StatelessWidget {
                   height: Dimensions.height5,
                 ),
                 CustomButton(
-                    text: 'Hire $nickName', onTap: onTapHire),
+                    text: 'HIRE NOW', onTap: onTapHire),
               ],
             ),
           ),

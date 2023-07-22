@@ -8,7 +8,14 @@ class CustomButton extends StatelessWidget {
   final VoidCallback onTap;
   final Color? color;
   final Color? textColor;
-  const CustomButton({Key? key, required this.text, required this.onTap, this.color, this.textColor}) : super(key: key);
+
+  const CustomButton({
+    Key? key,
+    required this.text,
+    required this.onTap,
+    this.color,
+    this.textColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +23,11 @@ class CustomButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(
-            vertical: Dimensions.padding5*1.5, horizontal: Dimensions.padding10),
+            vertical: Dimensions.padding5 * 1.5,
+            horizontal: Dimensions.padding10),
         decoration: BoxDecoration(
             color: color ?? AppColors.buttonColor,
-            borderRadius: BorderRadius.circular(Dimensions.radius4*2)),
+            borderRadius: BorderRadius.circular(Dimensions.radius4 * 2)),
         child: SmallText(
           text: text,
           color: textColor ?? AppColors.whiteColor,
