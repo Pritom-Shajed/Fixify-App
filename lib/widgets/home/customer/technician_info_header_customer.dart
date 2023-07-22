@@ -17,39 +17,29 @@ class TechnicianInfoHeaderCustomer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
+    return Container(
+      width: double.maxFinite,
+      padding: EdgeInsets.all(Dimensions.padding10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(
+            Dimensions.radius4 * 2),
+        color: AppColors.primaryColor
+            .withOpacity(0.05),
+      ),
+      child: Row(
         children: [
-          MediumText(
-            text: fullName,
-            fontWeight: FontWeight.w600,
-            fontSize: Dimensions.font16 * 1.3,
-          ),
-          SizedBox(
-            height: Dimensions.height5,
-          ),
-          RichText(
-              text: TextSpan(
-                  text: '$division | ',
-                  style: TextStyle(color: AppColors.primaryColor),
-                  children: [
-                    TextSpan(text: area)
-                  ])),
-          SizedBox(
-            height: Dimensions.height15,
-          ),
           CachedNetworkImage(
               imageUrl: profilePicUrl,
               imageBuilder: (context, imageProvider) => Container(
                 padding: EdgeInsets.all(Dimensions.padding5/5),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                      Dimensions.radius4 * 3),
-                  border: Border.all(color: AppColors.primaryColorLight, width: 1.5)
+                    borderRadius: BorderRadius.circular(
+                        Dimensions.radius4 * 3),
+                    border: Border.all(color: AppColors.primaryColorLight, width: 1.5)
                 ),
                 child: Container(
-                  height: Dimensions.height20 * 5,
-                  width: Dimensions.height20 * 5,
+                  height: Dimensions.height20 * 4,
+                  width: Dimensions.height20 * 4,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(
                           Dimensions.radius4 * 3),
@@ -60,13 +50,40 @@ class TechnicianInfoHeaderCustomer extends StatelessWidget {
               ),
               placeholder: (context, url) =>
                   ShimmerWidgetContainer(
-                      height: Dimensions.height20 * 5,
-                      width: Dimensions.height20 * 5)),
-          SizedBox(
-            height: Dimensions.height10,
+                      height: Dimensions.height20 * 4,
+                      width: Dimensions.height20 * 4)),
+          SizedBox(width: Dimensions.width10,),
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                MediumText(
+                  textAlign: TextAlign.start,
+                  text: fullName,
+                  fontWeight: FontWeight.w600,
+                  fontSize: Dimensions.font16 * 1.1,
+                ),
+                SizedBox(
+                  height: Dimensions.height5,
+                ),
+                RichText(
+                    text: TextSpan(
+                        text: '$division | ',
+                        style: TextStyle(color: AppColors.primaryColor, fontSize: Dimensions.font14),
+                        children: [
+                          TextSpan(text: area)
+                        ])),
+
+                SizedBox(
+                  height: Dimensions.height5,
+                ),
+                CustomButton(
+                    text: 'Hire $nickName', onTap: onTapHire),
+              ],
+            ),
           ),
-          CustomButton(
-              text: 'Hire $nickName', onTap: onTapHire),
+
         ],
       ),
     );
