@@ -103,10 +103,12 @@ class TechnicianInfoPageCustomer extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(
                                           Dimensions.radius4),
-                                      color: AppColors.mainBgColor,
+                                      color: AppColors.primaryColor
+                                          .withOpacity(0.08),
                                     ),
                                     child: SmallText(
                                       text: service,
+                                      color: AppColors.primaryColor,
                                     ),
                                   );
                                 }),
