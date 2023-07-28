@@ -11,13 +11,26 @@ Widget showCustomLoader({Color? color}) {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SpinKitSpinningLines(
-          color: color ?? AppColors.blackColor,
+          color: color ?? AppColors.primaryColor,
           size: Dimensions.width10 * 5,
         ),
-        SizedBox(
-          height: Dimensions.height10,
-        ),
-        SmallText(text: 'Loading...', color: color ?? AppColors.blackColor,),
+        SizedBox(height: Dimensions.height10,),
+        DefaultTextStyle(
+          style: TextStyle(
+              fontSize: Dimensions.font12,
+              color: AppColors.primaryColor
+          ),
+          child: AnimatedTextKit(
+            repeatForever: true,
+            animatedTexts: [
+              TypewriterAnimatedText('FIXIFY',),
+            ],
+          ),
+        )
+        // SizedBox(
+        //   height: Dimensions.height10,
+        // ),
+        // SmallText(text: 'Loading...', color: color ?? AppColors.blackColor,),
       ],
     ),
   );

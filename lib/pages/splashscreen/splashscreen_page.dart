@@ -1,11 +1,10 @@
 import 'dart:async';
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:fixify_app/controller/auth/auth_signin_controller.dart';
 import 'package:fixify_app/routes/route_helper.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
+import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -21,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Timer(
-        const Duration(seconds: 2),
+        const Duration(seconds: 1),
         () => signInController.checkLoginStatus().then((loggedIn) =>
             {if (!loggedIn) Get.offAllNamed(RouteHelper.getAuthPage())}));
 
@@ -41,18 +40,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 width: Dimensions.splashScreenLogoSize200,
                 child: Image.asset('assets/icons/fixify_logo.png'),
               ),
-              DefaultTextStyle(
-                style: TextStyle(
-                    fontSize: Dimensions.font14,
-                    color: AppColors.blackColor
-                ),
-                child: AnimatedTextKit(
-                  repeatForever: true,
-                  animatedTexts: [
-                    TypewriterAnimatedText('Simplifying Technician Solutions',),
-                  ],
-                ),
-              )
+              const SmallText(text: 'Simplifying Technician Solutions'),
+
             ],
           ),
         ),
