@@ -17,6 +17,12 @@ import 'package:get/get.dart';
 class DashboardPageCustomer extends StatelessWidget {
   const DashboardPageCustomer({Key? key}) : super(key: key);
 
+  Future<void> _loadAllData() async {
+    await Get.find<CustomerController>().fetchCustomerUserInfo();
+    await Get.find<CustomerDashboardController>().fetchAllTechnician();
+    await Get.find<CustomerDashboardController>().fetchAllServices();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,95 +55,107 @@ class DashboardPageCustomer extends StatelessWidget {
                     ),
                     const Divider(),
                     Expanded(
-                      child: SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        child: Padding(
-                          padding: EdgeInsets.only(bottom: Dimensions.height10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              DashboardHeader(onTapFindService: () {}),
-                              SizedBox(
-                                height: Dimensions.height15,
-                              ),
-                              const SmallText(
-                                text: 'Book a service',
-                                fontWeight: FontWeight.w600,
-                              ),
-                              const SingleChildScrollView(
-                                physics: BouncingScrollPhysics(),
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
+                      child: RefreshIndicator(
+                        onRefresh: _loadAllData,
+                        child: SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
+                          child: Padding(
+                            padding:
+                                EdgeInsets.only(bottom: Dimensions.height10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                DashboardHeader(onTapFindService: () {}),
+                                SizedBox(
+                                  height: Dimensions.height15,
+                                ),
+                                const SmallText(
+                                  text: 'Book a service',
+                                  fontWeight: FontWeight.w600,
+                                ),
+
+                                SizedBox(
+                                  height: Dimensions.height20 * 9,
+                                  child: ListView.separated(
+                                      separatorBuilder: (context, index) =>
+                                          SizedBox(
+                                            width: Dimensions.width10 / 2,
+                                          ),
+                                      physics: const BouncingScrollPhysics(),
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: dashboardController
+                                          .allServices.length,
+                                      itemBuilder: (context, index) {
+                                        final service = dashboardController
+                                            .allServices[index];
+                                        return ServicesCard(
+                                            title: service.name ?? ' null',
+                                            iconPath: service.icon ?? 'null');
+                                      }),
+                                ),
+                                SizedBox(
+                                  height: Dimensions.height15,
+                                ),
+
+                                ///NEAR YOU
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    ServicesCard(
-                                        title: 'Service 1',
-                                        icon: Icons.fire_truck),
-                                    ServicesCard(
-                                        title: 'Service 2', icon: Icons.bed),
-                                    ServicesCard(
-                                        title: 'Service 3',
-                                        icon: Icons.door_sliding),
-                                    ServicesCard(
-                                        title: 'Service 4',
-                                        icon: Icons.ac_unit),
+                                    Expanded(
+                                      child: SmallText(
+                                        textAlign: TextAlign.start,
+                                        text:
+                                            'Technicians in ${dashboardController.selectedDivision}',
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    CustomTextButton(
+                                        text: 'See all', onTap: () {})
                                   ],
                                 ),
-                              ),
-                              SizedBox(
-                                height: Dimensions.height15,
-                              ),
-
-                              ///NEAR YOU
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const SmallText(
-                                    text: 'Near you',
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                  CustomTextButton(
-                                      text: 'See all', onTap: () {})
-                                ],
-                              ),
-                              SizedBox(
-                                height: Dimensions.height10,
-                              ),
-                              ListView.separated(
-                                  separatorBuilder: (context, index) {
-                                    return SizedBox(
-                                      height: Dimensions.height10,
-                                    );
-                                  },
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: technicianInfo
-                                      .where((element) =>
-                                          element.division ==
-                                          dashboardController
-                                              .selectedDivision)
-                                      .length,
-                                  itemBuilder: (context, index) {
-                                    final technician = technicianInfo
+                                SizedBox(
+                                  height: Dimensions.height10,
+                                ),
+                                ListView.separated(
+                                    separatorBuilder: (context, index) {
+                                      return SizedBox(
+                                        height: Dimensions.height10,
+                                      );
+                                    },
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemCount: technicianInfo
                                         .where((element) =>
                                             element.division ==
                                             dashboardController
                                                 .selectedDivision)
-                                        .toList()[index];
-                                    return DashboardTechnicianCard(
-                                      onTap: () => Get.to(()=> TechnicianInfoPageCustomer(uid: technician.uid!)),
-                                      name: technician.nickName ?? 'Null',
-                                      imageUrl: technician.profilePic ??
-                                          'https://i.pinimg.com/736x/bb/e3/02/bbe302ed8d905165577c638e908cec76.jpg',
-                                      time:
-                                          '${technician.time1} - ${technician.time2}',
-                                      location: technician.division ?? 'null',
-                                      services:
-                                          technician.services?.join(', ') ??
-                                              'null',
-                                    );
-                                  })
-                            ],
+                                        .length,
+                                    itemBuilder: (context, index) {
+                                      final technician = technicianInfo
+                                          .where((element) =>
+                                              element.division ==
+                                              dashboardController
+                                                  .selectedDivision)
+                                          .toList()[index];
+                                      return DashboardTechnicianCard(
+                                        onTap: () => Get.to(() =>
+                                            TechnicianInfoPageCustomer(
+                                                uid: technician.uid!)),
+                                        name: technician.nickName ?? 'Null',
+                                        imageUrl: technician.profilePic ??
+                                            'https://i.pinimg.com/736x/bb/e3/02/bbe302ed8d905165577c638e908cec76.jpg',
+                                        time:
+                                            '${technician.time1} - ${technician.time2}',
+                                        location: technician.division ?? 'null',
+                                        services:
+                                            technician.services?.join(', ') ??
+                                                'null',
+                                      );
+                                    })
+                              ],
+                            ),
                           ),
                         ),
                       ),

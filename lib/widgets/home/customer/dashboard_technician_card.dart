@@ -13,7 +13,16 @@ class DashboardTechnicianCard extends StatelessWidget {
   final String location;
   final String services;
   final VoidCallback? onTap;
-  const DashboardTechnicianCard({Key? key, required this.imageUrl, required this.time, required this.name, required this.location, required this.services, this.onTap}) : super(key: key);
+
+  const DashboardTechnicianCard(
+      {Key? key,
+      required this.imageUrl,
+      required this.time,
+      required this.name,
+      required this.location,
+      required this.services,
+      this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,18 +68,23 @@ class DashboardTechnicianCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.access_time_filled,
-                            size: Dimensions.icon15,
-                            color: AppColors.primaryColor,
-                          ),
-                          SmallText(
-                            text: time,
-                            fontSize: Dimensions.font16 * 0.6,
-                          )
-                        ],
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.access_time_filled,
+                              size: Dimensions.icon15,
+                              color: AppColors.primaryColor,
+                            ),
+                            Expanded(
+                              child: SmallText(
+                                textAlign: TextAlign.start,
+                                text: time,
+                                fontSize: Dimensions.font16 * 0.6,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                       Row(
                         children: [
@@ -90,17 +104,20 @@ class DashboardTechnicianCard extends StatelessWidget {
                   SizedBox(
                     height: Dimensions.height5,
                   ),
-                   SmallText(
+                  SmallText(
+                    textAlign: TextAlign.start,
                     text: name,
                     fontWeight: FontWeight.w500,
                   ),
                   RichText(
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       text: TextSpan(
                           text: 'Services: ',
                           style: TextStyle(
                               color: AppColors.greyColor,
                               fontSize: Dimensions.font16 * 0.65),
-                          children:  [TextSpan(text: services)])),
+                          children: [TextSpan(text: services)])),
                 ],
               ),
             )

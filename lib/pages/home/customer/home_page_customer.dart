@@ -25,6 +25,7 @@ class _HomePageCustomerState extends State<HomePageCustomer> {
   Future<void> _loadAllData() async {
     await Get.find<CustomerController>().fetchCustomerUserInfo();
     await Get.find<CustomerDashboardController>().fetchAllTechnician();
+    await Get.find<CustomerDashboardController>().fetchAllServices();
     setState(() {
       _isLoading = false;
     });
@@ -40,24 +41,28 @@ class _HomePageCustomerState extends State<HomePageCustomer> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
-      bottomNavigationBar: _isLoading ? null : Builder(builder: (context) {
-        return Obx(
-          () => BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              selectedItemColor: AppColors.blackColor,
-              currentIndex: _controller.tabIndex,
-              onTap: _controller.updateIndex,
-              items: const [
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.dashboard), label: 'Dashboard'),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.person), label: 'Profile'),
-              ]),
-        );
-      }),
-      body: _isLoading ? showCustomLoader() : Obx(
-        () => pages[_controller.tabIndex],
-      ),
+      bottomNavigationBar: _isLoading
+          ? null
+          : Builder(builder: (context) {
+              return Obx(
+                () => BottomNavigationBar(
+                    type: BottomNavigationBarType.fixed,
+                    selectedItemColor: AppColors.blackColor,
+                    currentIndex: _controller.tabIndex,
+                    onTap: _controller.updateIndex,
+                    items: const [
+                      BottomNavigationBarItem(
+                          icon: Icon(Icons.dashboard), label: 'Dashboard'),
+                      BottomNavigationBarItem(
+                          icon: Icon(Icons.person), label: 'Profile'),
+                    ]),
+              );
+            }),
+      body: _isLoading
+          ? showCustomLoader()
+          : Obx(
+              () => pages[_controller.tabIndex],
+            ),
     );
   }
 }

@@ -2,9 +2,9 @@ import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:fixify_app/base/show_default_snackbar.dart';
 import 'package:fixify_app/base/show_text_field_validator.dart';
 import 'package:fixify_app/controller/auth/auth_signup_controller.dart';
+import 'package:fixify_app/controller/customer/customer_dashboard_controller.dart';
 import 'package:fixify_app/model/days_model.dart';
 import 'package:fixify_app/model/factory_data/factory_data.dart';
-import 'package:fixify_app/model/services_model.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/widgets/buttons/custom_button.dart';
 import 'package:fixify_app/widgets/buttons/custom_icon_button.dart';
@@ -18,6 +18,7 @@ import 'package:fixify_app/widgets/texts/text_with_star.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
+import '../../../../model/firebase/services_model.dart';
 import '../../../../utils/dimensions.dart';
 
 class TechnicianSignUpPage1 extends StatefulWidget {
@@ -59,7 +60,7 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
     super.initState();
   }
 
-  List<ServicesModel> _servicesOffered = [];
+  List<ServicesFirebaseModel> _servicesOffered = [];
   List<DaysModel> _availableDays = [];
 
   Time? _time1;
@@ -128,9 +129,7 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
               multiSelectWidget: MultiSelectDialog(
                 height: Dimensions.screenHeight * 0.25,
                 selectedColor: AppColors.primaryColor,
-                items: FactoryData.services
-                    .map((e) => MultiSelectItem(e, e.serviceName))
-                    .toList(),
+                items: Get.find<CustomerDashboardController>().allServices.map((e) => MultiSelectItem(e, e.name!)).toList(),
                 initialValue: _servicesOffered,
                 onConfirm: (values) {
                   _servicesOffered = values;
@@ -141,7 +140,7 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
               hintText: 'Select Services',
               children: List.generate(_servicesOffered.length, (index) {
                 var services = _servicesOffered[index];
-                return CustomContainer(titleText: services.serviceName);
+                return CustomContainer(titleText: services.name!);
               })),
 
           ///Work Days
@@ -231,7 +230,7 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
                       division: selectedDivision!,
                       location: locationController.text,
                       services:
-                          _servicesOffered.map((e) => e.serviceName).toList(),
+                          _servicesOffered.map((e) => e.name!).toList(),
                       availableDays: _availableDays.map((e) => e.day).toList(),
                       time1:
                           '${_time1!.hour} : ${_time1!.minute} ${_time1!.period.name}',

@@ -1,4 +1,3 @@
-import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:fixify_app/base/show_custom_snackbar.dart';
 import 'package:fixify_app/base/show_default_snackbar.dart';
@@ -183,7 +182,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                           children: [
                             ///Pick Image
                             CustomTextField(
-                              onTap: () => authController.pickImage(ImageSource.gallery),
+                              onTap: () => authController.pickImage(ImageSource.camera),
                               isEnabled: false,
                               titleText: 'Pick Image',
                               suffixIcon: const Icon(Icons.photo_library_outlined),
