@@ -11,7 +11,7 @@ class DashboardTechnicianCard extends StatelessWidget {
   final String time;
   final String name;
   final String location;
-  final String services;
+  final String? services;
   final VoidCallback? onTap;
 
   const DashboardTechnicianCard(
@@ -20,7 +20,7 @@ class DashboardTechnicianCard extends StatelessWidget {
       required this.time,
       required this.name,
       required this.location,
-      required this.services,
+      this.services,
       this.onTap})
       : super(key: key);
 
@@ -109,15 +109,17 @@ class DashboardTechnicianCard extends StatelessWidget {
                     text: name,
                     fontWeight: FontWeight.w500,
                   ),
-                  RichText(
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      text: TextSpan(
-                          text: 'Services: ',
-                          style: TextStyle(
-                              color: AppColors.greyColor,
-                              fontSize: Dimensions.font16 * 0.65),
-                          children: [TextSpan(text: services)])),
+                  services != null
+                      ? RichText(
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          text: TextSpan(
+                              text: 'Services: ',
+                              style: TextStyle(
+                                  color: AppColors.greyColor,
+                                  fontSize: Dimensions.font16 * 0.65),
+                              children: [TextSpan(text: services)]))
+                      : Container(),
                 ],
               ),
             )

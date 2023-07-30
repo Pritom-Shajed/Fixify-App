@@ -134,8 +134,7 @@ class _AuthPageState extends State<AuthPage> {
                                 onTap: () {
                                   if (signInEmailController.text.isEmpty ||
                                       signInPassController.text.isEmpty) {
-                                    authSignInController
-                                        .authSignInErrorOccured();
+                                    authSignInController.authSignInErrorOccured();
                                     // showDefaultSnackBar(
                                     //     'Please fill up all required fields',
                                     //     context);

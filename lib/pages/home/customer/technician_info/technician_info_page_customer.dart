@@ -1,21 +1,15 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fixify_app/base/show_fixify_footer.dart';
 import 'package:fixify_app/controller/customer/customer_dashboard_controller.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
-import 'package:fixify_app/widgets/buttons/custom_button.dart';
 import 'package:fixify_app/widgets/buttons/custom_icon_button.dart';
-import 'package:fixify_app/widgets/home/customer/services_card.dart';
 import 'package:fixify_app/widgets/home/customer/technician_info_header_customer.dart';
 import 'package:fixify_app/widgets/home/customer/technician_info_short_card.dart';
 import 'package:fixify_app/widgets/home/technician/technician_info_text.dart';
 import 'package:fixify_app/widgets/home/technician/technician_profile_preview_card.dart';
-import 'package:fixify_app/widgets/shimmer_effect/container_shimmer_widget.dart';
-import 'package:fixify_app/widgets/texts/large_text.dart';
 import 'package:fixify_app/widgets/texts/medium_text.dart';
 import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:get/get.dart';
 
 class TechnicianInfoPageCustomer extends StatelessWidget {

@@ -8,10 +8,14 @@ class MediumText extends StatelessWidget {
   final FontWeight fontWeight;
   final TextAlign? textAlign;
   final double? letterSpacing;
+  final int?  maxLines;
+  final TextOverflow? textOverflow;
 
   const MediumText(
       {Key? key,
       this.color,
+        this.maxLines,
+        this.textOverflow,
       required this.text,
       this.fontSize = 0,
       this.fontWeight = FontWeight.normal, this.textAlign, this.letterSpacing})
@@ -22,6 +26,8 @@ class MediumText extends StatelessWidget {
     return Text(
       text,
       textAlign: textAlign ?? TextAlign.center,
+      maxLines: maxLines ?? 2,
+      overflow: textOverflow ?? TextOverflow.ellipsis,
       style: TextStyle(
         letterSpacing: letterSpacing,
           color: color,

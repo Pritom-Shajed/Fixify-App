@@ -1,13 +1,11 @@
 import 'package:fixify_app/model/days_model.dart';
-import 'package:fixify_app/model/division_model.dart';
-import 'package:fixify_app/model/services_model.dart';
 
 class FactoryData {
-  static List<ServicesModel> services = [
-    ServicesModel(id: 1, serviceName: 'Fridge'),
-    ServicesModel(id: 2, serviceName: 'AC'),
-    ServicesModel(id: 3, serviceName: 'Fan'),
-  ];
+  // static List<ServicesModel> services = [
+  //   ServicesModel(id: 1, serviceName: 'Fridge'),
+  //   ServicesModel(id: 2, serviceName: 'AC'),
+  //   ServicesModel(id: 3, serviceName: 'Fan'),
+  // ];
 
   static List<DaysModel> days = [
     DaysModel(id: 1, day: 'Sun'),

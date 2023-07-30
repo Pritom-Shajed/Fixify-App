@@ -8,57 +8,61 @@ import 'package:flutter/material.dart';
 class ServicesCard extends StatelessWidget {
   final String title;
   final String iconPath;
+  final VoidCallback onTap;
 
-  const ServicesCard({Key? key, required this.title, required this.iconPath})
+  const ServicesCard({Key? key, required this.title, required this.iconPath, required this.onTap})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(Dimensions.margin10),
-      padding: EdgeInsets.all(Dimensions.padding10 * 2),
-      decoration: BoxDecoration(
-          color: AppColors.whiteColor,
-          borderRadius: BorderRadius.circular(Dimensions.radius4 * 3),
-          boxShadow: [
-            BoxShadow(
-                blurRadius: 5,
-                offset: const Offset(0, 5),
-                color: AppColors.shadowColor),
-          ]),
-      child: Column(
-        children: [
-          CachedNetworkImage(
-              imageUrl: iconPath,
-              imageBuilder: (context, imageProvider) => Container(
-                padding:  EdgeInsets.all(Dimensions.padding10),
-                decoration: BoxDecoration(
-                  color: AppColors.primaryColor.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(Dimensions.radius4 * 3),
-                ),
-
-                child: Container(
-                  height: Dimensions.height20 * 3,
-                  width: Dimensions.height20 * 3,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: EdgeInsets.all(Dimensions.margin10),
+        padding: EdgeInsets.all(Dimensions.padding10 * 2),
+        decoration: BoxDecoration(
+            color: AppColors.whiteColor,
+            borderRadius: BorderRadius.circular(Dimensions.radius4 * 3),
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: 5,
+                  offset: const Offset(0, 5),
+                  color: AppColors.shadowColor),
+            ]),
+        child: Column(
+          children: [
+            CachedNetworkImage(
+                imageUrl: iconPath,
+                imageBuilder: (context, imageProvider) => Container(
+                  padding:  EdgeInsets.all(Dimensions.padding10),
                   decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: imageProvider, fit: BoxFit.cover)),
+                    color: AppColors.primaryColor.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(Dimensions.radius4 * 3),
+                  ),
+
+                  child: Container(
+                    height: Dimensions.height20 * 3,
+                    width: Dimensions.height20 * 3,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: imageProvider, fit: BoxFit.cover)),
+                  ),
                 ),
-              ),
-              placeholder: (context, url) => ShimmerWidgetContainer(
-                  height: Dimensions.height20 * 4,
-                  width: Dimensions.height20 * 4)),
-          SizedBox(
-            height: Dimensions.height10,
-          ),
-          SizedBox(
-            width: Dimensions.width10*10,
-            child: SmallText(
-              text: title,
-              fontWeight: FontWeight.w600,
+                placeholder: (context, url) => ShimmerWidgetContainer(
+                    height: Dimensions.height20 * 4,
+                    width: Dimensions.height20 * 4)),
+            SizedBox(
+              height: Dimensions.height10,
             ),
-          )
-        ],
+            SizedBox(
+              width: Dimensions.width10*10,
+              child: SmallText(
+                text: title,
+                fontWeight: FontWeight.w600,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -5,6 +5,7 @@ import 'package:fixify_app/controller/auth/auth_signup_controller.dart';
 import 'package:fixify_app/controller/customer/customer_dashboard_controller.dart';
 import 'package:fixify_app/model/days_model.dart';
 import 'package:fixify_app/model/factory_data/factory_data.dart';
+import 'package:fixify_app/model/firebase/services_model.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/widgets/buttons/custom_button.dart';
 import 'package:fixify_app/widgets/buttons/custom_icon_button.dart';
@@ -18,7 +19,6 @@ import 'package:fixify_app/widgets/texts/text_with_star.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
-import '../../../../model/firebase/services_model.dart';
 import '../../../../utils/dimensions.dart';
 
 class TechnicianSignUpPage1 extends StatefulWidget {
@@ -60,7 +60,7 @@ class _TechnicianSignUpPage1State extends State<TechnicianSignUpPage1> {
     super.initState();
   }
 
-  List<ServicesFirebaseModel> _servicesOffered = [];
+  List<ServicesModel> _servicesOffered = [];
   List<DaysModel> _availableDays = [];
 
   Time? _time1;
