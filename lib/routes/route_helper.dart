@@ -1,15 +1,16 @@
-import 'package:fixify_app/model/days_model.dart';
 import 'package:fixify_app/pages/auth/authentication_page.dart';
-import 'package:fixify_app/pages/home/customer/home_page_customer.dart';
-import 'package:fixify_app/pages/home/customer/services/service_detail_page.dart';
-import 'package:fixify_app/pages/home/customer/services/sub_services_page.dart';
-import 'package:fixify_app/pages/home/customer/technician_info/specific_service_all_technician_info.dart';
-import 'package:fixify_app/pages/home/customer/technician_info/technician_info_page_customer.dart';
+import 'package:fixify_app/pages/home/home/home_page.dart';
 import 'package:fixify_app/pages/home/technician/edit_profile/edit_profile_technician.dart';
 import 'package:fixify_app/pages/home/technician/view_profile_technician.dart';
 import 'package:fixify_app/pages/home/technician/home_page_technician.dart';
 import 'package:fixify_app/pages/splashscreen/splashscreen_page.dart';
 import 'package:get/get.dart';
+
+import '../pages/home/home/profile/edit_profile_customer.dart';
+import '../pages/home/home/services/service_detail_page.dart';
+import '../pages/home/home/services/sub_services_page.dart';
+import '../pages/home/home/technician_info/specific_service_all_technician_info.dart';
+import '../pages/home/home/technician_info/technician_info_page_customer.dart';
 
 class RouteHelper {
   //Splash Screen
@@ -19,11 +20,12 @@ class RouteHelper {
   static String authPage = '/auth-page';
 
   //Customer
-  static String homePageCustomer = '/home-customer';
+  static String homePage = '/home-customer';
   static String technicianInfoPageCustomer = '/tech-info-customer';
   static String specificServiceAllTechnicianInfo = '/specific-service-all-technician-info-customer';
   static String subServicesPage = '/sub-service-page';
   static String serviceDetailPage = '/services-detail-page';
+  static String editProfileCustomer = '/edit-profile-customer';
 
   //Technician
   static String homePageTechnician = '/home-technician';
@@ -35,7 +37,7 @@ class RouteHelper {
   static String getAuthPage() => authPage;
 
   //Customer
-  static String getHomeCustomer() => homePageCustomer;
+  static String getHomePage() => homePage;
 
   static String getTechnicianInfoPageCustomer(String uid) =>
       '$technicianInfoPageCustomer?uid=$uid';
@@ -47,6 +49,9 @@ class RouteHelper {
 
   static String getServiceDetailPage({required String index, required String uid}) =>
       '$serviceDetailPage?index=$index&uid=$uid';
+
+  static String getEditProfileCustomer(String uid) =>
+      '$editProfileCustomer?uid=$uid';
 
 
   //Technician
@@ -66,9 +71,9 @@ class RouteHelper {
 
     //Customer
     GetPage(
-        name: homePageCustomer,
+        name: homePage,
         transition: Transition.cupertino,
-        page: () => const HomePageCustomer()),
+        page: () => const HomePage()),
 
     GetPage(
         name: serviceDetailPage,
@@ -108,6 +113,16 @@ class RouteHelper {
         page: () {
           var uid = Get.parameters['uid']!;
           return TechnicianInfoPageCustomer(
+            uid: uid,
+          );
+        }),
+
+    GetPage(
+        name: editProfileCustomer,
+        transition: Transition.cupertino,
+        page: () {
+          var uid = Get.parameters['uid']!;
+          return EditProfileCustomer(
             uid: uid,
           );
         }),

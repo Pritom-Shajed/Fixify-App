@@ -1,8 +1,7 @@
 import 'package:fixify_app/base/side_bar.dart';
+import 'package:fixify_app/controller/auth/auth_signout_controller.dart';
 import 'package:fixify_app/controller/customer/customer_controller.dart';
 import 'package:fixify_app/controller/customer/customer_dashboard_controller.dart';
-import 'package:fixify_app/pages/home/customer/services/sub_services_page.dart';
-import 'package:fixify_app/pages/home/customer/technician_info/technician_info_page_customer.dart';
 import 'package:fixify_app/routes/route_helper.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
@@ -16,8 +15,8 @@ import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class DashboardPageCustomer extends StatelessWidget {
-  const DashboardPageCustomer({Key? key}) : super(key: key);
+class DashboardPage extends StatelessWidget {
+  const DashboardPage({Key? key}) : super(key: key);
 
   Future<void> _loadAllData() async {
     await Get.find<CustomerController>().fetchCustomerUserInfo();
@@ -42,19 +41,23 @@ class DashboardPageCustomer extends StatelessWidget {
             final technicianInfo = dashboardController.technicianInfo;
             return GetBuilder<CustomerController>(
                 builder: (customerController) {
-              final userData = customerController.userInfoCustomer!;
+              final userData = customerController.userInfoCustomer;
               return Padding(
                 padding: EdgeInsets.all(Dimensions.padding10 * 1.2),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomerHomeProfileViewShort(
-                      profilePicUrl: userData.profilePic!,
-                      fullName: userData.fullName!,
-                      selectedDivision: dashboardController.selectedDivision,
-                      updateSelectedDivision:
-                          dashboardController.updateSelectedDivision,
-                    ),
+                    Get.find<AuthSignOutController>().userLoggedIn()
+                        ? CustomerHomeProfileViewShort(
+                            profilePicUrl: userData?.profilePic ??
+                                'https://www.kindpng.com/picc/m/207-2074624_white-gray-circle-avatar-png-transparent-png.png',
+                            fullName: userData?.fullName ?? 'null',
+                            selectedDivision:
+                                dashboardController.selectedDivision,
+                            updateSelectedDivision:
+                                dashboardController.updateSelectedDivision,
+                          )
+                        : const SizedBox(),
                     const Divider(),
                     Expanded(
                       child: RefreshIndicator(

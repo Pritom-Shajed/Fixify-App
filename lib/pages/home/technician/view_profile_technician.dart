@@ -45,11 +45,11 @@ class ViewProfileTechnician extends StatelessWidget {
                         CachedNetworkImage(
                             imageUrl: userData.profilePic!,
                             imageBuilder: (context, imageProvider) =>
-                                TechnicianDpWithEditBtn(
+                                DpWithEditBtn(
                                     imageProvider: imageProvider),
                             placeholder: (context, url) => ShimmerWidgetCircle(
                                   radius:
-                                      Dimensions.technicianViewProfileDpRadius,
+                                      Dimensions.viewProfileDpRadius,
                                 )),
                         SizedBox(
                           width: Dimensions.width10,
@@ -90,7 +90,7 @@ class ViewProfileTechnician extends StatelessWidget {
                 ///BODY
                 Expanded(
                   child: SingleChildScrollView(
-                    child: TechnicianProfilePreviewCard(children: [
+                    child: ProfilePreviewCard(children: [
                       TechnicianInfoText(
                         text1: 'Role',
                         text2: 'Technician',

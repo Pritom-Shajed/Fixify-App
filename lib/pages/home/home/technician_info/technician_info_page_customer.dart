@@ -69,7 +69,7 @@ class TechnicianInfoPageCustomer extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        TechnicianProfilePreviewCard(children: [
+                        ProfilePreviewCard(children: [
                           ///Services
                            MediumText(
                             text: 'Services',
@@ -92,6 +92,7 @@ class TechnicianInfoPageCustomer extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   final service = userData.services![index];
                                   return Container(
+                                    padding: EdgeInsets.all(Dimensions.padding5/2),
                                     alignment: Alignment.center,
                                     width: Dimensions.width150 / 1.5,
                                     decoration: BoxDecoration(

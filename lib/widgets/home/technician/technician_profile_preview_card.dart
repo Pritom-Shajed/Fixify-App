@@ -2,9 +2,9 @@ import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 
-class TechnicianProfilePreviewCard extends StatelessWidget {
+class ProfilePreviewCard extends StatelessWidget {
   final List<Widget> children;
-  const TechnicianProfilePreviewCard({super.key, required this.children});
+  const ProfilePreviewCard({super.key, required this.children});
 
   @override
   Widget build(BuildContext context) {

@@ -16,11 +16,13 @@ class CustomButton2 extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(Dimensions.padding10),
         decoration: BoxDecoration(
-            color: AppColors.primaryColorLight.withOpacity(0.6),
+            color: AppColors.primaryColorLight.withOpacity(0.4),
             borderRadius: BorderRadius.circular(Dimensions.radius4*2)
         ),
-        child: Row(children: [
-          SmallText(text: text, color: AppColors.primaryColor,),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+          SmallText(text: text, color: AppColors.primaryColor, fontWeight: FontWeight.w500,),
           SizedBox(width: icon == null ? 0 : Dimensions.width5,),
          icon == null ? Container(): Icon(
             icon,

@@ -36,7 +36,7 @@ class EditProfileInfo1stPart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: Dimensions.margin10),
-      child: TechnicianProfilePreviewCard(children: [
+      child: ProfilePreviewCard(children: [
         CustomTextField(
           required: false,
           titleText: 'Full Name',

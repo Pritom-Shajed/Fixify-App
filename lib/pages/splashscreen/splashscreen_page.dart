@@ -21,8 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Timer(
         const Duration(seconds: 1),
-        () => signInController.checkLoginStatus().then((loggedIn) =>
-            {if (!loggedIn) Get.offAllNamed(RouteHelper.getAuthPage())}));
+        () => Get.offAllNamed(RouteHelper.getHomePage()));
 
     super.initState();
   }

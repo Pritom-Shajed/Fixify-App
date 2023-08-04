@@ -1,24 +1,31 @@
 import 'package:fixify_app/base/show_custom_loader.dart';
+import 'package:fixify_app/controller/auth/auth_signout_controller.dart';
 import 'package:fixify_app/controller/customer/customer_controller.dart';
 import 'package:fixify_app/controller/customer/customer_dashboard_controller.dart';
 import 'package:fixify_app/controller/customer/customer_home_page_controller.dart';
-import 'package:fixify_app/pages/home/customer/dashboard/dashboard_page_customer.dart';
-import 'package:fixify_app/pages/home/customer/profile/profile_page_customer.dart';
+import 'package:fixify_app/pages/home/home/not_logged_in/not_logged_in_page.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'dashboard/dashboard_page.dart';
+import 'profile/profile_page_customer.dart';
 
-class HomePageCustomer extends StatefulWidget {
-  const HomePageCustomer({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePageCustomer> createState() => _HomePageCustomerState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 final _controller = Get.find<HomePageController>();
 
-class _HomePageCustomerState extends State<HomePageCustomer> {
-  List<Widget> pages = const [DashboardPageCustomer(), ProfilePageCustomer()];
+class _HomePageState extends State<HomePage> {
+  List<Widget> pages = [
+    const DashboardPage(),
+    Get.find<AuthSignOutController>().userLoggedIn()
+        ? const ProfilePageCustomer()
+        : const NotLoggedInPage(),
+  ];
 
   bool _isLoading = true;
 
@@ -52,9 +59,10 @@ class _HomePageCustomerState extends State<HomePageCustomer> {
                     onTap: _controller.updateIndex,
                     items: const [
                       BottomNavigationBarItem(
-                          icon: Icon(Icons.dashboard), label: 'Dashboard'),
+                          icon: Icon(Icons.home_outlined), label: 'Home'),
                       BottomNavigationBarItem(
-                          icon: Icon(Icons.person), label: 'Profile'),
+                          icon: Icon(Icons.person_2_outlined),
+                          label: 'Account'),
                     ]),
               );
             }),

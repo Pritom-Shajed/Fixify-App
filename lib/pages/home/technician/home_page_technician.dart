@@ -1,7 +1,7 @@
 import 'package:fixify_app/base/show_custom_alert_dialog.dart';
 import 'package:fixify_app/base/show_custom_alert_dialog_with_btn.dart';
 import 'package:fixify_app/base/show_custom_loader.dart';
-import 'package:fixify_app/controller/signout/signout_controller.dart';
+import 'package:fixify_app/controller/auth/auth_signout_controller.dart';
 import 'package:fixify_app/controller/technician/technician_controller.dart';
 import 'package:fixify_app/routes/route_helper.dart';
 import 'package:fixify_app/widgets/home/technician/technician_work_info.dart';
@@ -83,8 +83,10 @@ class _HomePageTechnicianState extends State<HomePageTechnician> {
                                 onTap: () => showCustomAlertDialogWithBtn(
                                     context,
                                     titleText: 'Sign out?',
-                                    onTapYes: () =>
-                                        SignOutController.signOut(context),
+                                    onTapYes: () {
+                                      Get.find<AuthSignOutController>().clearSharedData();
+                                      Get.offAllNamed(RouteHelper.getHomePage());
+                                    },
                                     onTapNo: () => Get.back()),
                               ),
                             ],
@@ -108,8 +110,7 @@ class _HomePageTechnicianState extends State<HomePageTechnician> {
                                       bodyText: userData.services!.join(', ')),
                                   onTap4: () => showCustomAlertDialog(context,
                                       titleText: 'Weekly Free',
-                                      bodyText:
-                                          userData.workDays!.join(', ')),
+                                      bodyText: userData.workDays!.join(', ')),
                                   title1: 'Current Works',
                                   number1: '0',
                                   title2: 'Works Done',

@@ -1,9 +1,10 @@
-import 'package:fixify_app/controller/customer/customer_controller.dart';
-import 'package:fixify_app/controller/signout/signout_controller.dart';
+import 'package:fixify_app/base/show_custom_alert_dialog_with_btn.dart';
+import 'package:fixify_app/controller/auth/auth_signin_controller.dart';
+import 'package:fixify_app/controller/auth/auth_signout_controller.dart';
+import 'package:fixify_app/routes/route_helper.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/buttons/custom_button.dart';
-import 'package:fixify_app/widgets/texts/medium_text.dart';
 import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,19 +48,32 @@ class _SideBarState extends State<SideBar> {
                   ),
 
                   ///FOOTER
-                  Column(
-                    children: [
-                      SizedBox(
-                          width: Dimensions.width10 * 10,
-                          child: CustomButton(
-                            text: 'Signout',
-                            onTap: () => SignOutController.signOut(context),
-                          )),
-                      SizedBox(
-                        height: Dimensions.height15 * 2.5,
-                      ),
-                    ],
-                  )
+                  Get.find<AuthSignOutController>().userLoggedIn()
+                      ? CustomButton(
+                          text: 'Signout',
+                          onTap: () => showCustomAlertDialogWithBtn(context,
+                              titleText: 'Sign out?',
+                              onTapYes: () {
+                                Get.find<AuthSignOutController>()
+                                    .clearSharedData();
+                                Get.offAllNamed(RouteHelper.getHomePage());
+                              },
+                              onTapNo: () => Get.back()),
+                        )
+                      : CustomButton(text: 'Sign In', onTap: () => Get.toNamed(RouteHelper.getAuthPage())),
+                  // Column(
+                  //   children: [
+                  //     SizedBox(
+                  //         width: Dimensions.width10 * 10,
+                  //         child: CustomButton(
+                  //           text: 'Signout',
+                  //           onTap: () => SignOutController.signOut(context),
+                  //         )),
+                  //     SizedBox(
+                  //       height: Dimensions.height15 * 2.5,
+                  //     ),
+                  //   ],
+                  // )
                 ],
               ),
             )

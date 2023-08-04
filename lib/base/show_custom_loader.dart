@@ -1,7 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
-import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -18,7 +17,7 @@ Widget showCustomLoader({Color? color}) {
         DefaultTextStyle(
           style: TextStyle(
               fontSize: Dimensions.font12,
-              color: AppColors.primaryColor
+              color: color ?? AppColors.primaryColor
           ),
           child: AnimatedTextKit(
             repeatForever: true,

@@ -57,7 +57,7 @@ class AuthSignInController extends GetxController {
         await preferences.setString(AppConstants.preferenceUid, userUid);
 
         if (userRole == 'customer') {
-          Get.offAllNamed(RouteHelper.getHomeCustomer());
+          Get.offAllNamed(RouteHelper.getHomePage());
         } else if (userRole == 'technician') {
           Get.offAllNamed(RouteHelper.getHomeTechnician());
         }
@@ -79,7 +79,7 @@ class AuthSignInController extends GetxController {
       if (snapshot.exists) {
         final userData = snapshot.data();
         if (userData!['userRole'] == 'customer') {
-          Get.offAllNamed(RouteHelper.getHomeCustomer());
+          Get.offAllNamed(RouteHelper.getHomePage());
         } else if (userData['userRole'] == 'technician') {
           Get.offAllNamed(RouteHelper.getHomeTechnician());
         }

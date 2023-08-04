@@ -4,8 +4,6 @@ import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:fixify_app/base/show_custom_alert_dialog_with_btn.dart';
 import 'package:fixify_app/base/show_default_snackbar.dart';
 import 'package:fixify_app/controller/technician/technician_controller.dart';
-import 'package:fixify_app/model/division_model.dart';
-import 'package:fixify_app/model/factory_data/factory_data.dart';
 import 'package:fixify_app/widgets/home/technician/edit_profile/edit_profile_info_1st_part.dart';
 import 'package:fixify_app/widgets/home/technician/edit_profile/edit_profile_info_2nd_part.dart';
 import 'package:fixify_app/utils/app_colors.dart';
@@ -85,7 +83,7 @@ class _EditProfileTechnicianState extends State<EditProfileTechnician> {
               CachedNetworkImage(
                   imageUrl: userData.profilePic!,
                   imageBuilder: (context, imageProvider) =>
-                      TechnicianDpWithEditBtn(
+                      DpWithEditBtn(
                         imageProvider: imageProvider,
                         onTapEdit: () {
                           technicianController
@@ -103,7 +101,7 @@ class _EditProfileTechnicianState extends State<EditProfileTechnician> {
                         },
                       ),
                   placeholder: (context, url) => ShimmerWidgetCircle(
-                        radius: Dimensions.technicianViewProfileDpRadius,
+                        radius: Dimensions.viewProfileDpRadius,
                       )),
               SizedBox(
                 height: Dimensions.height10,
