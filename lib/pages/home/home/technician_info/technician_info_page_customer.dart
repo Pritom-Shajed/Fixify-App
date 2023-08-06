@@ -50,7 +50,6 @@ class _TechnicianInfoPageCustomerState
           children: [
             TechnicianInfoHeaderCustomer(
                 onTapHire: () {
-
                   showDialog(
                       barrierDismissible: false,
                       context: context,

@@ -1,6 +1,7 @@
 import 'package:fixify_app/pages/auth/authentication_page.dart';
 import 'package:fixify_app/pages/home/home/home_page.dart';
 import 'package:fixify_app/pages/home/technician/edit_profile/edit_profile_technician.dart';
+import 'package:fixify_app/pages/home/technician/view_all_job_requests.dart';
 import 'package:fixify_app/pages/home/technician/view_profile_technician.dart';
 import 'package:fixify_app/pages/home/technician/home_page_technician.dart';
 import 'package:fixify_app/pages/splashscreen/splashscreen_page.dart';
@@ -32,6 +33,7 @@ class RouteHelper {
   static String homePageTechnician = '/home-technician';
   static String viewProfileTechnician = '/view-profile-technician';
   static String editProfileTechnician = '/edit-profile-technician';
+  static String viewAllJobRequestsTechnician = '/view-all-job-requests-technician';
 
   static String getSplashScreen() => splashScreen;
 
@@ -62,6 +64,8 @@ class RouteHelper {
 
   static String getEditProfileTechnician(String uid) =>
       '$editProfileTechnician?uid=$uid';
+
+  static String getViewAllJobRequestsTechnician({required String technicianUid}) => '$viewAllJobRequestsTechnician?technicianUid=$technicianUid';
 
   static List<GetPage> routes = [
     GetPage(
@@ -147,6 +151,16 @@ class RouteHelper {
           var uid = Get.parameters['uid'];
           return EditProfileTechnician(
             uid: uid!,
+          );
+        }),
+
+    GetPage(
+        name: viewAllJobRequestsTechnician,
+        transition: Transition.cupertino,
+        page: () {
+          var technicianUid = Get.parameters['technicianUid']!;
+          return ViewAllJobRequestsTechnician(
+            technicianUid: technicianUid,
           );
         }),
   ];

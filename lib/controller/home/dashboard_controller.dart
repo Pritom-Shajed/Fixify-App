@@ -54,10 +54,6 @@ class DashboardController extends GetxController {
       final QuerySnapshot<Map<String, dynamic>> snapshot =
           await _firestore.collection('services').get();
 
-      print(snapshot.docs.length);
-
-
-
 
       if (snapshot.docs.isNotEmpty) {
 

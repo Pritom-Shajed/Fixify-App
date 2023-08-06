@@ -2,14 +2,17 @@ import 'package:fixify_app/base/show_custom_alert_dialog.dart';
 import 'package:fixify_app/base/show_custom_alert_dialog_with_btn.dart';
 import 'package:fixify_app/base/show_custom_loader.dart';
 import 'package:fixify_app/controller/auth/auth_signout_controller.dart';
+import 'package:fixify_app/controller/home/technician_hiring_controller.dart';
 import 'package:fixify_app/controller/technician/technician_controller.dart';
 import 'package:fixify_app/routes/route_helper.dart';
+import 'package:fixify_app/widgets/home/technician/technician_activity.dart';
 import 'package:fixify_app/widgets/home/technician/technician_work_info.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/buttons/custom_button.dart';
 import 'package:fixify_app/widgets/home/technician/technician_home_profile_view.dart';
 import 'package:fixify_app/widgets/switches/toggle_switch.dart';
+import 'package:fixify_app/widgets/texts/medium_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,11 +25,20 @@ class HomePageTechnician extends StatefulWidget {
 
 class _HomePageTechnicianState extends State<HomePageTechnician> {
   bool _about = true;
-  final technicianPageController = Get.find<TechnicianPageController>();
+
+  bool _isLoading = true;
+
+  Future<void> loadAllData () async{
+    await Get.find<TechnicianPageController>().fetchTechnicianUserInfo();
+    await Get.find<TechnicianHiringController>().fetchJobRequests();
+    setState(() {
+      _isLoading = false;
+    });
+  }
 
   @override
   void initState() {
-    technicianPageController.fetchTechnicianUserInfo();
+    loadAllData();
     super.initState();
   }
 
@@ -40,12 +52,10 @@ class _HomePageTechnicianState extends State<HomePageTechnician> {
           ),
         ),
         backgroundColor: AppColors.mainBgColor,
-        body: GetBuilder<TechnicianPageController>(
+        body: _isLoading ? showCustomLoader() : GetBuilder<TechnicianPageController>(
           builder: (controller) {
             final userData = controller.userInfoTechnician;
-            return userData == null
-                ? showCustomLoader()
-                : SingleChildScrollView(
+            return SingleChildScrollView(
                     child: Container(
                       padding: EdgeInsets.only(
                           left: Dimensions.padding10,
@@ -55,7 +65,7 @@ class _HomePageTechnicianState extends State<HomePageTechnician> {
                       child: Column(
                         children: [
                           TechnicianHomeProfileViewShort(
-                              fullName: userData.fullName!,
+                              fullName: userData!.fullName!,
                               email: userData.email!,
                               phoneNumber: userData.phoneNumber!,
                               joinedDate: userData.joinedDate!,
@@ -121,9 +131,7 @@ class _HomePageTechnicianState extends State<HomePageTechnician> {
                                   number4: '${userData.workDays!.length}',
                                   subtitle4: 'days',
                                 ),
-                                secondChild: const Center(
-                                  child: Text('Activity'),
-                                ),
+                                secondChild:  TechnicianActivity(),
                               ),
                             ],
                           ),

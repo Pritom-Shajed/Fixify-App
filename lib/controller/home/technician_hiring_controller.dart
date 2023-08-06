@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fixify_app/base/show_custom_snackbar.dart';
 import 'package:fixify_app/base/show_default_snackbar.dart';
@@ -15,6 +17,28 @@ class TechnicianHiringController extends GetxController {
   get hireTextController => _hireTextController.value;
   set hireTextController (value){
     _hireTextController.value = value;
+  }
+
+  List<TechnicianHiringModel> allJobRequests = [];
+
+  Future<void> fetchJobRequests() async {
+    try {
+
+     final QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance
+          .collection('orders').get();
+
+
+      if(snapshot.docs.isNotEmpty){
+        for(var orders in snapshot.docs){
+          allJobRequests.add(TechnicianHiringModel.fromSnap(orders));
+        }
+      }
+
+      update();
+
+    } catch (e) {
+      throw Exception(e.toString());
+    }
   }
 
   Future<void> hireRequestTechnician({
@@ -42,7 +66,7 @@ class TechnicianHiringController extends GetxController {
       await FirebaseFirestore.instance
           .collection('orders')
           .doc(uid)
-          .set(user.toJson())
+          .set(user.toSnap())
           .then((value) => showCustomSnackBar('Wait for him to response',
           title: 'Requested Sent'));
 

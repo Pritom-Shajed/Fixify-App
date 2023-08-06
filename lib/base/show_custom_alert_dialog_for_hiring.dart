@@ -1,8 +1,10 @@
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/buttons/custom_button.dart';
+import 'package:fixify_app/widgets/buttons/custom_button2.dart';
 import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:get/get.dart';
 
 class CustomAlertDialogDialogForHiring extends StatefulWidget {
@@ -53,7 +55,7 @@ class _CustomAlertDialogDialogForHiringState
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SmallText(text: 'Select Service'),
+            const SmallText(text: 'Select Service:'),
             Container(
               margin: EdgeInsets.symmetric(vertical: Dimensions.margin10),
               height: Dimensions.height20 * 2,
@@ -78,25 +80,25 @@ class _CustomAlertDialogDialogForHiringState
                         });
                       },
                       child: Container(
-                        padding: EdgeInsets.all(Dimensions.padding5 / 2),
+                        padding: EdgeInsets.symmetric(horizontal: Dimensions.width10 / 10),
                         alignment: Alignment.center,
                         width: Dimensions.width150 / 1.5,
                         decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.circular(Dimensions.radius4),
+                           border: Border.all(width: 1.2,color: isSelected ? Colors.transparent : AppColors.greyColor.withOpacity(0.5)),
+                            borderRadius: BorderRadius.circular(Dimensions.radius4),
                             color: isSelected
                                 ? AppColors.primaryColor
-                                : AppColors.primaryColor.withOpacity(0.08)),
+                                : AppColors.whiteColor),
                         child: SmallText(
                           text: service,
                           color:isSelected
-                              ? AppColors.whiteColor : AppColors.primaryColor,
+                              ? AppColors.whiteColor : AppColors.blackColor.withOpacity(0.8),
                         ),
                       ),
                     );
                   }),
             ),
-            const SmallText(text: 'Job Description'),
+            const SmallText(text: 'Job Description:'),
             SizedBox(height: Dimensions.height10),
             TextField(
               controller: widget.textEditingController,
@@ -124,13 +126,13 @@ class _CustomAlertDialogDialogForHiringState
               child: Row(
                 children: [
                   Expanded(
-                      child: CustomButton(
+                      child: CustomButton2(
                           text: widget.button1Text, onTap: widget.onTapYes)),
                   SizedBox(
                     width: Dimensions.width10,
                   ),
                   Expanded(
-                      child: CustomButton(
+                      child: CustomButton2(
                           text: widget.button2Text,
                           onTap: widget.onTapNo ?? () => Get.back()))
                 ],

@@ -66,7 +66,7 @@ class _EditProfileCustomerState extends State<EditProfileCustomer> {
                         imageProvider: imageProvider,
                         onTapEdit: () {
                           customerController
-                              .pickImage(ImageSource.camera)
+                              .pickImage(ImageSource.gallery)
                               .then((value) {
                             customerController.customerProfilePic != null
                                 ? showCustomAlertDialogWithBtn(context,

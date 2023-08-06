@@ -63,8 +63,9 @@ class TechnicianPageController extends GetxController {
         showCustomSnackBar('Kindly login in again', title: 'Error');
       }
     } catch (e) {
-      print(e.toString());
       showCustomSnackBar(e.toString(), title: 'Error');
+      throw Exception(e.toString());
+
     }
   }
 

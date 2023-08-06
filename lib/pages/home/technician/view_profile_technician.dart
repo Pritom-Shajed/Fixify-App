@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fixify_app/base/show_default_snackbar.dart';
 import 'package:fixify_app/routes/route_helper.dart';
 import 'package:fixify_app/widgets/buttons/custom_button2.dart';
+import 'package:fixify_app/widgets/buttons/custom_icon_button.dart';
 import 'package:fixify_app/widgets/home/technician/technician_dp_with_edit_btn.dart';
 import 'package:fixify_app/widgets/shimmer_effect/circle_shimmer_widget.dart';
 import 'package:fixify_app/widgets/shimmer_effect/container_shimmer_widget.dart';
@@ -27,6 +28,8 @@ class ViewProfileTechnician extends StatelessWidget {
         backgroundColor: AppColors.mainBgColor,
         appBar: AppBar(
           title: const Text('PROFILE'),
+          leading:
+          CustomIconButton(icon: Icons.arrow_back, onTap: () => Get.back()),
         ),
         body: GetBuilder<TechnicianPageController>(builder: (controller) {
           var userData = controller.userInfoTechnician!;

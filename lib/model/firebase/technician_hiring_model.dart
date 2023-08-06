@@ -1,26 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class TechnicianHiringModel {
   String? technicianUid;
   String? customerUid;
   String? jobDescription;
-  List<String>? serviceName;
+  List<dynamic>? serviceName;
   String? status;
 
-  TechnicianHiringModel({
-    this.technicianUid,
-    this.customerUid,
-    this.jobDescription,
-    this.serviceName,
-    this.status});
+  TechnicianHiringModel(
+      {this.technicianUid,
+      this.customerUid,
+      this.jobDescription,
+      this.serviceName,
+      this.status});
 
-  TechnicianHiringModel.fromJson(Map<String, dynamic> json) {
-    technicianUid = json['technician_uid'];
-    customerUid = json['customer_uid'];
-    jobDescription = json['job_description'];
-    serviceName = json['service_name'];
-    status = json['status'];
-  }
-
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toSnap() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['technician_uid'] = technicianUid;
     data['customer_uid'] = customerUid;
@@ -28,5 +22,16 @@ class TechnicianHiringModel {
     data['service_name'] = serviceName;
     data['status'] = status;
     return data;
+  }
+
+  static TechnicianHiringModel fromSnap(DocumentSnapshot snap) {
+    var data = snap.data() as Map<String, dynamic>;
+    return TechnicianHiringModel(
+      technicianUid: data['technician_uid'],
+      customerUid: data['customer_uid'],
+      jobDescription: data['job_description'],
+      serviceName: data['service_name'],
+      status: data['status'],
+    );
   }
 }
