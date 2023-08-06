@@ -6,7 +6,7 @@ import '../utils/app_colors.dart';
 void showDefaultSnackBar(
   String message,
   BuildContext context, {
-  bool isError = true,
+  bool isError = false,
 }) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       backgroundColor: isError ? Colors.redAccent: AppColors.primaryColor,

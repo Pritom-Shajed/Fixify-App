@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fixify_app/controller/customer/customer_controller.dart';
+import 'package:fixify_app/controller/auth/auth_signout_controller.dart';
+import 'package:fixify_app/controller/home/customer_controller.dart';
+import 'package:fixify_app/pages/home/home/not_logged_in/not_logged_in_page.dart';
 import 'package:fixify_app/routes/route_helper.dart';
 import 'package:fixify_app/widgets/buttons/custom_button2.dart';
 import 'package:fixify_app/widgets/home/technician/technician_dp_with_edit_btn.dart';
@@ -34,9 +36,9 @@ class _ProfilePageCustomerState extends State<ProfilePageCustomer> {
         backgroundColor: AppColors.whiteColor,
         appBar: AppBar(
           backgroundColor: AppColors.whiteColor,
-          title: const Text('PROFILE'),
+          title: const Text('ACCOUNT'),
         ),
-        body: GetBuilder<CustomerController>(builder: (controller) {
+        body:  Get.find<AuthSignOutController>().userLoggedIn() ? GetBuilder<CustomerController>(builder: (controller) {
           var userData = controller.userInfoCustomer!;
           return Padding(
             padding: EdgeInsets.symmetric(
@@ -154,6 +156,6 @@ class _ProfilePageCustomerState extends State<ProfilePageCustomer> {
               ),
             ),
           );
-        }));
+        }): const NotLoggedInPage() ) ;
   }
 }

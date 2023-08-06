@@ -57,7 +57,7 @@ class AuthSignInController extends GetxController {
         await preferences.setString(AppConstants.preferenceUid, userUid);
 
         if (userRole == 'customer') {
-          Get.offAllNamed(RouteHelper.getHomePage());
+          Get.offAllNamed(RouteHelper.getSplashScreen());
         } else if (userRole == 'technician') {
           Get.offAllNamed(RouteHelper.getHomeTechnician());
         }

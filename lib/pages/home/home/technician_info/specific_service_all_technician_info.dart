@@ -1,4 +1,4 @@
-import 'package:fixify_app/controller/customer/customer_dashboard_controller.dart';
+import 'package:fixify_app/controller/home/dashboard_controller.dart';
 import 'package:fixify_app/routes/route_helper.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
@@ -13,7 +13,7 @@ class SpecificServiceAllTechnicianInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var allTechnician = Get.find<CustomerDashboardController>().technicianInfo.where((element) => element.services!.any((element) => element == serviceName));
+    var allTechnician = Get.find<DashboardController>().technicianInfo.where((element) => element.services!.any((element) => element == serviceName));
     return Scaffold(
       appBar: AppBar(
         leading:

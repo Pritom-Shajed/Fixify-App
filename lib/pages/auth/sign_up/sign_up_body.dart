@@ -182,7 +182,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                           children: [
                             ///Pick Image
                             CustomTextField(
-                              onTap: () => authController.pickImage(ImageSource.camera),
+                              onTap: () => authController.pickImage(ImageSource.gallery),
                               isEnabled: false,
                               titleText: 'Pick Image',
                               suffixIcon: const Icon(Icons.photo_library_outlined),

@@ -1,16 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:day_night_time_picker/day_night_time_picker.dart';
-import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:fixify_app/base/show_custom_alert_dialog_with_btn.dart';
 import 'package:fixify_app/base/show_default_snackbar.dart';
-import 'package:fixify_app/controller/customer/customer_controller.dart';
-import 'package:fixify_app/controller/technician/technician_controller.dart';
-import 'package:fixify_app/model/division_model.dart';
-import 'package:fixify_app/model/factory_data/factory_data.dart';
+import 'package:fixify_app/controller/home/customer_controller.dart';
 import 'package:fixify_app/widgets/buttons/custom_button2.dart';
 import 'package:fixify_app/widgets/buttons/custom_icon_button.dart';
-import 'package:fixify_app/widgets/home/technician/edit_profile/edit_profile_info_1st_part.dart';
-import 'package:fixify_app/widgets/home/technician/edit_profile/edit_profile_info_2nd_part.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/home/technician/technician_dp_with_edit_btn.dart';
@@ -21,9 +14,6 @@ import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
-import '../../../../widgets/buttons/custom_button.dart';
 
 class EditProfileCustomer extends StatefulWidget {
   final String uid;

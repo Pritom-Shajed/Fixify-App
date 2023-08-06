@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fixify_app/base/show_custom_snackbar.dart';
 import 'package:fixify_app/model/firebase/services_model.dart';
@@ -7,14 +6,15 @@ import 'package:fixify_app/model/firebase/user_model_technician.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CustomerDashboardController extends GetxController {
+class DashboardController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final SharedPreferences sharedPreferences;
+
 
   List<UserModelTechnician> technicianInfo = [];
   List<ServicesModel> allServices = [];
 
-  CustomerDashboardController({required this.sharedPreferences});
+  DashboardController({required this.sharedPreferences});
 
   String selectedDivision = 'Dhaka';
 

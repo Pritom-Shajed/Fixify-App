@@ -1,5 +1,10 @@
+import 'package:fixify_app/base/show_custom_alert_dialog_for_hiring.dart';
+import 'package:fixify_app/base/show_default_snackbar.dart';
 import 'package:fixify_app/base/show_fixify_footer.dart';
-import 'package:fixify_app/controller/customer/customer_dashboard_controller.dart';
+import 'package:fixify_app/controller/home/customer_controller.dart';
+import 'package:fixify_app/controller/home/dashboard_controller.dart';
+import 'package:fixify_app/controller/home/technician_hiring_controller.dart';
+import 'package:fixify_app/routes/route_helper.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/buttons/custom_icon_button.dart';
@@ -12,18 +17,28 @@ import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TechnicianInfoPageCustomer extends StatelessWidget {
-  final String uid;
+class TechnicianInfoPageCustomer extends StatefulWidget {
+  final String technicianUid;
 
-  const TechnicianInfoPageCustomer({Key? key, required this.uid})
+  const TechnicianInfoPageCustomer({Key? key, required this.technicianUid})
       : super(key: key);
 
   @override
+  State<TechnicianInfoPageCustomer> createState() =>
+      _TechnicianInfoPageCustomerState();
+}
+
+class _TechnicianInfoPageCustomerState
+    extends State<TechnicianInfoPageCustomer> {
+  @override
   Widget build(BuildContext context) {
-    final userData = Get.find<CustomerDashboardController>()
+    final userData = Get.find<DashboardController>()
         .technicianInfo
-        .where((element) => element.uid == uid)
+        .where((element) => element.uid == widget.technicianUid)
         .single;
+
+    List<String> selectedServices = [];
+
     return Scaffold(
         appBar: AppBar(
           leading:
@@ -34,7 +49,58 @@ class TechnicianInfoPageCustomer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TechnicianInfoHeaderCustomer(
-                onTapHire: () {},
+                onTapHire: () {
+
+                  showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (context) {
+                        return CustomAlertDialogDialogForHiring(
+                            textEditingController:
+                                Get.find<TechnicianHiringController>()
+                                    .hireTextController,
+                            hintText: 'Write the job description in details',
+                            totalServicesOffered:
+                                userData.services?.length ?? 0,
+                            servicesName: userData.services!,
+                            selectedServices: selectedServices,
+                            onTapSelectService: (service) {
+                              if (selectedServices.contains(service)) {
+                                selectedServices.remove(service);
+                              } else {
+                                selectedServices.add(service);
+                              }
+                            },
+                            onTapYes: () {
+                              if(selectedServices.isEmpty){
+                                showDefaultSnackBar(
+                                    'Select your preferred service', context);
+                              } else if ( Get.find<TechnicianHiringController>()
+                                      .hireTextController
+                                      .text ==
+                                  '') {
+                                showDefaultSnackBar(
+                                    'Enter job description', context);
+                              } else {
+                                Get.back();
+
+                                Get.find<TechnicianHiringController>()
+                                    .hireRequestTechnician(
+                                        context: context,
+                                        technicianUid: userData.uid ?? 'null',
+                                        customerUid:
+                                            Get.find<CustomerController>()
+                                                    .userInfoCustomer
+                                                    ?.uid ??
+                                                'null',
+                                        serviceName: selectedServices,
+                                        status: 'on progress')
+                                    .whenComplete(() => Get.offNamed(
+                                        RouteHelper.getHomePage()));
+                              }
+                            });
+                      });
+                },
                 fullName: userData.fullName!,
                 nickName: userData.nickName!,
                 division: userData.division!,
@@ -71,7 +137,7 @@ class TechnicianInfoPageCustomer extends StatelessWidget {
                       children: [
                         ProfilePreviewCard(children: [
                           ///Services
-                           MediumText(
+                          MediumText(
                             text: 'Services',
                             fontSize: Dimensions.font14,
                           ),
@@ -82,8 +148,7 @@ class TechnicianInfoPageCustomer extends StatelessWidget {
                             alignment: Alignment.topLeft,
                             child: ListView.separated(
                                 physics: const BouncingScrollPhysics(),
-                                separatorBuilder: (context, index) =>
-                                    SizedBox(
+                                separatorBuilder: (context, index) => SizedBox(
                                       width: Dimensions.width10,
                                     ),
                                 shrinkWrap: true,
@@ -92,7 +157,8 @@ class TechnicianInfoPageCustomer extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   final service = userData.services![index];
                                   return Container(
-                                    padding: EdgeInsets.all(Dimensions.padding5/2),
+                                    padding:
+                                        EdgeInsets.all(Dimensions.padding5 / 2),
                                     alignment: Alignment.center,
                                     width: Dimensions.width150 / 1.5,
                                     decoration: BoxDecoration(
@@ -108,7 +174,9 @@ class TechnicianInfoPageCustomer extends StatelessWidget {
                                   );
                                 }),
                           ),
-                          SizedBox(height: Dimensions.height10,),
+                          SizedBox(
+                            height: Dimensions.height10,
+                          ),
 
                           TechnicianInfoText(
                             text1: 'Nickname',

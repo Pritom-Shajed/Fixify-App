@@ -4,6 +4,7 @@ import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'helper/dependencies.dart' as dep;
 
@@ -15,12 +16,28 @@ Future main() async {
   await Firebase.initializeApp();
   await dep.init();
   runApp(const MyApp());
+  configLoading();
+}
+
+void configLoading() {
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 2000)
+    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+    ..loadingStyle = EasyLoadingStyle.dark
+    ..indicatorSize = 45.0
+    ..radius = 10.0
+    ..progressColor = AppColors.whiteColor
+    ..backgroundColor = AppColors.blackColor
+    ..indicatorColor = Colors.yellow
+    ..textColor = Colors.yellow
+    ..maskColor = Colors.blue.withOpacity(0.5)
+    ..userInteractions = false
+    ..dismissOnTap = false;
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -40,6 +57,7 @@ class MyApp extends StatelessWidget {
       ),
       getPages: RouteHelper.routes,
       initialRoute: RouteHelper.getSplashScreen(),
+      builder: EasyLoading.init(),
     );
   }
 }

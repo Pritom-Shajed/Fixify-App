@@ -22,7 +22,8 @@ class RouteHelper {
   //Customer
   static String homePage = '/home-customer';
   static String technicianInfoPageCustomer = '/tech-info-customer';
-  static String specificServiceAllTechnicianInfo = '/specific-service-all-technician-info-customer';
+  static String specificServiceAllTechnicianInfo =
+      '/specific-service-all-technician-info-customer';
   static String subServicesPage = '/sub-service-page';
   static String serviceDetailPage = '/services-detail-page';
   static String editProfileCustomer = '/edit-profile-customer';
@@ -47,12 +48,12 @@ class RouteHelper {
 
   static String getSubServicesPage(String uid) => '$subServicesPage?uid=$uid';
 
-  static String getServiceDetailPage({required String index, required String uid}) =>
+  static String getServiceDetailPage(
+          {required String index, required String uid}) =>
       '$serviceDetailPage?index=$index&uid=$uid';
 
   static String getEditProfileCustomer(String uid) =>
       '$editProfileCustomer?uid=$uid';
-
 
   //Technician
   static String getHomeTechnician() => homePageTechnician;
@@ -63,7 +64,10 @@ class RouteHelper {
       '$editProfileTechnician?uid=$uid';
 
   static List<GetPage> routes = [
-    GetPage(name: splashScreen, page: () => const SplashScreen()),
+    GetPage(
+        name: splashScreen,
+        transition: Transition.fadeIn,
+        page: () => const SplashScreen()),
     GetPage(
         name: authPage,
         transition: Transition.cupertino,
@@ -111,9 +115,9 @@ class RouteHelper {
         name: technicianInfoPageCustomer,
         transition: Transition.cupertino,
         page: () {
-          var uid = Get.parameters['uid']!;
+          var technicianUid = Get.parameters['uid']!;
           return TechnicianInfoPageCustomer(
-            uid: uid,
+            technicianUid: technicianUid,
           );
         }),
 

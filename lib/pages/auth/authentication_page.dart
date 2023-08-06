@@ -2,7 +2,7 @@ import 'package:fixify_app/base/show_custom_loader.dart';
 import 'package:fixify_app/base/show_custom_snackbar.dart';
 import 'package:fixify_app/controller/auth/auth_signin_controller.dart';
 import 'package:fixify_app/controller/auth/auth_signup_controller.dart';
-import 'package:fixify_app/controller/customer/customer_dashboard_controller.dart';
+import 'package:fixify_app/controller/home/dashboard_controller.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/pages/auth/auth_body.dart';
 import 'package:fixify_app/widgets/auth/auth_button.dart';
@@ -33,7 +33,7 @@ class _AuthPageState extends State<AuthPage> {
   bool _isLoading = true;
 
   Future<void> _loadResources() async {
-    await Get.find<CustomerDashboardController>().fetchAllServices();
+    await Get.find<DashboardController>().fetchAllServices();
     setState(() {
       _isLoading = false;
     });

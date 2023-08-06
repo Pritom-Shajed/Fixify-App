@@ -1,7 +1,7 @@
 import 'package:fixify_app/base/side_bar.dart';
 import 'package:fixify_app/controller/auth/auth_signout_controller.dart';
-import 'package:fixify_app/controller/customer/customer_controller.dart';
-import 'package:fixify_app/controller/customer/customer_dashboard_controller.dart';
+import 'package:fixify_app/controller/home/customer_controller.dart';
+import 'package:fixify_app/controller/home/dashboard_controller.dart';
 import 'package:fixify_app/routes/route_helper.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
@@ -20,8 +20,8 @@ class DashboardPage extends StatelessWidget {
 
   Future<void> _loadAllData() async {
     await Get.find<CustomerController>().fetchCustomerUserInfo();
-    await Get.find<CustomerDashboardController>().fetchAllTechnician();
-    await Get.find<CustomerDashboardController>().fetchAllServices();
+    await Get.find<DashboardController>().fetchAllTechnician();
+    await Get.find<DashboardController>().fetchAllServices();
   }
 
   @override
@@ -36,7 +36,7 @@ class DashboardPage extends StatelessWidget {
             CustomIconButton(icon: Icons.notifications, onTap: () {}),
           ],
         ),
-        body: GetBuilder<CustomerDashboardController>(
+        body: GetBuilder<DashboardController>(
           builder: (dashboardController) {
             final technicianInfo = dashboardController.technicianInfo;
             return GetBuilder<CustomerController>(

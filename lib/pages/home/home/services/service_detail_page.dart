@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fixify_app/controller/customer/customer_dashboard_controller.dart';
+import 'package:fixify_app/controller/home/dashboard_controller.dart';
 import 'package:fixify_app/routes/route_helper.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
@@ -20,7 +20,7 @@ class ServiceDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var subService = Get.find<CustomerDashboardController>()
+    var subService = Get.find<DashboardController>()
         .allServices
         .where((element) => element.uid == uid)
         .single
@@ -64,7 +64,7 @@ class ServiceDetailPage extends StatelessWidget {
                           onTap: () {
                             Get.toNamed(
                                 RouteHelper.getSpecificServiceAllTechnicianInfo(
-                                    Get.find<CustomerDashboardController>()
+                                    Get.find<DashboardController>()
                                         .allServices
                                         .where((element) => element.uid == uid)
                                         .single

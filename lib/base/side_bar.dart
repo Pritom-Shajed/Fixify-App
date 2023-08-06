@@ -1,10 +1,10 @@
 import 'package:fixify_app/base/show_custom_alert_dialog_with_btn.dart';
-import 'package:fixify_app/controller/auth/auth_signin_controller.dart';
 import 'package:fixify_app/controller/auth/auth_signout_controller.dart';
 import 'package:fixify_app/routes/route_helper.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/buttons/custom_button.dart';
+import 'package:fixify_app/widgets/buttons/custom_button2.dart';
 import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,6 +22,7 @@ class _SideBarState extends State<SideBar> {
     return Drawer(
       child: Container(
         color: AppColors.whiteColor,
+        padding: EdgeInsets.symmetric(horizontal: Dimensions.width10),
         child: CustomScrollView(
           scrollDirection: Axis.vertical,
           slivers: [
@@ -40,8 +41,7 @@ class _SideBarState extends State<SideBar> {
                   SizedBox(
                     height: Dimensions.height5,
                   ),
-                  const SmallText(
-                      text: 'Simplifying Technician Solution'),
+                  const SmallText(text: 'Simplifying Technician Solution'),
                   Divider(
                     color: AppColors.greyColor,
                     height: Dimensions.height20 * 2,
@@ -49,18 +49,22 @@ class _SideBarState extends State<SideBar> {
 
                   ///FOOTER
                   Get.find<AuthSignOutController>().userLoggedIn()
-                      ? CustomButton(
+                      ? CustomButton2(
+                          icon: Icons.logout,
                           text: 'Signout',
                           onTap: () => showCustomAlertDialogWithBtn(context,
                               titleText: 'Sign out?',
                               onTapYes: () {
                                 Get.find<AuthSignOutController>()
                                     .clearSharedData();
-                                Get.offAllNamed(RouteHelper.getHomePage());
+                                Get.offAllNamed(RouteHelper.getSplashScreen());
                               },
                               onTapNo: () => Get.back()),
                         )
-                      : CustomButton(text: 'Sign In', onTap: () => Get.toNamed(RouteHelper.getAuthPage())),
+                      : CustomButton2(
+                          text: 'Sign In',
+                          icon: Icons.login,
+                          onTap: () => Get.toNamed(RouteHelper.getAuthPage())),
                   // Column(
                   //   children: [
                   //     SizedBox(

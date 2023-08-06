@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fixify_app/controller/customer/customer_dashboard_controller.dart';
+import 'package:fixify_app/controller/home/dashboard_controller.dart';
 import 'package:fixify_app/routes/route_helper.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
@@ -17,7 +17,7 @@ class SubServicePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final service = Get.find<CustomerDashboardController>()
+    final service = Get.find<DashboardController>()
         .allServices
         .where((element) => element.uid == uid)
         .single;

@@ -4,7 +4,7 @@ import 'package:fixify_app/widgets/buttons/custom_button.dart';
 import 'package:fixify_app/widgets/texts/medium_text.dart';
 import 'package:flutter/material.dart';
 
-void showCustomAlertDialogWithBtn (BuildContext context, {
+ showCustomAlertDialogWithBtn (BuildContext context, {
   required String titleText,
    String? subtitleText,
    String button1Text = 'Yes',
