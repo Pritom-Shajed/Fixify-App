@@ -4,6 +4,7 @@ import 'package:fixify_app/controller/auth/auth_signout_controller.dart';
 import 'package:fixify_app/controller/home/customer_controller.dart';
 import 'package:fixify_app/controller/home/dashboard_controller.dart';
 import 'package:fixify_app/controller/home/home_page_controller.dart';
+import 'package:fixify_app/controller/home/technician_hiring_controller.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,6 +35,9 @@ class _HomePageState extends State<HomePage> {
         : null;
     await Get.find<DashboardController>().fetchAllTechnician();
     await Get.find<DashboardController>().fetchAllServices();
+    Get.find<AuthSignOutController>().userLoggedIn()
+        ? await Get.find<TechnicianHiringController>().fetchJobRequests()
+        : null;
     setState(() {
       _isLoading = false;
     });

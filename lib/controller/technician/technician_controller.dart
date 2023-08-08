@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fixify_app/base/show_custom_loader.dart';
 import 'package:fixify_app/base/show_custom_snackbar.dart';
+import 'package:fixify_app/model/firebase/user_model_customer.dart';
 import 'package:fixify_app/model/firebase/user_model_technician.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,7 @@ class TechnicianPageController extends GetxController {
   }
 
   UserModelTechnician? userInfoTechnician;
+  UserModelCustomer? userInfoCustomer;
 
   Future<void> fetchTechnicianUserInfo() async {
     final uid = preferences.getString('uid');
@@ -158,4 +160,6 @@ class TechnicianPageController extends GetxController {
       throw Exception(e.toString());
     }
   }
+
+
 }

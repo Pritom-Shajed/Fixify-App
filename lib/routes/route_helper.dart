@@ -1,6 +1,9 @@
 import 'package:fixify_app/pages/auth/authentication_page.dart';
+import 'package:fixify_app/pages/home/home/hirings/hiring_detail_info.dart';
+import 'package:fixify_app/pages/home/home/hirings/hirings_page.dart';
 import 'package:fixify_app/pages/home/home/home_page.dart';
 import 'package:fixify_app/pages/home/technician/edit_profile/edit_profile_technician.dart';
+import 'package:fixify_app/pages/home/technician/job_details_page.dart';
 import 'package:fixify_app/pages/home/technician/view_all_job_requests.dart';
 import 'package:fixify_app/pages/home/technician/view_profile_technician.dart';
 import 'package:fixify_app/pages/home/technician/home_page_technician.dart';
@@ -28,13 +31,17 @@ class RouteHelper {
   static String subServicesPage = '/sub-service-page';
   static String serviceDetailPage = '/services-detail-page';
   static String editProfileCustomer = '/edit-profile-customer';
+  static String hiringsPage = '/hirings-page';
+  static String hiringDetailInfo = '/hirings-detail-info';
 
   //Technician
   static String homePageTechnician = '/home-technician';
   static String viewProfileTechnician = '/view-profile-technician';
   static String editProfileTechnician = '/edit-profile-technician';
   static String viewAllJobRequestsTechnician = '/view-all-job-requests-technician';
+  static String viewJobDetailsPageTechnician = '/view-job-details-page-technician';
 
+  //Initial
   static String getSplashScreen() => splashScreen;
 
   static String getAuthPage() => authPage;
@@ -57,6 +64,10 @@ class RouteHelper {
   static String getEditProfileCustomer(String uid) =>
       '$editProfileCustomer?uid=$uid';
 
+  static String getHiringsPage() => hiringsPage;
+
+  static String getHiringDetailInfo(String jobId) => '$hiringDetailInfo?jobId=$jobId';
+
   //Technician
   static String getHomeTechnician() => homePageTechnician;
 
@@ -66,6 +77,10 @@ class RouteHelper {
       '$editProfileTechnician?uid=$uid';
 
   static String getViewAllJobRequestsTechnician({required String technicianUid}) => '$viewAllJobRequestsTechnician?technicianUid=$technicianUid';
+
+  static String getViewJobDetailsPageTechnician(String jobId) => '$viewJobDetailsPageTechnician?jobId=$jobId';
+
+
 
   static List<GetPage> routes = [
     GetPage(
@@ -135,6 +150,21 @@ class RouteHelper {
           );
         }),
 
+    GetPage(
+        name: hiringsPage,
+        transition: Transition.cupertino,
+        page: () => const HiringsPage()),
+
+    GetPage(
+        name: hiringDetailInfo,
+        transition: Transition.cupertino,
+        page: () {
+          var jobId = Get.parameters['jobId']!;
+          return HiringDetailInfo(
+            jobId: jobId,
+          );
+        }),
+
     //Technician
     GetPage(
         name: homePageTechnician,
@@ -161,6 +191,16 @@ class RouteHelper {
           var technicianUid = Get.parameters['technicianUid']!;
           return ViewAllJobRequestsTechnician(
             technicianUid: technicianUid,
+          );
+        }),
+
+    GetPage(
+        name: viewJobDetailsPageTechnician,
+        transition: Transition.cupertino,
+        page: () {
+          var jobId = Get.parameters['jobId']!;
+          return JobDetailsPageTechnician(
+            jobId: jobId,
           );
         }),
   ];

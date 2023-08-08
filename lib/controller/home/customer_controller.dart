@@ -139,5 +139,4 @@ class CustomerController extends GetxController {
     }
   }
 
-
 }

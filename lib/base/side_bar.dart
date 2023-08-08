@@ -3,7 +3,6 @@ import 'package:fixify_app/controller/auth/auth_signout_controller.dart';
 import 'package:fixify_app/routes/route_helper.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
-import 'package:fixify_app/widgets/buttons/custom_button.dart';
 import 'package:fixify_app/widgets/buttons/custom_button2.dart';
 import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:flutter/material.dart';
@@ -65,6 +64,16 @@ class _SideBarState extends State<SideBar> {
                           text: 'Sign In',
                           icon: Icons.login,
                           onTap: () => Get.toNamed(RouteHelper.getAuthPage())),
+
+                  SizedBox(height: Dimensions.height10,),
+
+                  Get.find<AuthSignOutController>().userLoggedIn()
+                      ? CustomButton2(
+                          icon: Icons.work,
+                          text: 'Hirings',
+                          onTap: () => Get.toNamed(RouteHelper.getHiringsPage()),
+                        )
+                      : const SizedBox()
                   // Column(
                   //   children: [
                   //     SizedBox(
