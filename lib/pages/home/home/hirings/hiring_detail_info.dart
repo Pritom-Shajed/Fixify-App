@@ -25,8 +25,9 @@ class HiringDetailInfo extends StatelessWidget {
     final technicianInfo =
         Get.find<TechnicianHiringController>().userInfoTechnician;
     return Scaffold(
-      backgroundColor: AppColors.mainBgColor,
+      backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
+        backgroundColor: AppColors.whiteColor,
         leading:
         CustomIconButton(icon: Icons.arrow_back, onTap: () => Get.back()),
       ),

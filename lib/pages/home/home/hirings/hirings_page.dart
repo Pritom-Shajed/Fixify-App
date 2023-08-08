@@ -16,12 +16,7 @@ class HiringsPage extends StatelessWidget {
     final hirings = Get
         .find<TechnicianHiringController>()
         .allJobRequests
-        .where((element) =>
-    element.customerUid ==
-        Get
-            .find<CustomerController>()
-            .userInfoCustomer!
-            .uid)
+        .where((element) => element.customerUid == Get.find<CustomerController>().userInfoCustomer!.uid)
         .toList();
     return Scaffold(
         backgroundColor: AppColors.whiteColor,
@@ -40,10 +35,11 @@ class HiringsPage extends StatelessWidget {
                 var job = hirings[index];
                 return JobRequestCard(
                     onTap: () {
+                      print(job.technicianUid);
                       Get.find<TechnicianHiringController>()
                           .fetchSpecificTechnicianInfo(job.technicianUid!)
                           .whenComplete(() => Get.toNamed(
-                          RouteHelper.getHiringDetailInfo(job.technicianUid!)));
+                          RouteHelper.getHiringDetailInfo(job.id!)));
                     },
                     bgColor: AppColors.primaryColorLight,
                     services: job.serviceName!.join(', '),
