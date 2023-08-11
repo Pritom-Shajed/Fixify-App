@@ -23,6 +23,7 @@ class _SideBarState extends State<SideBar> {
         color: AppColors.whiteColor,
         padding: EdgeInsets.symmetric(horizontal: Dimensions.width10),
         child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.vertical,
           slivers: [
             SliverFillRemaining(

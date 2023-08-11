@@ -1,6 +1,8 @@
 import 'package:fixify_app/base/show_custom_alert_dialog_for_hiring.dart';
+import 'package:fixify_app/base/show_custom_toast.dart';
 import 'package:fixify_app/base/show_default_snackbar.dart';
 import 'package:fixify_app/base/show_fixify_footer.dart';
+import 'package:fixify_app/controller/auth/auth_signout_controller.dart';
 import 'package:fixify_app/controller/home/customer_controller.dart';
 import 'package:fixify_app/controller/home/dashboard_controller.dart';
 import 'package:fixify_app/controller/home/technician_hiring_controller.dart';
@@ -50,55 +52,59 @@ class _TechnicianInfoPageCustomerState
           children: [
             TechnicianInfoHeaderCustomer(
                 onTapHire: () {
-                  showDialog(
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (context) {
-                        return CustomAlertDialogDialogForHiring(
-                            textEditingController:
-                                Get.find<TechnicianHiringController>()
-                                    .hireTextController,
-                            hintText: 'Write the job description in details',
-                            totalServicesOffered:
-                                userData.services?.length ?? 0,
-                            servicesName: userData.services!,
-                            selectedServices: selectedServices,
-                            onTapSelectService: (service) {
-                              if (selectedServices.contains(service)) {
-                                selectedServices.remove(service);
-                              } else {
-                                selectedServices.add(service);
-                              }
-                            },
-                            onTapYes: () {
-                              if(selectedServices.isEmpty){
-                                showDefaultSnackBar(
-                                    'Select your preferred service', context);
-                              } else if ( Get.find<TechnicianHiringController>()
-                                      .hireTextController
-                                      .text ==
-                                  '') {
-                                showDefaultSnackBar(
-                                    'Enter job description', context);
-                              } else {
-                                Get.back();
+                 if(Get.find<AuthSignOutController>().userLoggedIn()){
+                     showDialog(
+                       barrierDismissible: false,
+                       context: context,
+                       builder: (context) {
+                         return CustomAlertDialogDialogForHiring(
+                             textEditingController:
+                             Get.find<TechnicianHiringController>()
+                                 .hireTextController,
+                             hintText: 'Write the job description in details',
+                             totalServicesOffered:
+                             userData.services?.length ?? 0,
+                             servicesName: userData.services!,
+                             selectedServices: selectedServices,
+                             onTapSelectService: (service) {
+                               if (selectedServices.contains(service)) {
+                                 selectedServices.remove(service);
+                               } else {
+                                 selectedServices.add(service);
+                               }
+                             },
+                             onTapYes: () {
+                               if(selectedServices.isEmpty){
+                                 showDefaultSnackBar(
+                                     'Select your preferred service', context);
+                               } else if ( Get.find<TechnicianHiringController>()
+                                   .hireTextController
+                                   .text ==
+                                   '') {
+                                 showDefaultSnackBar(
+                                     'Enter job description', context);
+                               } else {
+                                 Get.back();
 
-                                Get.find<TechnicianHiringController>()
-                                    .hireRequestTechnician(
-                                        context: context,
-                                        technicianUid: userData.uid ?? 'null',
-                                        customerUid:
-                                            Get.find<CustomerController>()
-                                                    .userInfoCustomer
-                                                    ?.uid ??
-                                                'null',
-                                        serviceName: selectedServices,
-                                        status: 'on progress')
-                                    .whenComplete(() => Get.offNamed(
-                                        RouteHelper.getHomePage()));
-                              }
-                            });
-                      });
+                                 Get.find<TechnicianHiringController>()
+                                     .hireRequestTechnician(
+                                     context: context,
+                                     technicianUid: userData.uid ?? 'null',
+                                     customerUid:
+                                     Get.find<CustomerController>()
+                                         .userInfoCustomer
+                                         ?.uid ??
+                                         'null',
+                                     serviceName: selectedServices,
+                                     status: 'on progress')
+                                     .whenComplete(() => Get.offNamed(
+                                     RouteHelper.getHomePage()));
+                               }
+                             });
+                       });
+                 } else {
+                   showCustomToast('Sign in to start hiring');
+                 }
                 },
                 fullName: userData.fullName!,
                 nickName: userData.nickName!,

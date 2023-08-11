@@ -20,22 +20,19 @@ class HiringDetailInfoCustomer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final jobDetail = Get
-        .find<TechnicianHiringController>()
+    final jobDetail = Get.find<TechnicianHiringController>()
         .allJobRequests
         .where((element) => element.id == jobId)
         .single;
 
     final technicianInfo =
-        Get
-            .find<TechnicianHiringController>()
-            .userInfoTechnician;
+        Get.find<TechnicianHiringController>().userInfoTechnician;
     return Scaffold(
         backgroundColor: AppColors.whiteColor,
         appBar: AppBar(
           backgroundColor: AppColors.mainBgColor.withOpacity(0.3),
           leading:
-          CustomIconButton(icon: Icons.arrow_back, onTap: () => Get.back()),
+              CustomIconButton(icon: Icons.arrow_back, onTap: () => Get.back()),
         ),
         body: GetBuilder<TechnicianHiringController>(
           builder: (hiringController) {
@@ -43,12 +40,12 @@ class HiringDetailInfoCustomer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  height: Dimensions.screenHeight / 3.5,
+                  height: Dimensions.screenHeight / 4,
                   width: double.maxFinite,
                   color: AppColors.mainBgColor.withOpacity(0.3),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: Dimensions.width10),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: Dimensions.width10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -82,27 +79,36 @@ class HiringDetailInfoCustomer extends StatelessWidget {
                             ),
                           ],
                         ),
-                        ((){
-                          if(jobDetail.status == 'on progress'){
-                            if(jobDetail.lastUpdated == 'technician'){
+                        (() {
+                          if (jobDetail.status == 'on progress') {
+                            if (jobDetail.lastUpdated == 'technician') {
                               return Row(
                                 children: [
-                                  Expanded(child: CustomButton2(
-                                      text: 'Accept Offer', onTap: () {
-                                    hiringController
-                                        .acceptOrRejectOffer(
-                                        jobId: jobId, isAccepted: true)
-                                        .whenComplete(() =>
-                                        Get.toNamed(RouteHelper.getHomePage()));
-                                  })),
-                                  SizedBox(width: Dimensions.width10,),
-                                  Expanded(child: CustomButton2(
-                                      text: 'Reject Offer', onTap: () {
-                                    hiringController.acceptOrRejectOffer(
-                                        jobId: jobId, isAccepted: false)
-                                        .whenComplete(() =>
-                                        Get.toNamed(RouteHelper.getHomePage()));
-                                  })),
+                                  Expanded(
+                                      child: CustomButton2(
+                                          text: 'Accept Offer',
+                                          onTap: () {
+                                            hiringController
+                                                .acceptOrRejectOffer(
+                                                    jobId: jobId,
+                                                    isAccepted: true)
+                                                .whenComplete(() => Get.toNamed(
+                                                    RouteHelper.getHomePage()));
+                                          })),
+                                  SizedBox(
+                                    width: Dimensions.width10,
+                                  ),
+                                  Expanded(
+                                      child: CustomButton2(
+                                          text: 'Reject Offer',
+                                          onTap: () {
+                                            hiringController
+                                                .acceptOrRejectOffer(
+                                                    jobId: jobId,
+                                                    isAccepted: false)
+                                                .whenComplete(() => Get.toNamed(
+                                                    RouteHelper.getHomePage()));
+                                          })),
                                 ],
                               );
                             } else {
@@ -116,20 +122,18 @@ class HiringDetailInfoCustomer extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 Expanded(
                   child: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
                     child: Padding(
                         padding: EdgeInsets.all(Dimensions.padding15 * 1.5),
                         child: HiringInfoCardCustomer(
-                          workingArea: '${technicianInfo
-                              .preferredArea}, ${technicianInfo.division}',
-                          availability: '${technicianInfo.workDays?.join(
-                              ', ')}\n${technicianInfo.time1} - ${technicianInfo
-                              .time2}',
-                          hiringPriceController: hiringController
-                              .hiringPriceController,
+                          workingArea:
+                              '${technicianInfo.preferredArea}, ${technicianInfo.division}',
+                          availability:
+                              '${technicianInfo.workDays?.join(', ')}\n${technicianInfo.time1} - ${technicianInfo.time2}',
+                          hiringPriceController:
+                              hiringController.hiringPriceController,
                           status: jobDetail.status?.toUpperCase() ?? 'null',
                           lastUpdated: jobDetail.lastUpdated ?? 'customer',
                           price: jobDetail.price ?? '0',
@@ -137,11 +141,16 @@ class HiringDetailInfoCustomer extends StatelessWidget {
                           services: jobDetail.serviceName?.join(', ') ?? 'null',
                           jobDescription: jobDetail.jobDescription ?? 'null',
                           onTapPriceUpdate: () {
-                            if (hiringController.hiringPriceController.text == '0') {
+                            if (hiringController.hiringPriceController.text ==
+                                '0') {
                               showCustomToast(
                                   'Wait for technician\'s initial price offer');
                             } else {
-                              hiringController.updateHiringPrice(jobId: jobId, isCustomer: true).whenComplete(() => Get.toNamed(RouteHelper.getHomePage()));
+                              hiringController
+                                  .updateHiringPrice(
+                                      jobId: jobId, isCustomer: true)
+                                  .whenComplete(() =>
+                                      Get.toNamed(RouteHelper.getHomePage()));
                             }
                           },
                         )),
@@ -149,7 +158,7 @@ class HiringDetailInfoCustomer extends StatelessWidget {
                 )
               ],
             );
-          },)
-    );
+          },
+        ));
   }
 }

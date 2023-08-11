@@ -51,6 +51,7 @@ class Dimensions {
   //Icon
   static double icon20 = screenHeight / 39.15;
   static double icon15 = screenHeight / 52.2;
+  static double icon10 = screenHeight / 78.3;
 
   //Splash Screen
   static double splashScreenLogoSize200 = screenHeight / 3.9;

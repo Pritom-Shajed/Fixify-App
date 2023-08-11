@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class MediumText extends StatelessWidget {
   final Color? color;
   final String text;
-  final double fontSize;
+  final double? fontSize;
   final FontWeight fontWeight;
   final TextAlign? textAlign;
   final double? letterSpacing;
@@ -17,7 +17,7 @@ class MediumText extends StatelessWidget {
         this.maxLines,
         this.textOverflow,
       required this.text,
-      this.fontSize = 0,
+      this.fontSize,
       this.fontWeight = FontWeight.normal, this.textAlign, this.letterSpacing})
       : super(key: key);
 
@@ -31,7 +31,7 @@ class MediumText extends StatelessWidget {
       style: TextStyle(
         letterSpacing: letterSpacing,
           color: color,
-          fontSize: fontSize == 0 ? Dimensions.font16 : fontSize,
+          fontSize: fontSize ?? Dimensions.font16,
           fontWeight: fontWeight),
     );
   }

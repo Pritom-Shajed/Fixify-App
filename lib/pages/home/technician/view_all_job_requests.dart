@@ -39,7 +39,9 @@ class ViewAllJobRequestsTechnician extends StatelessWidget {
                 padding: EdgeInsets.symmetric(
                     horizontal: Dimensions.width10 * 1.5,
                     vertical: Dimensions.height10),
-                child: ListView.builder(
+                child: ListView.separated(
+                    physics: const BouncingScrollPhysics(),
+                  separatorBuilder: (context, index)=> SizedBox(height: Dimensions.height10,),
                     itemCount: jobRequests.length,
                     itemBuilder: (context, index) {
                       var job = jobRequests[index];

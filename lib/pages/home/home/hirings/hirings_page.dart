@@ -32,6 +32,7 @@ class HiringsPage extends StatelessWidget {
               horizontal: Dimensions.width10 * 1.5,
               vertical: Dimensions.height10),
           child: ListView.separated(
+            physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
             separatorBuilder: (context, index) => SizedBox(height: Dimensions.height10,),
               itemCount: hirings.length,

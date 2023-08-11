@@ -41,7 +41,7 @@ class JobDetailsPageTechnician extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  height: Dimensions.screenHeight / 3.5,
+                  height: Dimensions.screenHeight / 4,
                   width: double.maxFinite,
                   color: AppColors.mainBgColor.withOpacity(0.3),
                   child: Padding(

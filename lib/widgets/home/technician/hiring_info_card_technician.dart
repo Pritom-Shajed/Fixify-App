@@ -1,7 +1,8 @@
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/buttons/custom_button2.dart';
-import 'package:fixify_app/widgets/buttons/price_update_button.dart';
+import 'package:fixify_app/widgets/hirings/price_update_button.dart';
+import 'package:fixify_app/widgets/hirings/status_text.dart';
 import 'package:fixify_app/widgets/text_fields/custom_text_field2.dart';
 import 'package:fixify_app/widgets/texts/medium_text.dart';
 import 'package:fixify_app/widgets/texts/text_with_underline.dart';
@@ -36,42 +37,7 @@ class HiringInfoCardTechnician extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Align(
-                alignment: Alignment.topRight,
-                child: MediumText(
-                  fontWeight: FontWeight.w600,
-                  text: status,
-                  color: (() {
-                    if (status == 'on progress'.toUpperCase()) {
-                      return AppColors.primaryColor.withOpacity(0.6);
-                    } else if(status == 'confirmed'.toUpperCase()) {
-                      return AppColors.positiveColor;
-                    } else {
-                      AppColors.negativeColor;
-                    }
-                  }()),
-                )),
-            SizedBox(
-              width: Dimensions.width10 / 2,
-            ),
-            Icon(
-              Icons.access_time_outlined,
-              size: Dimensions.icon20,
-              color: (() {
-                if (status == 'on progress'.toUpperCase()) {
-                  return AppColors.primaryColor.withOpacity(0.6);
-                } else if(status == 'confirmed'.toUpperCase()) {
-                  return AppColors.positiveColor;
-                } else {
-                  AppColors.negativeColor;
-                }
-              }()),
-            )
-          ],
-        ),
+        HiringStatusText(status: status),
         SizedBox(
           height: Dimensions.height20,
         ),
@@ -82,7 +48,7 @@ class HiringInfoCardTechnician extends StatelessWidget {
         SizedBox(height: Dimensions.height10 * 3),
         TechnicianInfoText(
           text1: 'Current Price',
-          text2: price,
+          text2: '$price ৳',
           fontSize: Dimensions.font14,
         ),
         TechnicianInfoText(
