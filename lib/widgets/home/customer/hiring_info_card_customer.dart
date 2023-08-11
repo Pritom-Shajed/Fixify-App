@@ -12,6 +12,7 @@ import '../technician/technician_info_text.dart';
 class HiringInfoCardCustomer extends StatelessWidget {
   final String workingArea;
   final String status;
+  final String lastUpdated;
   final String price;
   final String fullName;
   final String services;
@@ -24,6 +25,7 @@ class HiringInfoCardCustomer extends StatelessWidget {
       {Key? key,
       required this.workingArea,
       required this.status,
+        required this.lastUpdated,
       required this.price,
       required this.fullName,
       required this.services,
@@ -89,6 +91,11 @@ class HiringInfoCardCustomer extends StatelessWidget {
         TechnicianInfoText(
           text1: 'Current Price',
           text2: price,
+          fontSize: Dimensions.font14,
+        ),
+        TechnicianInfoText(
+          text1: 'Last Updated By',
+          text2: lastUpdated,
           fontSize: Dimensions.font14,
         ),
         TechnicianInfoText(

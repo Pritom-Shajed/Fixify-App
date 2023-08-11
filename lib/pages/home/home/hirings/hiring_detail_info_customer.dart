@@ -131,6 +131,7 @@ class HiringDetailInfoCustomer extends StatelessWidget {
                           hiringPriceController: hiringController
                               .hiringPriceController,
                           status: jobDetail.status?.toUpperCase() ?? 'null',
+                          lastUpdated: jobDetail.lastUpdated ?? 'customer',
                           price: jobDetail.price ?? '0',
                           fullName: technicianInfo.fullName ?? 'null',
                           services: jobDetail.serviceName?.join(', ') ?? 'null',

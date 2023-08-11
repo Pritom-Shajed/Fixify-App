@@ -119,6 +119,7 @@ class JobDetailsPageTechnician extends StatelessWidget {
                           hiringPriceController:
                               hiringController.hiringPriceController,
                           status: jobDetail.status?.toUpperCase() ?? 'null',
+                          lastUpdated: jobDetail.lastUpdated ?? 'customer',
                           price: jobDetail.price ?? '0',
                           fullName: customerInfo.fullName ?? 'null',
                           services: jobDetail.serviceName?.join(', ') ?? 'null',
