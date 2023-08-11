@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 
 class TextWithUnderline extends StatelessWidget {
   final String text;
-  const TextWithUnderline({Key? key, required this.text}) : super(key: key);
+  final double? fontSize;
+  const TextWithUnderline({Key? key, required this.text, this.fontSize}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class TextWithUnderline extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-              color: Colors.black, fontSize: Dimensions.font12),
+              color: Colors.black, fontSize: fontSize ?? Dimensions.font12),
         ));
   }
 }

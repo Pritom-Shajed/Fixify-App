@@ -23,4 +23,14 @@ class AppColors {
 
   //App Bar
   static Color appBarColor = const Color(0xffcce6e6);
+
+
+  //Middle Color
+  static Color middleColor = const Color(0xffFFA500);
+
+  //Positive Color
+  static Color positiveColor = const Color(0xff008000);
+
+  //Negative Color
+  static Color negativeColor = const Color(0xffFF0000);
 }

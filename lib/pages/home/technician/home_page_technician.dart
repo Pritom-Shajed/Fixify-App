@@ -14,6 +14,7 @@ import 'package:fixify_app/widgets/home/technician/technician_home_profile_view.
 import 'package:fixify_app/widgets/switches/toggle_switch.dart';
 import 'package:fixify_app/widgets/texts/medium_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class HomePageTechnician extends StatefulWidget {
@@ -28,7 +29,7 @@ class _HomePageTechnicianState extends State<HomePageTechnician> {
 
   bool _isLoading = true;
 
-  Future<void> loadAllData () async{
+  Future<void> loadAllData() async {
     await Get.find<TechnicianPageController>().fetchTechnicianUserInfo();
     await Get.find<TechnicianHiringController>().fetchJobRequests();
     setState(() {
@@ -52,94 +53,108 @@ class _HomePageTechnicianState extends State<HomePageTechnician> {
           ),
         ),
         backgroundColor: AppColors.mainBgColor,
-        body: _isLoading ? showCustomLoader() : GetBuilder<TechnicianPageController>(
-          builder: (controller) {
-            final userData = controller.userInfoTechnician;
-            return SingleChildScrollView(
-                    child: Container(
-                      padding: EdgeInsets.only(
-                          left: Dimensions.padding10,
-                          right: Dimensions.padding10,
-                          bottom: Dimensions.padding10),
-                      color: AppColors.mainBgColor,
-                      child: Column(
-                        children: [
-                          TechnicianHomeProfileViewShort(
-                              fullName: userData!.fullName!,
-                              email: userData.email!,
-                              phoneNumber: userData.phoneNumber!,
-                              joinedDate: userData.joinedDate!,
-                              profilePicUrl: userData.profilePic!,
-                              onTapEditProfile: () => Get.toNamed(
-                                  RouteHelper.getViewProfileTechnician())),
-                          SizedBox(
-                            height: Dimensions.height20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              CustomToggleSwitch(
-                                current: _about,
-                                firstText: 'Activity',
-                                secondText: 'Work',
-                                onChanged: (value) {
-                                  setState(() {
-                                    _about = !_about;
-                                  });
-                                },
-                              ),
-                              CustomButton(
-                                text: 'Signout',
-                                onTap: () => showCustomAlertDialogWithBtn(
-                                    context,
-                                    titleText: 'Sign out?',
-                                    onTapYes: () {
-                                      Get.find<AuthSignOutController>().clearSharedData();
-                                      Get.offAllNamed(RouteHelper.getHomePage());
-                                    },
-                                    onTapNo: () => Get.back()),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: Dimensions.height10,
-                          ),
-                          Column(
-                            children: [
-                              SizedBox(
-                                height: Dimensions.height10,
-                              ),
-                              AnimatedCrossFade(
-                                crossFadeState: _about
-                                    ? CrossFadeState.showFirst
-                                    : CrossFadeState.showSecond,
-                                duration: const Duration(milliseconds: 300),
-                                firstChild: TechnicianWorkInfo(
-                                  onTap3: () => showCustomAlertDialog(context,
-                                      titleText: 'Services Offered',
-                                      bodyText: userData.services!.join(', ')),
-                                  onTap4: () => showCustomAlertDialog(context,
-                                      titleText: 'Weekly Free',
-                                      bodyText: userData.workDays!.join(', ')),
-                                  title1: 'Current Works',
-                                  number1: '0',
-                                  title2: 'Works Done',
-                                  number2: '${userData.worksDone}',
-                                  title3: 'Services Offered',
-                                  number3: '${userData.services!.length}',
-                                  title4: 'Weekly Free',
-                                  number4: '${userData.workDays!.length}',
-                                  subtitle4: 'days',
+        body: _isLoading
+            ? showCustomLoader()
+            : WillPopScope(
+                onWillPop: () async {
+                  return showCustomAlertDialogWithBtn(context,
+                      titleText: 'Exit Fixify?',
+                      onTapYes: () => SystemNavigator.pop(),
+                      onTapNo: () => Get.back());
+                },
+                child: GetBuilder<TechnicianPageController>(
+                  builder: (controller) {
+                    final userData = controller.userInfoTechnician;
+                    return SingleChildScrollView(
+                      child: Container(
+                        padding: EdgeInsets.only(
+                            left: Dimensions.padding10,
+                            right: Dimensions.padding10,
+                            bottom: Dimensions.padding10),
+                        color: AppColors.mainBgColor,
+                        child: Column(
+                          children: [
+                            TechnicianHomeProfileViewShort(
+                                fullName: userData!.fullName!,
+                                email: userData.email!,
+                                phoneNumber: userData.phoneNumber!,
+                                joinedDate: userData.joinedDate!,
+                                profilePicUrl: userData.profilePic!,
+                                onTapEditProfile: () => Get.toNamed(
+                                    RouteHelper.getViewProfileTechnician())),
+                            SizedBox(
+                              height: Dimensions.height20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                CustomToggleSwitch(
+                                  current: _about,
+                                  firstText: 'Activity',
+                                  secondText: 'Work',
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _about = !_about;
+                                    });
+                                  },
                                 ),
-                                secondChild:  TechnicianActivity(),
-                              ),
-                            ],
-                          ),
-                        ],
+                                CustomButton(
+                                  text: 'Signout',
+                                  onTap: () =>
+                                      showCustomAlertDialogWithBtn(context,
+                                          titleText: 'Sign out?',
+                                          onTapYes: () {
+                                            Get.find<AuthSignOutController>()
+                                                .clearSharedData();
+                                            Get.offAllNamed(
+                                                RouteHelper.getHomePage());
+                                          },
+                                          onTapNo: () => Get.back()),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: Dimensions.height10,
+                            ),
+                            Column(
+                              children: [
+                                SizedBox(
+                                  height: Dimensions.height10,
+                                ),
+                                AnimatedCrossFade(
+                                  crossFadeState: _about
+                                      ? CrossFadeState.showFirst
+                                      : CrossFadeState.showSecond,
+                                  duration: const Duration(milliseconds: 300),
+                                  firstChild: TechnicianWorkInfo(
+                                    onTap3: () => showCustomAlertDialog(context,
+                                        titleText: 'Services Offered',
+                                        bodyText:
+                                            userData.services!.join(', ')),
+                                    onTap4: () => showCustomAlertDialog(context,
+                                        titleText: 'Weekly Free',
+                                        bodyText:
+                                            userData.workDays!.join(', ')),
+                                    title1: 'Current Works',
+                                    number1: '0',
+                                    title2: 'Works Done',
+                                    number2: '${userData.worksDone}',
+                                    title3: 'Services Offered',
+                                    number3: '${userData.services!.length}',
+                                    title4: 'Weekly Free',
+                                    number4: '${userData.workDays!.length}',
+                                    subtitle4: 'days',
+                                  ),
+                                  secondChild: const TechnicianActivity(),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-          },
-        ));
+                    );
+                  },
+                ),
+              ));
   }
 }

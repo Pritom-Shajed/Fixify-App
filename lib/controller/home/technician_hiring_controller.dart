@@ -18,29 +18,40 @@ class TechnicianHiringController extends GetxController {
   UserModelTechnician? userInfoTechnician;
   UserModelCustomer? userInfoCustomer;
 
+  final _hiringPriceController = TextEditingController().obs;
+
+  get hiringPriceController => _hiringPriceController.value;
+
+  set hiringPriceController(value) {
+    _hiringPriceController.value = value;
+  }
 
   get hireTextController => _hireTextController.value;
-  set hireTextController (value){
+
+  set hireTextController(value) {
     _hireTextController.value = value;
+  }
+
+  Future<void> updateHiringPriceTextEditingController(String price) async {
+    hiringPriceController = TextEditingController(text: price);
   }
 
   List<TechnicianHiringModel> allJobRequests = [];
 
   Future<void> fetchJobRequests() async {
+    allJobRequests = [];
+
     try {
+      final QuerySnapshot<Map<String, dynamic>> snapshot =
+          await FirebaseFirestore.instance.collection('hirings').get();
 
-     final QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance
-          .collection('hirings').get();
-
-
-      if(snapshot.docs.isNotEmpty){
-        for(var orders in snapshot.docs){
+      if (snapshot.docs.isNotEmpty) {
+        for (var orders in snapshot.docs) {
           allJobRequests.add(TechnicianHiringModel.fromSnap(orders));
         }
       }
 
       update();
-
     } catch (e) {
       throw Exception(e.toString());
     }
@@ -54,16 +65,14 @@ class TechnicianHiringController extends GetxController {
     required String status,
   }) async {
     try {
-
       EasyLoading.show(status: 'Sending request...');
 
       final uid = const Uuid().v4();
 
-
       TechnicianHiringModel user = TechnicianHiringModel(
         id: uid,
         technicianUid: technicianUid,
-        customerUid : customerUid,
+        customerUid: customerUid,
         jobDescription: hireTextController.text,
         serviceName: serviceName,
         status: status,
@@ -74,7 +83,7 @@ class TechnicianHiringController extends GetxController {
           .doc(uid)
           .set(user.toSnap())
           .then((value) => showCustomSnackBar('Wait for him to response',
-          title: 'Requested Sent'));
+              title: 'Requested Sent'));
 
       EasyLoading.dismiss();
     } catch (e) {
@@ -84,14 +93,60 @@ class TechnicianHiringController extends GetxController {
     }
   }
 
+  Future<void> updateHiringPrice(
+      {required String jobId,
+      required bool isCustomer}) async {
+    EasyLoading.show(status: 'Updating price...');
+    try {
+      Map<String, dynamic> body = {'price': hiringPriceController.text, 'last_updated': isCustomer ? 'customer' : 'technician'};
 
-  Future<void> fetchSpecificTechnicianInfo(String uid) async{
+      await FirebaseFirestore.instance
+          .collection('hirings')
+          .doc(jobId)
+          .update(body)
+          .whenComplete(() => showCustomSnackBar('Wait for him to response',
+              title: 'Price updated'));
+
+      EasyLoading.dismiss();
+    } catch (e) {
+      EasyLoading.dismiss();
+      showCustomSnackBar('Please try again after sometime');
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<void> acceptOrRejectOffer(
+      {required String jobId, required bool isAccepted}) async {
+    EasyLoading.show(status: isAccepted ?'Confirming Offer' : 'Rejecting Offer');
+    try {
+      Map<String, dynamic> body = {
+        'status': isAccepted ? 'confirmed' : 'rejected'
+      };
+
+      await FirebaseFirestore.instance
+          .collection('hirings')
+          .doc(jobId)
+          .update(body)
+          .whenComplete(() => isAccepted ? showCustomSnackBar('Technician successfully hired',
+              title: 'Confirmed') : showCustomSnackBar('Offer rejected',
+          title: 'Rejected'));
+
+      EasyLoading.dismiss();
+    } catch (e) {
+      EasyLoading.dismiss();
+
+      showCustomSnackBar('Please try again after sometime');
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<void> fetchSpecificTechnicianInfo(String uid) async {
     try {
       final DocumentSnapshot<Map<String, dynamic>> snapshot =
-      await _firestore.collection('users').doc(uid).get();
+          await _firestore.collection('users').doc(uid).get();
 
-      if(snapshot.exists) {
-        final userData =  snapshot.data();
+      if (snapshot.exists) {
+        final userData = snapshot.data();
 
         userInfoTechnician = UserModelTechnician(
             userRole: userData!['userRole'],
@@ -110,26 +165,25 @@ class TechnicianHiringController extends GetxController {
             workDays: (userData['workDays'] as List<dynamic>).cast<String>(),
             worksDone: userData['worksDone'],
             time1: userData['time1'],
-            time2: userData['time2']
-        );
+            time2: userData['time2']);
 
         update();
       } else {
         showCustomSnackBar('Technician not found', title: 'Error');
       }
-    } catch(e){
+    } catch (e) {
       showCustomSnackBar(e.toString(), title: 'Error');
       throw Exception(e.toString());
     }
   }
 
-  Future<void> fetchSpecificCustomerInfo(String uid) async{
+  Future<void> fetchSpecificCustomerInfo(String uid) async {
     try {
       final DocumentSnapshot<Map<String, dynamic>> snapshot =
-      await _firestore.collection('users').doc(uid).get();
+          await _firestore.collection('users').doc(uid).get();
 
-      if(snapshot.exists) {
-        final userData =  snapshot.data();
+      if (snapshot.exists) {
+        final userData = snapshot.data();
         userInfoCustomer = UserModelCustomer(
           userRole: userData!['userRole'],
           profilePic: userData['profilePic'],
@@ -141,11 +195,10 @@ class TechnicianHiringController extends GetxController {
           joinedDate: userData['joinedDate'],
           phoneNumber: userData['phoneNumber'],
         );
-
       } else {
         showCustomSnackBar('Customer not found', title: 'Error');
       }
-    } catch(e){
+    } catch (e) {
       showCustomSnackBar(e.toString(), title: 'Error');
       throw Exception(e.toString());
     }

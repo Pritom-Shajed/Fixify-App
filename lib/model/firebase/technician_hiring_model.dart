@@ -8,6 +8,7 @@ class TechnicianHiringModel {
   List<dynamic>? serviceName;
   String? status;
   dynamic price;
+  dynamic lastUpdated;
 
   TechnicianHiringModel(
       {
@@ -17,7 +18,7 @@ class TechnicianHiringModel {
       this.jobDescription,
       this.serviceName,
       this.status,
-      this.price});
+      this.price, this.lastUpdated});
 
   Map<String, dynamic> toSnap() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -28,6 +29,7 @@ class TechnicianHiringModel {
     data['service_name'] = serviceName;
     data['status'] = status;
     data['price'] = price;
+    data['last_updated'] = lastUpdated;
     return data;
   }
 
@@ -40,7 +42,8 @@ class TechnicianHiringModel {
       jobDescription: data['job_description'],
       serviceName: data['service_name'],
       status: data['status'],
-      price: data['price']
+      price: data['price'],
+      lastUpdated: data['last_updated']
     );
   }
 }

@@ -7,33 +7,35 @@ import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/buttons/custom_button2.dart';
 import 'package:fixify_app/widgets/buttons/custom_icon_button.dart';
 import 'package:fixify_app/widgets/home/customer/hiring_info_card_customer.dart';
-import 'package:fixify_app/widgets/home/technician/hiring_info_card_technician.dart';
 import 'package:fixify_app/widgets/shimmer_effect/container_shimmer_widget.dart';
 import 'package:fixify_app/widgets/texts/medium_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class JobDetailsPageTechnician extends StatelessWidget {
+class HiringDetailInfoCustomer extends StatelessWidget {
   final String jobId;
 
-  const JobDetailsPageTechnician({Key? key, required this.jobId})
+  const HiringDetailInfoCustomer({Key? key, required this.jobId})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final jobDetail = Get.find<TechnicianHiringController>()
+    final jobDetail = Get
+        .find<TechnicianHiringController>()
         .allJobRequests
         .where((element) => element.id == jobId)
         .single;
 
-    final customerInfo =
-        Get.find<TechnicianHiringController>().userInfoCustomer;
+    final technicianInfo =
+        Get
+            .find<TechnicianHiringController>()
+            .userInfoTechnician;
     return Scaffold(
         backgroundColor: AppColors.whiteColor,
         appBar: AppBar(
           backgroundColor: AppColors.mainBgColor.withOpacity(0.3),
           leading:
-              CustomIconButton(icon: Icons.arrow_back, onTap: () => Get.back()),
+          CustomIconButton(icon: Icons.arrow_back, onTap: () => Get.back()),
         ),
         body: GetBuilder<TechnicianHiringController>(
           builder: (hiringController) {
@@ -45,26 +47,30 @@ class JobDetailsPageTechnician extends StatelessWidget {
                   width: double.maxFinite,
                   color: AppColors.mainBgColor.withOpacity(0.3),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: Dimensions.width10),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: Dimensions.width10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Row(
                           children: [
                             CachedNetworkImage(
-                                imageUrl: customerInfo!.profilePic!,
-                                imageBuilder: (context, imageProvider) => Container(
-                                  height: Dimensions.height20 * 5,
-                                  width: Dimensions.height20 * 5,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(
-                                          Dimensions.radius4 * 3),
-                                      image: DecorationImage(
-                                          image: imageProvider, fit: BoxFit.cover)),
-                                ),
-                                placeholder: (context, url) => ShimmerWidgetContainer(
-                                    height: Dimensions.height20 * 5,
-                                    width: Dimensions.height20 * 5)),
+                                imageUrl: technicianInfo!.profilePic!,
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
+                                      height: Dimensions.height20 * 5,
+                                      width: Dimensions.height20 * 5,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                              Dimensions.radius4 * 3),
+                                          image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.cover)),
+                                    ),
+                                placeholder: (context, url) =>
+                                    ShimmerWidgetContainer(
+                                        height: Dimensions.height20 * 5,
+                                        width: Dimensions.height20 * 5)),
                             SizedBox(
                               width: Dimensions.width10,
                             ),
@@ -72,13 +78,13 @@ class JobDetailsPageTechnician extends StatelessWidget {
                               child: MediumText(
                                   textAlign: TextAlign.start,
                                   fontSize: Dimensions.font22,
-                                  text: customerInfo.fullName ?? 'null'),
+                                  text: technicianInfo.nickName ?? 'null'),
                             ),
                           ],
                         ),
                         ((){
                           if(jobDetail.status == 'on progress'){
-                            if(jobDetail.lastUpdated == 'customer'){
+                            if(jobDetail.lastUpdated == 'technician'){
                               return Row(
                                 children: [
                                   Expanded(child: CustomButton2(
@@ -87,7 +93,7 @@ class JobDetailsPageTechnician extends StatelessWidget {
                                         .acceptOrRejectOffer(
                                         jobId: jobId, isAccepted: true)
                                         .whenComplete(() =>
-                                        Get.toNamed(RouteHelper.getHomeTechnician()));
+                                        Get.toNamed(RouteHelper.getHomePage()));
                                   })),
                                   SizedBox(width: Dimensions.width10,),
                                   Expanded(child: CustomButton2(
@@ -95,7 +101,7 @@ class JobDetailsPageTechnician extends StatelessWidget {
                                     hiringController.acceptOrRejectOffer(
                                         jobId: jobId, isAccepted: false)
                                         .whenComplete(() =>
-                                        Get.toNamed(RouteHelper.getHomeTechnician()));
+                                        Get.toNamed(RouteHelper.getHomePage()));
                                   })),
                                 ],
                               );
@@ -110,32 +116,39 @@ class JobDetailsPageTechnician extends StatelessWidget {
                     ),
                   ),
                 ),
+
                 Expanded(
                   child: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
                     child: Padding(
                         padding: EdgeInsets.all(Dimensions.padding15 * 1.5),
-                        child: HiringInfoCardTechnician(
-                          hiringPriceController:
-                              hiringController.hiringPriceController,
+                        child: HiringInfoCardCustomer(
+                          workingArea: '${technicianInfo
+                              .preferredArea}, ${technicianInfo.division}',
+                          availability: '${technicianInfo.workDays?.join(
+                              ', ')}\n${technicianInfo.time1} - ${technicianInfo
+                              .time2}',
+                          hiringPriceController: hiringController
+                              .hiringPriceController,
                           status: jobDetail.status?.toUpperCase() ?? 'null',
                           price: jobDetail.price ?? '0',
-                          fullName: customerInfo.fullName ?? 'null',
+                          fullName: technicianInfo.fullName ?? 'null',
                           services: jobDetail.serviceName?.join(', ') ?? 'null',
                           jobDescription: jobDetail.jobDescription ?? 'null',
                           onTapPriceUpdate: () {
-                            hiringController
-                                .updateHiringPrice(
-                                    jobId: jobId,
-                                    isCustomer: false)
-                                .whenComplete(() => Get.toNamed(RouteHelper.getHomeTechnician()));
+                            if (hiringController.hiringPriceController.text == '0') {
+                              showCustomToast(
+                                  'Wait for technician\'s initial price offer');
+                            } else {
+                              hiringController.updateHiringPrice(jobId: jobId, isCustomer: true).whenComplete(() => Get.toNamed(RouteHelper.getHomePage()));
+                            }
                           },
                         )),
                   ),
                 )
               ],
             );
-          },
-        ));
+          },)
+    );
   }
 }

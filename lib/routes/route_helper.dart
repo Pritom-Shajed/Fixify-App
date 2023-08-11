@@ -1,5 +1,5 @@
 import 'package:fixify_app/pages/auth/authentication_page.dart';
-import 'package:fixify_app/pages/home/home/hirings/hiring_detail_info.dart';
+import 'package:fixify_app/pages/home/home/hirings/hiring_detail_info_customer.dart';
 import 'package:fixify_app/pages/home/home/hirings/hirings_page.dart';
 import 'package:fixify_app/pages/home/home/home_page.dart';
 import 'package:fixify_app/pages/home/technician/edit_profile/edit_profile_technician.dart';
@@ -32,7 +32,7 @@ class RouteHelper {
   static String serviceDetailPage = '/services-detail-page';
   static String editProfileCustomer = '/edit-profile-customer';
   static String hiringsPage = '/hirings-page';
-  static String hiringDetailInfo = '/hirings-detail-info';
+  static String hiringDetailInfoCustomer = '/hirings-detail-info-customer';
 
   //Technician
   static String homePageTechnician = '/home-technician';
@@ -66,7 +66,7 @@ class RouteHelper {
 
   static String getHiringsPage() => hiringsPage;
 
-  static String getHiringDetailInfo(String jobId) => '$hiringDetailInfo?jobId=$jobId';
+  static String getHiringDetailInfoCustomer(String jobId) => '$hiringDetailInfoCustomer?jobId=$jobId';
 
   //Technician
   static String getHomeTechnician() => homePageTechnician;
@@ -156,11 +156,11 @@ class RouteHelper {
         page: () => const HiringsPage()),
 
     GetPage(
-        name: hiringDetailInfo,
+        name: hiringDetailInfoCustomer,
         transition: Transition.cupertino,
         page: () {
           var jobId = Get.parameters['jobId']!;
-          return HiringDetailInfo(
+          return HiringDetailInfoCustomer(
             jobId: jobId,
           );
         }),

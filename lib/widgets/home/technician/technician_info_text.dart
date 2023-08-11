@@ -9,6 +9,7 @@ class TechnicianInfoText extends StatelessWidget {
   final BorderSide? borderSide;
   final IconData? icon;
   final double fontSize;
+  final int? maxLines;
 
   const TechnicianInfoText(
       {super.key,
@@ -16,7 +17,7 @@ class TechnicianInfoText extends StatelessWidget {
       this.text2 = 'text2',
       this.borderSide,
       this.icon,
-      this.fontSize = 0});
+      this.fontSize = 0, this.maxLines});
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +30,29 @@ class TechnicianInfoText extends StatelessWidget {
                   BorderSide(color: AppColors.greyColor.withOpacity(0.1)))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
               flex: 2,
-              child: MediumText(
-                text: text1,
-                textAlign: TextAlign.start,
-                fontSize: fontSize,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: MediumText(
+                      text: text1,
+                      textAlign: TextAlign.start,
+                      fontSize: fontSize,
+                    ),
+                  ),
+                  SizedBox(
+                    width: Dimensions.width10 / 2,
+                  ),
+                  MediumText(
+                    text: ':',
+                    textAlign: TextAlign.start,
+                    fontSize: fontSize,
+                  )
+                ],
               )),
           icon == null
               ? Expanded(
@@ -44,6 +61,7 @@ class TechnicianInfoText extends StatelessWidget {
                       alignment: Alignment.centerRight,
                       width: Dimensions.width10 * 15,
                       child: MediumText(
+                        maxLines: maxLines,
                         text: text2,
                         textAlign: TextAlign.right,
                         fontSize: fontSize,

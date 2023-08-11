@@ -22,7 +22,7 @@ class CustomButton2 extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
             children: [
-          SmallText(text: text, color: AppColors.primaryColor, fontWeight: FontWeight.w500,),
+          Expanded(child: SmallText(text: text, color: AppColors.primaryColor, fontWeight: FontWeight.w500,)),
           SizedBox(width: icon == null ? 0 : Dimensions.width5,),
          icon == null ? Container(): Icon(
             icon,

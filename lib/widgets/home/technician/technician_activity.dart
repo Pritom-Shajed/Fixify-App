@@ -14,12 +14,15 @@ class TechnicianActivity extends StatelessWidget {
     return Column(
       children: [
         ShowActiivtyInfo(
-            onTap: () => Get.toNamed(
-                RouteHelper.getViewAllJobRequestsTechnician(
-                    technicianUid: Get.find<TechnicianPageController>()
-                        .userInfoTechnician!
-                        .uid
-                        .toString())),
+            onTap: () {
+
+              Get.toNamed(
+                  RouteHelper.getViewAllJobRequestsTechnician(
+                      technicianUid: Get.find<TechnicianPageController>()
+                          .userInfoTechnician!
+                          .uid
+                          .toString()));
+            },
             text: 'Job Requests',
             iconPath: 'assets/icons/job_req.png')
       ],
