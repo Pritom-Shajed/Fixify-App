@@ -7,6 +7,43 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:523442992377:android:2367707106ce2f35495e28",
+        "android_client_info": {
+          "package_name": "com.fixify.fixify_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "523442992377-rar2h1naas3vh5527s0lfr6864sf36ul.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fixify.fixify_admin",
+            "certificate_hash": "636f500650d09c274d9cd6c920c7b49a1242a0eb"
+          }
+        },
+        {
+          "client_id": "523442992377-vtuhfjbfh57pl4ibm0ovcbq3e8375fd8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUcnqcQ2S64RES1KRaWmwbj5th3g3gKkc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "523442992377-vtuhfjbfh57pl4ibm0ovcbq3e8375fd8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:523442992377:android:6340b4917f001d03495e28",
         "android_client_info": {
           "package_name": "com.fixify.fixify_app"

@@ -14,6 +14,8 @@ class DashboardController extends GetxController {
   List<UserModelTechnician> technicianInfo = [];
   List<ServicesModel> allServices = [];
 
+
+
   DashboardController({required this.sharedPreferences});
 
   String selectedDivision = 'Dhaka';
@@ -72,7 +74,7 @@ class DashboardController extends GetxController {
         update();
 
       } else {
-        showCustomSnackBar('Failed to fetch services info', title: 'Error');
+        showCustomSnackBar('No services found', title: 'Error');
       }
     } catch (e) {
       showCustomSnackBar(e.toString(), title: 'Error');

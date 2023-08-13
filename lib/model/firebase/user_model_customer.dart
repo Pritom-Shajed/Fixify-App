@@ -45,7 +45,7 @@ class UserModelCustomer {
       profilePic: data['profilePic'],
       joinedDate: data['joinedDate'],
       fullName: data['fullName'],
-      uname: data['name'],
+      uname: data['uname'],
       email: data['email'],
       password: data['password'],
       phoneNumber: data['phoneNumber'],

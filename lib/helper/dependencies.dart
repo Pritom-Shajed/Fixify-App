@@ -6,7 +6,6 @@ import 'package:fixify_app/controller/home/dashboard_controller.dart';
 import 'package:fixify_app/controller/home/home_page_controller.dart';
 import 'package:fixify_app/controller/home/technician_hiring_controller.dart';
 import 'package:fixify_app/controller/technician/technician_controller.dart';
-import 'package:fixify_app/repo/auth/auth_repo.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,7 +18,7 @@ Future<void> init() async {
   //Controller
   Get.lazyPut(() => AuthSignInController(preferences: Get.find()), fenix: true);
   Get.lazyPut(() => AuthSignUpController(), fenix: true);
-  Get.lazyPut(() => AuthSignOutController(authRepo: Get.find()), fenix: true);
+  Get.lazyPut(() => AuthSignOutController(preferences: Get.find()), fenix: true);
   Get.lazyPut(() => CustomerController(sharedPreferences: Get.find()),
       fenix: true);
   Get.lazyPut(() => TechnicianPageController(preferences: Get.find()),
@@ -29,6 +28,4 @@ Future<void> init() async {
       fenix: true);
   Get.lazyPut(() => TechnicianHiringController(), fenix: true);
 
-  //Repo
-  Get.lazyPut(() => AuthRepo(sharedPreferences: Get.find()), fenix: true);
 }
