@@ -157,6 +157,7 @@ class AuthSignUpController extends GetxController {
 
       UserModelTechnician user = UserModelTechnician(
           uid: uid,
+          accountStatus: 'Inactive',
           userRole: userRole,
           fullName: fullName,
           nickName: nickName,
@@ -179,12 +180,12 @@ class AuthSignUpController extends GetxController {
           .collection('users')
           .doc(uid)
           .set(user.toJson())
-          .then((value) => showCustomSnackBar('Sign in with your credential',
+          .then((value) => showCustomSnackBar('Wait until your account is activated',
               title: 'Account Registered'))
           .then((value) => Get.offAllNamed(RouteHelper.getAuthPage()));
     } catch (e) {
       showDefaultSnackBar('Please try again after some time', context);
-      print(e);
+      throw Exception(e.toString());
     }
   }
 }

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModelTechnician {
   String? userRole;
+  String? accountStatus;
   String? profilePic;
   String? fullName;
   String? nickName;
@@ -21,6 +22,7 @@ class UserModelTechnician {
 
   UserModelTechnician({
     this.userRole,
+    this.accountStatus,
     this.profilePic,
     this.fullName,
     this.nickName,
@@ -42,6 +44,7 @@ class UserModelTechnician {
   Map<String, dynamic> toJson() {
     return {
       'uid': uid,
+      'accountStatus': accountStatus,
       'userRole': userRole,
       'profilePic': profilePic,
       'joinedDate': joinedDate,
@@ -65,6 +68,7 @@ class UserModelTechnician {
     var data = snap.data() as Map<String, dynamic>;
     return UserModelTechnician(
       uid: data['uid'],
+      accountStatus: data['accountStatus'],
       userRole: data['userRole'],
       profilePic: data['profilePic'],
       joinedDate: data['joinedDate'],

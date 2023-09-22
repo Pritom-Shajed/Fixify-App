@@ -7,7 +7,6 @@ import 'package:fixify_app/routes/route_helper.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/buttons/custom_icon_button.dart';
-import 'package:fixify_app/widgets/buttons/custom_text_button.dart';
 import 'package:fixify_app/widgets/home/customer/customer_home_preview_card.dart';
 import 'package:fixify_app/widgets/home/customer/dashboard_header.dart';
 import 'package:fixify_app/widgets/home/customer/dashboard_technician_card.dart';
@@ -70,7 +69,7 @@ class DashboardPage extends StatelessWidget {
                       child: RefreshIndicator(
                         onRefresh: _loadAllData,
                         child: SingleChildScrollView(
-                          physics: const BouncingScrollPhysics(),
+                          physics: const AlwaysScrollableScrollPhysics(parent:  BouncingScrollPhysics()),
                           child: Padding(
                             padding:
                                 EdgeInsets.only(bottom: Dimensions.height10),
@@ -115,25 +114,25 @@ class DashboardPage extends StatelessWidget {
                                 ),
 
                                 ///NEAR YOU
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      child: SmallText(
-                                        textAlign: TextAlign.start,
-                                        text:
-                                            'Technicians in ${dashboardController.selectedDivision}',
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    CustomTextButton(
-                                        text: 'See all', onTap: () {})
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: Dimensions.height10,
-                                ),
+                                // Row(
+                                //   mainAxisAlignment:
+                                //       MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     Expanded(
+                                //       child: SmallText(
+                                //         textAlign: TextAlign.start,
+                                //         text:
+                                //             'Technicians in ${dashboardController.selectedDivision}',
+                                //         fontWeight: FontWeight.w600,
+                                //       ),
+                                //     ),
+                                //     CustomTextButton(
+                                //         text: 'See all', onTap: () {})
+                                //   ],
+                                // ),
+                                // SizedBox(
+                                //   height: Dimensions.height10,
+                                // ),
                                 ListView.separated(
                                     separatorBuilder: (context, index) {
                                       return SizedBox(
@@ -143,18 +142,9 @@ class DashboardPage extends StatelessWidget {
                                     shrinkWrap: true,
                                     physics:
                                         const NeverScrollableScrollPhysics(),
-                                    itemCount: technicianInfo
-                                        .where((element) =>
-                                            element.division ==
-                                            dashboardController
-                                                .selectedDivision)
-                                        .length,
+                                    itemCount: technicianInfo.length,
                                     itemBuilder: (context, index) {
                                       final technician = technicianInfo
-                                          .where((element) =>
-                                              element.division ==
-                                              dashboardController
-                                                  .selectedDivision)
                                           .toList()[index];
                                       return DashboardTechnicianCard(
                                         onTap: () {

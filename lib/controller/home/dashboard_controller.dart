@@ -31,8 +31,9 @@ class DashboardController extends GetxController {
     try {
       final QuerySnapshot<Map<String, dynamic>> snapshot = await _firestore
           .collection('users')
-          .where('userRole', isEqualTo: 'technician')
+          .where('userRole', isEqualTo: 'technician' ).where('accountStatus', isEqualTo: 'Active')
           .get();
+
 
       if (snapshot.docs.isNotEmpty) {
         for (var element in snapshot.docs) {
@@ -40,9 +41,6 @@ class DashboardController extends GetxController {
         }
 
         update();
-      } else {
-        showCustomSnackBar('Failed to fetch technician\'s info',
-            title: 'Error');
       }
     } catch (e) {
       showCustomSnackBar(e.toString(), title: 'Error');

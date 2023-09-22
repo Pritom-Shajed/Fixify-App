@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fixify_app/base/show_custom_snackbar.dart';
+import 'package:fixify_app/base/show_custom_toast.dart';
+import 'package:fixify_app/controller/auth/auth_signout_controller.dart';
 import 'package:fixify_app/routes/route_helper.dart';
 import 'package:fixify_app/utils/app_constans.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -54,12 +57,22 @@ class AuthSignInController extends GetxController {
         final userData = snapshot.docs.first.data();
         final userRole = userData['userRole'];
         final userUid = userData['uid'];
-        await preferences.setString(AppConstants.preferenceUid, userUid);
+
 
         if (userRole == 'customer') {
+          await preferences.setString(AppConstants.preferenceUid, userUid);
           Get.offAllNamed(RouteHelper.getSplashScreen());
+
         } else if (userRole == 'technician') {
-          Get.offAllNamed(RouteHelper.getHomeTechnician());
+
+          if(userData['accountStatus'] == 'Active'){
+            await preferences.setString(AppConstants.preferenceUid, userUid);
+            Get.offAllNamed(RouteHelper.getHomeTechnician());
+          } else if(userData['accountStatus'] == 'Suspended') {
+            showCustomToast('Your account has been suspended!', toastLength: Toast.LENGTH_LONG);
+          } else {
+            showCustomToast('Wait until you account is activated', toastLength: Toast.LENGTH_LONG);
+          }
         }
       } else {
         showCustomSnackBar('Invalid credential provided', title: 'Error');
@@ -81,7 +94,15 @@ class AuthSignInController extends GetxController {
         if (userData!['userRole'] == 'customer') {
           Get.offAllNamed(RouteHelper.getHomePage());
         } else if (userData['userRole'] == 'technician') {
-          Get.offAllNamed(RouteHelper.getHomeTechnician());
+          if(userData['accountStatus'] == 'Active'){
+            Get.offAllNamed(RouteHelper.getHomeTechnician());
+          } else {
+            await Get.find<AuthSignOutController>().clearSharedData();
+            showCustomToast('Your account has been suspended!', toastLength: Toast.LENGTH_LONG);
+            Get.offAllNamed(RouteHelper.getHomePage());
+
+          }
+
         }
         return true;
       } else {
