@@ -6,11 +6,13 @@ import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/buttons/custom_icon_button.dart';
 import 'package:fixify_app/widgets/notification/notification_card.dart';
+import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class NotificationPage extends StatelessWidget {
-  const NotificationPage({Key? key}) : super(key: key);
+  final String userId;
+  const NotificationPage({Key? key, required this.userId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +39,7 @@ class NotificationPage extends StatelessWidget {
                 );
               } else {
                 return GetBuilder<NotificationController>(builder: (controller){
-                  var noti = controller.allNotifications;
-
+                  var noti = controller.allNotifications.where((element) => element.customerUid == userId).toList();
                   return ListView.builder(
                       itemCount:  noti.length,
                       physics: const BouncingScrollPhysics(),

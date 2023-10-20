@@ -20,8 +20,6 @@ class NotificationController extends GetxController {
       }
 
       update();
-
-      update();
     } catch (e) {
       throw Exception(e.toString());
     }

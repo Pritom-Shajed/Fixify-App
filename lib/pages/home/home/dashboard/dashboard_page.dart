@@ -27,7 +27,6 @@ class DashboardPage extends StatelessWidget {
         : null;
     await Get.find<DashboardController>().fetchAllTechnician();
     await Get.find<DashboardController>().fetchAllServices();
-
   }
 
   @override
@@ -39,7 +38,9 @@ class DashboardPage extends StatelessWidget {
           backgroundColor: AppColors.whiteColor,
           title: const Text('Home'),
           actions: [
-            CustomIconButton(icon: Icons.notifications, onTap: () => Get.toNamed(RouteHelper.getNotificationPage())),
+            CustomIconButton(icon: Icons.notifications,
+                onTap: () =>
+                    Get.toNamed(RouteHelper.getNotificationPage(userId: Get.find<CustomerController>().userInfoCustomer?.uid ?? 'null'))),
           ],
         ),
         body: GetBuilder<DashboardController>(
@@ -47,132 +48,136 @@ class DashboardPage extends StatelessWidget {
             final technicianInfo = dashboardController.technicianInfo;
             return GetBuilder<CustomerController>(
                 builder: (customerController) {
-              final userData = customerController.userInfoCustomer;
-              return Padding(
-                padding: EdgeInsets.all(Dimensions.padding10 * 1.2),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Get.find<AuthSignOutController>().userLoggedIn()
-                        ? CustomerHomeProfileViewShort(
-                            profilePicUrl: userData?.profilePic ??
-                                'https://www.kindpng.com/picc/m/207-2074624_white-gray-circle-avatar-png-transparent-png.png',
-                            fullName: userData?.fullName ?? 'null',
-                            selectedDivision:
-                                dashboardController.selectedDivision,
-                            updateSelectedDivision:
-                                dashboardController.updateSelectedDivision,
-                          )
-                        : const SizedBox(),
-                    const Divider(),
-                    Expanded(
-                      child: RefreshIndicator(
-                        onRefresh: _loadAllData,
-                        child: SingleChildScrollView(
-                          physics: const AlwaysScrollableScrollPhysics(parent:  BouncingScrollPhysics()),
-                          child: Padding(
-                            padding:
+                  final userData = customerController.userInfoCustomer;
+                  return Padding(
+                    padding: EdgeInsets.all(Dimensions.padding10 * 1.2),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Get.find<AuthSignOutController>().userLoggedIn()
+                            ? CustomerHomeProfileViewShort(
+                          profilePicUrl: userData?.profilePic ??
+                              'https://www.kindpng.com/picc/m/207-2074624_white-gray-circle-avatar-png-transparent-png.png',
+                          fullName: userData?.fullName ?? 'null',
+                          selectedDivision:
+                          dashboardController.selectedDivision,
+                          updateSelectedDivision:
+                          dashboardController.updateSelectedDivision,
+                        )
+                            : const SizedBox(),
+                        const Divider(),
+                        Expanded(
+                          child: RefreshIndicator(
+                            onRefresh: _loadAllData,
+                            child: SingleChildScrollView(
+                              physics: const AlwaysScrollableScrollPhysics(
+                                  parent: BouncingScrollPhysics()),
+                              child: Padding(
+                                padding:
                                 EdgeInsets.only(bottom: Dimensions.height10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                DashboardHeader(onTapFindService: () {}),
-                                SizedBox(
-                                  height: Dimensions.height15,
-                                ),
-                                const SmallText(
-                                  text: 'Book a service',
-                                  fontWeight: FontWeight.w600,
-                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    DashboardHeader(onTapFindService: () {}),
+                                    SizedBox(
+                                      height: Dimensions.height15,
+                                    ),
+                                    const SmallText(
+                                      text: 'Book a service',
+                                      fontWeight: FontWeight.w600,
+                                    ),
 
-                                SizedBox(
-                                  height: Dimensions.height20 * 9,
-                                  child: ListView.separated(
-                                      separatorBuilder: (context, index) =>
-                                          SizedBox(
-                                            width: Dimensions.width10 / 2,
-                                          ),
-                                      physics: const BouncingScrollPhysics(),
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: dashboardController
-                                          .allServices.length,
-                                      itemBuilder: (context, index) {
-                                        final service = dashboardController
-                                            .allServices[index];
-                                        return ServicesCard(
+                                    SizedBox(
+                                      height: Dimensions.height20 * 9,
+                                      child: ListView.separated(
+                                          separatorBuilder: (context, index) =>
+                                              SizedBox(
+                                                width: Dimensions.width10 / 2,
+                                              ),
+                                          physics: const BouncingScrollPhysics(),
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: dashboardController
+                                              .allServices.length,
+                                          itemBuilder: (context, index) {
+                                            final service = dashboardController
+                                                .allServices[index];
+                                            return ServicesCard(
+                                                onTap: () {
+                                                  Get.toNamed(RouteHelper
+                                                      .getSubServicesPage(
+                                                      service.uid!));
+                                                },
+                                                title: service.name ?? ' null',
+                                                iconPath: service.icon ??
+                                                    'null');
+                                          }),
+                                    ),
+                                    SizedBox(
+                                      height: Dimensions.height15,
+                                    ),
+
+                                    ///NEAR YOU
+                                    // Row(
+                                    //   mainAxisAlignment:
+                                    //       MainAxisAlignment.spaceBetween,
+                                    //   children: [
+                                    //     Expanded(
+                                    //       child: SmallText(
+                                    //         textAlign: TextAlign.start,
+                                    //         text:
+                                    //             'Technicians in ${dashboardController.selectedDivision}',
+                                    //         fontWeight: FontWeight.w600,
+                                    //       ),
+                                    //     ),
+                                    //     CustomTextButton(
+                                    //         text: 'See all', onTap: () {})
+                                    //   ],
+                                    // ),
+                                    // SizedBox(
+                                    //   height: Dimensions.height10,
+                                    // ),
+                                    ListView.separated(
+                                        separatorBuilder: (context, index) {
+                                          return SizedBox(
+                                            height: Dimensions.height10,
+                                          );
+                                        },
+                                        shrinkWrap: true,
+                                        physics:
+                                        const NeverScrollableScrollPhysics(),
+                                        itemCount: technicianInfo.length,
+                                        itemBuilder: (context, index) {
+                                          final technician = technicianInfo
+                                              .toList()[index];
+                                          return DashboardTechnicianCard(
                                             onTap: () {
                                               Get.toNamed(RouteHelper
-                                                  .getSubServicesPage(
-                                                      service.uid!));
-                                            },
-                                            title: service.name ?? ' null',
-                                            iconPath: service.icon ?? 'null');
-                                      }),
-                                ),
-                                SizedBox(
-                                  height: Dimensions.height15,
-                                ),
-
-                                ///NEAR YOU
-                                // Row(
-                                //   mainAxisAlignment:
-                                //       MainAxisAlignment.spaceBetween,
-                                //   children: [
-                                //     Expanded(
-                                //       child: SmallText(
-                                //         textAlign: TextAlign.start,
-                                //         text:
-                                //             'Technicians in ${dashboardController.selectedDivision}',
-                                //         fontWeight: FontWeight.w600,
-                                //       ),
-                                //     ),
-                                //     CustomTextButton(
-                                //         text: 'See all', onTap: () {})
-                                //   ],
-                                // ),
-                                // SizedBox(
-                                //   height: Dimensions.height10,
-                                // ),
-                                ListView.separated(
-                                    separatorBuilder: (context, index) {
-                                      return SizedBox(
-                                        height: Dimensions.height10,
-                                      );
-                                    },
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemCount: technicianInfo.length,
-                                    itemBuilder: (context, index) {
-                                      final technician = technicianInfo
-                                          .toList()[index];
-                                      return DashboardTechnicianCard(
-                                        onTap: () {
-                                          Get.toNamed(RouteHelper
-                                              .getTechnicianInfoPageCustomer(
+                                                  .getTechnicianInfoPageCustomer(
                                                   technician.uid!));
-                                        },
-                                        name: technician.nickName ?? 'Null',
-                                        imageUrl: technician.profilePic ??
-                                            'https://i.pinimg.com/736x/bb/e3/02/bbe302ed8d905165577c638e908cec76.jpg',
-                                        time:
-                                            '${technician.time1} - ${technician.time2}',
-                                        location: technician.division ?? 'null',
-                                        services:
+                                            },
+                                            name: technician.nickName ?? 'Null',
+                                            imageUrl: technician.profilePic ??
+                                                'https://i.pinimg.com/736x/bb/e3/02/bbe302ed8d905165577c638e908cec76.jpg',
+                                            time:
+                                            '${technician.time1} - ${technician
+                                                .time2}',
+                                            location: technician.division ??
+                                                'null',
+                                            services:
                                             technician.services?.join(', ') ??
                                                 'null',
-                                      );
-                                    })
-                              ],
+                                          );
+                                        })
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
-              );
-            });
+                  );
+                });
           },
         ));
   }

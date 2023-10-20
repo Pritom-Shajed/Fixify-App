@@ -91,7 +91,7 @@ class RouteHelper {
       '$viewJobDetailsPageTechnician?jobId=$jobId';
 
   //Notification
-  static String getNotificationPage() => notificationPage;
+  static String getNotificationPage({required String userId}) => '$notificationPage?userId=$userId';
 
   static List<GetPage> routes = [
     GetPage(
@@ -219,7 +219,8 @@ class RouteHelper {
     GetPage(
         name: notificationPage,
         page: () {
-          return const NotificationPage();
+          var userId = Get.parameters['userId']!;
+          return  NotificationPage(userId: userId,);
         })
   ];
 }
