@@ -59,8 +59,7 @@ class _TechnicianInfoPageCustomerState
                        builder: (context) {
                          return CustomAlertDialogDialogForHiring(
                              textEditingController:
-                             Get.find<TechnicianHiringController>()
-                                 .hireTextController,
+                             Get.find<TechnicianHiringController>().hireTextController,
                              hintText: 'Write the job description in details',
                              totalServicesOffered:
                              userData.services?.length ?? 0,

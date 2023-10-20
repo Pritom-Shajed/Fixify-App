@@ -26,7 +26,7 @@ class HiringInfoCardCustomer extends StatelessWidget {
       {Key? key,
       required this.workingArea,
       required this.status,
-        required this.lastUpdated,
+      required this.lastUpdated,
       required this.price,
       required this.fullName,
       required this.services,
@@ -42,7 +42,6 @@ class HiringInfoCardCustomer extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-
         HiringStatusText(status: status),
         SizedBox(
           height: Dimensions.height20,
@@ -96,23 +95,30 @@ class HiringInfoCardCustomer extends StatelessWidget {
           text2: availability,
           fontSize: Dimensions.font14,
         ),
-        status == 'on progress'.toUpperCase() ?Center(
-          child: SizedBox(
-            width: Dimensions.screenWidth / 2,
-            child: Column(
-              children: [
-                PriceUpdateButton(
-                    isEnabled: hiringPriceController.text == '0' ? false : true,
-                    title: 'Price',
-                    hiringPriceController: hiringPriceController),
-                SizedBox(
-                  height: Dimensions.height15,
+        (() {
+          if (status == 'on progress'.toUpperCase()) {
+            return Center(
+              child: SizedBox(
+                width: Dimensions.screenWidth / 2,
+                child: Column(
+                  children: [
+                    PriceUpdateButton(
+                        isEnabled: hiringPriceController.text == '0' || lastUpdated == 'customer' ? false : true,
+                        title: 'Price',
+                        hiringPriceController: hiringPriceController),
+                    SizedBox(
+                      height: Dimensions.height15,
+                    ),
+                    CustomButton2(
+                        text: 'Update Price', onTap: onTapPriceUpdate)
+                  ],
                 ),
-                CustomButton2(text: 'Update Price', onTap: onTapPriceUpdate)
-              ],
-            ),
-          ),
-        ) :  const SizedBox()
+              ),
+            );
+          } else {
+            return const SizedBox();
+          }
+        }()),
       ],
     );
   }

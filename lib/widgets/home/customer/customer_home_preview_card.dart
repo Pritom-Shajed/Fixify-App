@@ -69,26 +69,26 @@ class CustomerHomeProfileViewShort extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
-            child: CustomDropDownFormField(
-              required: false,
-              hintText: 'Location',
-              turnOffTitleText: true,
-              value: selectedDivision,
-              fontWeight: FontWeight.w600,
-              fillColor: AppColors.primaryColorLight,
-              items: FactoryData.divisions.map((division) {
-                return DropdownMenuItem(
-                  value: division,
-                  child: SmallText(
-                    text: division,
-                    fontWeight: FontWeight.w600,
-                  ),
-                );
-              }).toList(),
-              onChanged: updateSelectedDivision,
-            ),
-          ),
+          // Expanded(
+          //   child: CustomDropDownFormField(
+          //     required: false,
+          //     hintText: 'Location',
+          //     turnOffTitleText: true,
+          //     value: selectedDivision,
+          //     fontWeight: FontWeight.w600,
+          //     fillColor: AppColors.primaryColorLight,
+          //     items: FactoryData.divisions.map((division) {
+          //       return DropdownMenuItem(
+          //         value: division,
+          //         child: SmallText(
+          //           text: division,
+          //           fontWeight: FontWeight.w600,
+          //         ),
+          //       );
+          //     }).toList(),
+          //     onChanged: updateSelectedDivision,
+          //   ),
+          // ),
         ],
       ),
     );

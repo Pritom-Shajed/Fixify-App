@@ -85,6 +85,8 @@ class JobDetailsPageTechnician extends StatelessWidget {
                                       text: 'Accept Offer', onTap: () {
                                     hiringController
                                         .acceptOrRejectOffer(
+                                        technicianUid: jobDetail.technicianUid ?? 'null',
+                                        customerUid: jobDetail.customerUid ?? 'null',
                                         jobId: jobId, isAccepted: true)
                                         .whenComplete(() =>
                                         Get.toNamed(RouteHelper.getHomeTechnician()));
@@ -93,6 +95,8 @@ class JobDetailsPageTechnician extends StatelessWidget {
                                   Expanded(child: CustomButton2(
                                       text: 'Reject Offer', onTap: () {
                                     hiringController.acceptOrRejectOffer(
+                                        technicianUid: jobDetail.technicianUid ?? 'null',
+                                        customerUid: jobDetail.customerUid ?? 'null',
                                         jobId: jobId, isAccepted: false)
                                         .whenComplete(() =>
                                         Get.toNamed(RouteHelper.getHomeTechnician()));
@@ -125,11 +129,18 @@ class JobDetailsPageTechnician extends StatelessWidget {
                           services: jobDetail.serviceName?.join(', ') ?? 'null',
                           jobDescription: jobDetail.jobDescription ?? 'null',
                           onTapPriceUpdate: () {
-                            hiringController
-                                .updateHiringPrice(
-                                    jobId: jobId,
-                                    isCustomer: false)
-                                .whenComplete(() => Get.toNamed(RouteHelper.getHomeTechnician()));
+                            if(jobDetail.lastUpdated == 'technician'){
+                              showCustomToast(
+                                  'Wait for customer\'s response');
+                            } else {
+                              hiringController.updateHiringPrice(
+                                  technicianUid: jobDetail.technicianUid ?? 'null',
+                                  customerUid: jobDetail.customerUid ?? 'null',
+                                  jobId: jobId,
+                                  isCustomer: false)
+                                  .whenComplete(() => Get.offNamedUntil(RouteHelper.getHomeTechnician(), (route) => route.isFirst));
+                            }
+
                           },
                         )),
                   ),

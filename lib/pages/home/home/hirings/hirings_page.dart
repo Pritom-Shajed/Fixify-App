@@ -5,7 +5,6 @@ import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/buttons/custom_icon_button.dart';
 import 'package:fixify_app/widgets/home/job_requests_card.dart';
-import 'package:fixify_app/widgets/texts/medium_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

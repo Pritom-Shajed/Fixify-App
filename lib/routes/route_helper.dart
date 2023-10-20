@@ -2,6 +2,7 @@ import 'package:fixify_app/pages/auth/authentication_page.dart';
 import 'package:fixify_app/pages/home/home/hirings/hiring_detail_info_customer.dart';
 import 'package:fixify_app/pages/home/home/hirings/hirings_page.dart';
 import 'package:fixify_app/pages/home/home/home_page.dart';
+import 'package:fixify_app/pages/home/home/notification/notification_page.dart';
 import 'package:fixify_app/pages/home/technician/edit_profile/edit_profile_technician.dart';
 import 'package:fixify_app/pages/home/technician/job_details_page.dart';
 import 'package:fixify_app/pages/home/technician/view_all_job_requests.dart';
@@ -38,8 +39,13 @@ class RouteHelper {
   static String homePageTechnician = '/home-technician';
   static String viewProfileTechnician = '/view-profile-technician';
   static String editProfileTechnician = '/edit-profile-technician';
-  static String viewAllJobRequestsTechnician = '/view-all-job-requests-technician';
-  static String viewJobDetailsPageTechnician = '/view-job-details-page-technician';
+  static String viewAllJobRequestsTechnician =
+      '/view-all-job-requests-technician';
+  static String viewJobDetailsPageTechnician =
+      '/view-job-details-page-technician';
+
+  //Notification
+  static String notificationPage = '/notification-page';
 
   //Initial
   static String getSplashScreen() => splashScreen;
@@ -66,7 +72,8 @@ class RouteHelper {
 
   static String getHiringsPage() => hiringsPage;
 
-  static String getHiringDetailInfoCustomer(String jobId) => '$hiringDetailInfoCustomer?jobId=$jobId';
+  static String getHiringDetailInfoCustomer(String jobId) =>
+      '$hiringDetailInfoCustomer?jobId=$jobId';
 
   //Technician
   static String getHomeTechnician() => homePageTechnician;
@@ -76,11 +83,15 @@ class RouteHelper {
   static String getEditProfileTechnician(String uid) =>
       '$editProfileTechnician?uid=$uid';
 
-  static String getViewAllJobRequestsTechnician({required String technicianUid}) => '$viewAllJobRequestsTechnician?technicianUid=$technicianUid';
+  static String getViewAllJobRequestsTechnician(
+          {required String technicianUid}) =>
+      '$viewAllJobRequestsTechnician?technicianUid=$technicianUid';
 
-  static String getViewJobDetailsPageTechnician(String jobId) => '$viewJobDetailsPageTechnician?jobId=$jobId';
+  static String getViewJobDetailsPageTechnician(String jobId) =>
+      '$viewJobDetailsPageTechnician?jobId=$jobId';
 
-
+  //Notification
+  static String getNotificationPage() => notificationPage;
 
   static List<GetPage> routes = [
     GetPage(
@@ -203,5 +214,12 @@ class RouteHelper {
             jobId: jobId,
           );
         }),
+
+    //Notification
+    GetPage(
+        name: notificationPage,
+        page: () {
+          return const NotificationPage();
+        })
   ];
 }

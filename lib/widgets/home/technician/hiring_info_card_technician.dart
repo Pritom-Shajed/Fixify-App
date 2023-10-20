@@ -86,7 +86,7 @@ class HiringInfoCardTechnician extends StatelessWidget {
             child: Column(
               children: [
                 PriceUpdateButton(
-                    isEnabled: true,
+                    isEnabled: lastUpdated == 'technician' ? false : true,
                     title: 'Price',
                     hiringPriceController: hiringPriceController),
                 SizedBox(

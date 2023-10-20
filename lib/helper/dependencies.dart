@@ -4,6 +4,7 @@ import 'package:fixify_app/controller/auth/auth_signup_controller.dart';
 import 'package:fixify_app/controller/home/customer_controller.dart';
 import 'package:fixify_app/controller/home/dashboard_controller.dart';
 import 'package:fixify_app/controller/home/home_page_controller.dart';
+import 'package:fixify_app/controller/home/notification_controller.dart';
 import 'package:fixify_app/controller/home/technician_hiring_controller.dart';
 import 'package:fixify_app/controller/technician/technician_controller.dart';
 import 'package:get/get.dart';
@@ -27,5 +28,6 @@ Future<void> init() async {
   Get.lazyPut(() => DashboardController(sharedPreferences: Get.find()),
       fenix: true);
   Get.lazyPut(() => TechnicianHiringController(), fenix: true);
+  Get.lazyPut(() => NotificationController(), fenix: true);
 
 }

@@ -94,16 +94,30 @@ class TechnicianHiringController extends GetxController {
   }
 
   Future<void> updateHiringPrice(
-      {required String jobId,
-      required bool isCustomer}) async {
+      {required String jobId, required bool isCustomer,     required String technicianUid,
+        required String customerUid,}) async {
     EasyLoading.show(status: 'Updating price...');
     try {
-      Map<String, dynamic> body = {'price': hiringPriceController.text, 'last_updated': isCustomer ? 'customer' : 'technician'};
+      Map<String, dynamic> body = {
+        'price': hiringPriceController.text,
+        'last_updated': isCustomer ? 'customer' : 'technician'
+      };
 
       await FirebaseFirestore.instance
           .collection('hirings')
           .doc(jobId)
-          .update(body)
+          .update(body);
+
+      Map<String, dynamic> notificationBody = {
+        'technicianId': technicianUid,
+        'customerId': customerUid,
+        'description': 'Updated the price to ${hiringPriceController.text}'
+      };
+
+      await FirebaseFirestore.instance
+          .collection('notification')
+          .doc(jobId)
+          .set(notificationBody)
           .whenComplete(() => showCustomSnackBar('Wait for him to response',
               title: 'Price updated'));
 
@@ -116,8 +130,10 @@ class TechnicianHiringController extends GetxController {
   }
 
   Future<void> acceptOrRejectOffer(
-      {required String jobId, required bool isAccepted}) async {
-    EasyLoading.show(status: isAccepted ?'Confirming Offer' : 'Rejecting Offer');
+      {required String jobId, required bool isAccepted,    required String technicianUid,
+        required String customerUid,}) async {
+    EasyLoading.show(
+        status: isAccepted ? 'Confirming Offer' : 'Rejecting Offer');
     try {
       Map<String, dynamic> body = {
         'status': isAccepted ? 'confirmed' : 'rejected'
@@ -127,9 +143,23 @@ class TechnicianHiringController extends GetxController {
           .collection('hirings')
           .doc(jobId)
           .update(body)
-          .whenComplete(() => isAccepted ? showCustomSnackBar('Technician successfully hired',
-              title: 'Confirmed') : showCustomSnackBar('Offer rejected',
-          title: 'Rejected'));
+          .whenComplete(() => isAccepted
+              ? showCustomSnackBar('Technician successfully hired',
+                  title: 'Confirmed')
+              : showCustomSnackBar('Offer rejected', title: 'Rejected'));
+
+      Map<String, dynamic> notificationBody = {
+        'technicianId': technicianUid,
+        'customerId': customerUid,
+        'description': isAccepted ? 'Appointment placed' : 'Appointment rejected'
+      };
+
+      await FirebaseFirestore.instance
+          .collection('notification')
+          .doc(jobId)
+          .set(notificationBody)
+          .whenComplete(() => showCustomSnackBar('Wait for him to response',
+          title: 'Price updated'));
 
       EasyLoading.dismiss();
     } catch (e) {

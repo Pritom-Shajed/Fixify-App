@@ -39,7 +39,7 @@ class DashboardPage extends StatelessWidget {
           backgroundColor: AppColors.whiteColor,
           title: const Text('Home'),
           actions: [
-            CustomIconButton(icon: Icons.notifications, onTap: () {}),
+            CustomIconButton(icon: Icons.notifications, onTap: () => Get.toNamed(RouteHelper.getNotificationPage())),
           ],
         ),
         body: GetBuilder<DashboardController>(
