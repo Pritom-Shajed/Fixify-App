@@ -139,8 +139,7 @@ class _AuthPageState extends State<AuthPage> {
                                     //     'Please fill up all required fields',
                                     //     context);
                                   } else {
-                                    authSignInController
-                                        .authSignInErrorCleared();
+                                    authSignInController.authSignInErrorCleared();
                                     authSignInController.login(
                                       signInEmailController.text,
                                       signInPassController.text,

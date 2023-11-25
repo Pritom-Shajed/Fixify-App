@@ -1,10 +1,14 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fixify_app/base/show_custom_snackbar.dart';
+import 'package:fixify_app/controller/auth/auth_signout_controller.dart';
+import 'package:fixify_app/controller/home/technician_hiring_controller.dart';
 import 'package:fixify_app/model/firebase/services_model.dart';
 import 'package:fixify_app/model/firebase/user_model_technician.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'customer_controller.dart';
 
 class DashboardController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -15,6 +19,25 @@ class DashboardController extends GetxController {
   List<ServicesModel> allServices = [];
 
 
+
+  @override
+  onInit(){
+    _loadAllData();
+    super.onInit();
+
+  }
+
+
+  Future<void> _loadAllData() async {
+    Get.find<AuthSignOutController>().userLoggedIn()
+        ? await Get.find<CustomerController>().fetchCustomerUserInfo()
+        : null;
+    Get.find<AuthSignOutController>().userLoggedIn()
+        ? await Get.find<TechnicianHiringController>().fetchJobRequests()
+        : null;
+    await fetchAllTechnician();
+    await fetchAllServices();
+  }
 
   DashboardController({required this.sharedPreferences});
 

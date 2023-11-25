@@ -3,6 +3,7 @@ import 'package:fixify_app/pages/home/home/hirings/hiring_detail_info_customer.d
 import 'package:fixify_app/pages/home/home/hirings/hirings_page.dart';
 import 'package:fixify_app/pages/home/home/home_page.dart';
 import 'package:fixify_app/pages/home/home/notification/notification_page.dart';
+import 'package:fixify_app/pages/home/home/technician/all_technician_page.dart';
 import 'package:fixify_app/pages/home/technician/edit_profile/edit_profile_technician.dart';
 import 'package:fixify_app/pages/home/technician/job_details_page.dart';
 import 'package:fixify_app/pages/home/technician/view_all_job_requests.dart';

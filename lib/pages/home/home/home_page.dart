@@ -5,6 +5,7 @@ import 'package:fixify_app/controller/home/customer_controller.dart';
 import 'package:fixify_app/controller/home/dashboard_controller.dart';
 import 'package:fixify_app/controller/home/home_page_controller.dart';
 import 'package:fixify_app/controller/home/technician_hiring_controller.dart';
+import 'package:fixify_app/pages/home/home/technician/all_technician_page.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,6 +25,7 @@ final _controller = Get.find<HomePageController>();
 class _HomePageState extends State<HomePage> {
   List<Widget> pages = [
     const DashboardPage(),
+    const AllTechnicianPage(),
     const ProfilePageCustomer(),
   ];
 
@@ -66,6 +68,8 @@ class _HomePageState extends State<HomePage> {
                   items: const [
                     BottomNavigationBarItem(
                         icon: Icon(Icons.home_outlined), label: 'Home'),
+                    BottomNavigationBarItem(
+                        icon: Icon(Icons.plumbing), label: 'Technicians'),
                     BottomNavigationBarItem(
                         icon: Icon(Icons.person_2_outlined),
                         label: 'Account'),
