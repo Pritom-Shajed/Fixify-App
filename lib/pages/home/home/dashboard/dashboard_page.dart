@@ -30,10 +30,14 @@ class DashboardPage extends StatelessWidget {
         : null;
     await Get.find<DashboardController>().fetchAllTechnician();
     await Get.find<DashboardController>().fetchAllServices();
+    await Get.find<DashboardController>().fetchAllBanners();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         backgroundColor: AppColors.whiteColor,
         drawer: const SideBar(),
@@ -49,33 +53,39 @@ class DashboardPage extends StatelessWidget {
                             'null'))),
           ],
         ),
-        body: GetBuilder<CustomerController>(builder: (customerController) {
-          final userData = customerController.userInfoCustomer;
-          return Padding(
-            padding: EdgeInsets.all(Dimensions.padding10 * 1.2),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Get.find<AuthSignOutController>().userLoggedIn()
-                    ? CustomerHomeProfileViewShort(
-                        profilePicUrl: userData?.profilePic ??
-                            'https://www.kindpng.com/picc/m/207-2074624_white-gray-circle-avatar-png-transparent-png.png',
-                        fullName: userData?.fullName ?? 'null',
-                        selectedDivision:
-                            Get.find<DashboardController>().selectedDivision,
-                        updateSelectedDivision: Get.find<DashboardController>()
-                            .updateSelectedDivision,
-                      )
-                    : const SizedBox(),
-                const Divider(),
-                Expanded(
-                  child: RefreshIndicator(
-                    onRefresh: _loadAllData,
-                    child: SingleChildScrollView(
-                      physics: const AlwaysScrollableScrollPhysics(
-                          parent: BouncingScrollPhysics()),
-                      child: Padding(
-                        padding: EdgeInsets.only(bottom: Dimensions.height10),
+        body: GetBuilder<DashboardController>(
+          builder: (controller) {
+            List<String?> bannerUrls = controller.allBanners.where((element) => element.bannerType == 'Dashboard Banner')
+                .map((model) => model.bannerList?.map((banner) => banner.bannerUrl) ?? [])
+                .expand((urls) => urls)
+                .toList();
+            return GetBuilder<CustomerController>(builder: (customerController) {
+              final userData = customerController.userInfoCustomer;
+              return RefreshIndicator(
+                onRefresh: _loadAllData,
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(
+                      parent: BouncingScrollPhysics()),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Get.find<AuthSignOutController>().userLoggedIn()
+                          ? Padding(
+                        padding: EdgeInsets.only(top: Dimensions.padding10 * 1.2, left: Dimensions.padding10 * 1.2, right: Dimensions.padding10 * 1.2),
+                            child: CustomerHomeProfileViewShort(
+                                profilePicUrl: userData?.profilePic ??
+                                    'https://www.kindpng.com/picc/m/207-2074624_white-gray-circle-avatar-png-transparent-png.png',
+                                fullName: userData?.fullName ?? 'null',
+                                selectedDivision:
+                                    Get.find<DashboardController>().selectedDivision,
+                                updateSelectedDivision: Get.find<DashboardController>()
+                                    .updateSelectedDivision,
+                              ),
+                          )
+                          : const SizedBox(),
+                      const Divider(),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: Dimensions.padding10 * 1.2, left: Dimensions.padding10 * 1.2, right: Dimensions.padding10 * 1.2),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -114,44 +124,7 @@ class DashboardPage extends StatelessWidget {
                                         iconPath: service.icon ?? 'null');
                                   }),
                             ),
-                            SizedBox(
-                              height: Dimensions.height15,
-                            ),
-                            CarouselSlider(
-                              options: CarouselOptions(
-                                height: Dimensions.height20*10,
-                                autoPlay: true,
-                                autoPlayInterval: const Duration(seconds: 4),
-                                enableInfiniteScroll: true,
-                              ),
-                              items: [
-                                'https://media.istockphoto.com/id/1437896577/photo/air-conditioner-technician-repairing-central-air-conditioning-system-with-outdoor-tools.jpg?s=612x612&w=0&k=20&c=Vt5lo-He1rM3_d-G5GHaFVYD0lyMGAtsUccuwNaCe08=',
-                                'https://media.istockphoto.com/id/1437896577/photo/air-conditioner-technician-repairing-central-air-conditioning-system-with-outdoor-tools.jpg?s=612x612&w=0&k=20&c=Vt5lo-He1rM3_d-G5GHaFVYD0lyMGAtsUccuwNaCe08=',
-                                'https://media.istockphoto.com/id/1437896577/photo/air-conditioner-technician-repairing-central-air-conditioning-system-with-outdoor-tools.jpg?s=612x612&w=0&k=20&c=Vt5lo-He1rM3_d-G5GHaFVYD0lyMGAtsUccuwNaCe08=',
-                              ].map((i) {
-                                return Builder(
-                                  builder: (BuildContext context) {
-                                    return Padding(
-                                      padding: EdgeInsets.all(Dimensions.padding5),
-                                      child: CachedNetworkImage(
-                                          imageUrl: i,
-                                          imageBuilder: (context, imageProvider) => Container(
-                                            height: Dimensions.height20 * 10,
-                                            width: double.maxFinite,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                BorderRadius.circular(Dimensions.radius4 * 3),
-                                                image: DecorationImage(
-                                                    image: imageProvider, fit: BoxFit.cover)),
-                                          ),
-                                          placeholder: (context, url) => ShimmerWidgetContainer(
-                                            height: Dimensions.height20 * 10,
-                                            width: double.maxFinite,)),
-                                    );
-                                  },
-                                );
-                              }).toList(),
-                            )
+
 
                             ///NEAR YOU
                             // Row(
@@ -176,12 +149,44 @@ class DashboardPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                    ),
+                      CarouselSlider(
+                        options: CarouselOptions(
+                          viewportFraction: 0.9,
+                          height: Dimensions.height20*10,
+                          autoPlay: true,
+                          autoPlayInterval: const Duration(seconds: 4),
+                          enableInfiniteScroll: true,
+                        ),
+                        items: bannerUrls.map((i) {
+                          return Builder(
+                            builder: (BuildContext context) {
+                              return Padding(
+                                padding: EdgeInsets.all(Dimensions.padding5),
+                                child: CachedNetworkImage(
+                                    imageUrl: i!,
+                                    imageBuilder: (context, imageProvider) => Container(
+                                      height: Dimensions.height20 * 10,
+                                      width: double.maxFinite,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                          BorderRadius.circular(Dimensions.radius12/2),
+                                          image: DecorationImage(
+                                              image: imageProvider, fit: BoxFit.cover)),
+                                    ),
+                                    placeholder: (context, url) => ShimmerWidgetContainer(
+                                      height: Dimensions.height20 * 10,
+                                      width: double.maxFinite,)),
+                              );
+                            },
+                          );
+                        }).toList(),
+                      )
+                    ],
                   ),
                 ),
-              ],
-            ),
-          );
-        }));
+              );
+            });
+          }
+        ));
   }
 }

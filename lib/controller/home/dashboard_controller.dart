@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fixify_app/base/show_custom_snackbar.dart';
 import 'package:fixify_app/controller/auth/auth_signout_controller.dart';
 import 'package:fixify_app/controller/home/technician_hiring_controller.dart';
+import 'package:fixify_app/model/firebase/banner_model.dart';
 import 'package:fixify_app/model/firebase/services_model.dart';
 import 'package:fixify_app/model/firebase/user_model_technician.dart';
 import 'package:get/get.dart';
@@ -17,6 +18,7 @@ class DashboardController extends GetxController {
 
   List<UserModelTechnician> technicianInfo = [];
   List<ServicesModel> allServices = [];
+  List<BannerModel> allBanners = [];
 
 
 
@@ -37,6 +39,7 @@ class DashboardController extends GetxController {
         : null;
     await fetchAllTechnician();
     await fetchAllServices();
+    await fetchAllBanners();
   }
 
   DashboardController({required this.sharedPreferences});
@@ -66,8 +69,8 @@ class DashboardController extends GetxController {
         update();
       }
     } catch (e) {
-      showCustomSnackBar(e.toString(), title: 'Error');
-      throw Exception(e.toString());
+
+      throw Exception('Error while fetching banners, Error: $e');
     }
   }
 
@@ -98,8 +101,37 @@ class DashboardController extends GetxController {
         showCustomSnackBar('No services found', title: 'Error');
       }
     } catch (e) {
-      showCustomSnackBar(e.toString(), title: 'Error');
-      throw Exception(e.toString());
+      throw Exception('Error while fetching services, Error: $e');
+    }
+  }
+
+  Future<void> fetchAllBanners () async{
+    allBanners = [];
+    try {
+      final banners = await _firestore.collection('banners').get();
+
+
+      if (banners.docs.isNotEmpty) {
+
+        // // Convert the QuerySnapshot to a list of maps
+        List<Map<String, dynamic>> data =
+        banners.docs.map((doc) => doc.data()).toList();
+
+        // Convert the list of maps to a JSON string
+        String jsonData = jsonEncode(data);
+
+
+        List<dynamic> jsonList = json.decode(jsonData);
+
+        allBanners = jsonList.map((json) => BannerModel.fromJson(json)).toList();
+
+        update();
+
+      }
+
+    } catch (e) {
+
+      throw Exception('Error while fetching banners, Error: $e');
     }
   }
 }
