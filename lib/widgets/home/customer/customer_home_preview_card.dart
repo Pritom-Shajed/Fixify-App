@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 class CustomerHomeProfileViewShort extends StatelessWidget {
   final String profilePicUrl;
   final String fullName;
+  final String greetingsText;
   final ValueChanged<dynamic> updateSelectedDivision;
   final String selectedDivision;
 
@@ -17,6 +18,7 @@ class CustomerHomeProfileViewShort extends StatelessWidget {
       {Key? key,
       required this.profilePicUrl,
       required this.fullName,
+      required this.greetingsText,
       required this.updateSelectedDivision, required this.selectedDivision,})
       : super(key: key);
 
@@ -63,8 +65,8 @@ class CustomerHomeProfileViewShort extends StatelessWidget {
                 SizedBox(
                   height: Dimensions.height5,
                 ),
-                const SmallText(
-                  text: 'Good Morning...',
+                 SmallText(
+                  text: greetingsText,
                 ),
               ],
             ),

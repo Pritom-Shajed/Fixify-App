@@ -10,6 +10,7 @@ import 'package:fixify_app/routes/route_helper.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/buttons/custom_icon_button.dart';
+import 'package:fixify_app/widgets/greetings/time_greetings.dart';
 import 'package:fixify_app/widgets/home/customer/customer_home_preview_card.dart';
 import 'package:fixify_app/widgets/home/customer/dashboard_header.dart';
 import 'package:fixify_app/widgets/home/customer/services_card.dart';
@@ -76,6 +77,7 @@ class DashboardPage extends StatelessWidget {
                                 profilePicUrl: userData?.profilePic ??
                                     'https://www.kindpng.com/picc/m/207-2074624_white-gray-circle-avatar-png-transparent-png.png',
                                 fullName: userData?.fullName ?? 'null',
+                                greetingsText: Greetings.getGreetingsByTime(),
                                 selectedDivision:
                                     Get.find<DashboardController>().selectedDivision,
                                 updateSelectedDivision: Get.find<DashboardController>()
