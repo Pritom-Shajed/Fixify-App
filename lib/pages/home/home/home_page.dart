@@ -29,11 +29,35 @@ class _HomePageState extends State<HomePage> {
     const ProfilePageCustomer(),
   ];
 
+  bool _isLoading = true;
+
+  Future<void> _loadAllData() async {
+    Get.find<AuthSignOutController>().userLoggedIn()
+        ? await Get.find<CustomerController>().fetchCustomerUserInfo()
+        : null;
+    await Get.find<DashboardController>().fetchAllTechnician();
+    await Get.find<DashboardController>().fetchAllServices();
+    Get.find<AuthSignOutController>().userLoggedIn()
+        ? await Get.find<TechnicianHiringController>().fetchJobRequests()
+        : null;
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    _loadAllData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
-      bottomNavigationBar: Builder(builder: (context) {
+      bottomNavigationBar: _isLoading
+          ? null
+          : Builder(builder: (context) {
         return Obx(
               () =>
               BottomNavigationBar(
@@ -52,7 +76,9 @@ class _HomePageState extends State<HomePage> {
                   ]),
         );
       }),
-      body: Obx(() =>
+      body: _isLoading
+          ? showCustomLoader()
+          : Obx(() =>
           WillPopScope(
               onWillPop: () async {
                 if (_controller.tabIndex == 1) {

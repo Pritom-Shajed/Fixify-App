@@ -18,38 +18,42 @@ class AllTechnicianPage extends StatelessWidget {
         backgroundColor: AppColors.whiteColor,
         title: const Text('Technicians'),
       ),
-      body:  ListView.separated(
-          separatorBuilder: (context, index) {
-            return SizedBox(
-              height: Dimensions.height10,
-            );
-          },
-          shrinkWrap: true,
-          physics:
-          const NeverScrollableScrollPhysics(),
-          itemCount: technicianInfo.length,
-          itemBuilder: (context, index) {
-            final technician = technicianInfo
-                .toList()[index];
-            return DashboardTechnicianCard(
-              onTap: () {
-                Get.toNamed(RouteHelper
-                    .getTechnicianInfoPageCustomer(
-                    technician.uid!));
+      body:  GetBuilder<DashboardController>(
+        builder: (controller) {
+          return ListView.separated(
+              separatorBuilder: (context, index) {
+                return SizedBox(
+                  height: Dimensions.height10,
+                );
               },
-              name: technician.nickName ?? 'Null',
-              imageUrl: technician.profilePic ??
-                  'https://i.pinimg.com/736x/bb/e3/02/bbe302ed8d905165577c638e908cec76.jpg',
-              time:
-              '${technician.time1} - ${technician
-                  .time2}',
-              location: technician.division ??
-                  'null',
-              services:
-              technician.services?.join(', ') ??
-                  'null',
-            );
-          }),
+              shrinkWrap: true,
+              physics:
+              const NeverScrollableScrollPhysics(),
+              itemCount: technicianInfo.length,
+              itemBuilder: (context, index) {
+                final technician = technicianInfo
+                    .toList()[index];
+                return DashboardTechnicianCard(
+                  onTap: () {
+                    Get.toNamed(RouteHelper
+                        .getTechnicianInfoPageCustomer(
+                        technician.uid!));
+                  },
+                  name: technician.nickName ?? 'Null',
+                  imageUrl: technician.profilePic ??
+                      'https://i.pinimg.com/736x/bb/e3/02/bbe302ed8d905165577c638e908cec76.jpg',
+                  time:
+                  '${technician.time1} - ${technician
+                      .time2}',
+                  location: technician.division ??
+                      'null',
+                  services:
+                  technician.services?.join(', ') ??
+                      'null',
+                );
+              });
+        }
+      ),
     );
   }
 }

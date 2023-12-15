@@ -39,8 +39,6 @@ class DashboardController extends GetxController {
 
 
   Future<void> loadAllData() async {
-    isLoading = true;
-    update();
     Get.find<AuthSignOutController>().userLoggedIn()
         ? await Get.find<CustomerController>().fetchCustomerUserInfo()
         : null;
@@ -51,8 +49,6 @@ class DashboardController extends GetxController {
     await fetchAllServices();
     await fetchAllBanners();
     await Get.find<TechnicianHiringController>().fetchJobRequests();
-    isLoading = false;
-    update();
   }
 
   DashboardController({required this.sharedPreferences});
