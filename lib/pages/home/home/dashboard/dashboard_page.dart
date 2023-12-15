@@ -85,7 +85,8 @@ class DashboardPage extends StatelessWidget {
                               ),
                           )
                           : const SizedBox(),
-                      const Divider(),
+                      Get.find<AuthSignOutController>().userLoggedIn()
+                          ? const Divider() : const SizedBox.shrink(),
                       Padding(
                         padding: EdgeInsets.only(bottom: Dimensions.padding10 * 1.2, left: Dimensions.padding10 * 1.2, right: Dimensions.padding10 * 1.2),
                         child: Column(
