@@ -43,25 +43,6 @@ class _AuthFooterState extends State<AuthFooter> {
                         ..onTap = widget.onTapSignUp,
                     )
                   ])),
-              SizedBox(
-                height: Dimensions.height20,
-              ),
-              RichText(
-                  text: TextSpan(
-                      text: 'Forgot password? ',
-                      style: TextStyle(
-                          color: Colors.black, fontSize: Dimensions.font12),
-                      children: [
-                    TextSpan(
-                      text: 'Reset',
-                      style: TextStyle(
-                          color: AppColors.primaryColor,
-                          fontWeight: FontWeight.w500,
-                          fontSize: Dimensions.font14),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = widget.onTapForgotPass,
-                    )
-                  ])),
             ],
           )
         : Column(
@@ -93,7 +74,7 @@ class _AuthFooterState extends State<AuthFooter> {
                     TextSpan(
                       text: 'Terms & Conditions',
                       style: TextStyle(
-                          color: AppColors.primaryColor,
+                          color: AppColors.blackColor,
                           fontWeight: FontWeight.w500,
                           fontSize: Dimensions.font12),
                     )
