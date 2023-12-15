@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:fixify_app/base/show_custom_loader.dart';
 import 'package:fixify_app/base/side_bar.dart';
 import 'package:fixify_app/controller/auth/auth_signout_controller.dart';
 import 'package:fixify_app/controller/home/customer_controller.dart';
@@ -9,7 +10,6 @@ import 'package:fixify_app/controller/home/technician_hiring_controller.dart';
 import 'package:fixify_app/routes/route_helper.dart';
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
-import 'package:fixify_app/widgets/buttons/custom_icon_button.dart';
 import 'package:fixify_app/widgets/greetings/time_greetings.dart';
 import 'package:fixify_app/widgets/home/customer/customer_home_preview_card.dart';
 import 'package:fixify_app/widgets/home/customer/dashboard_header.dart';
@@ -19,9 +19,14 @@ import 'package:fixify_app/widgets/texts/small_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class DashboardPage extends StatelessWidget {
+class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
 
+  @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
   Future<void> _loadAllData() async {
     Get.find<AuthSignOutController>().userLoggedIn()
         ? await Get.find<CustomerController>().fetchCustomerUserInfo()
@@ -32,6 +37,7 @@ class DashboardPage extends StatelessWidget {
     await Get.find<DashboardController>().fetchAllTechnician();
     await Get.find<DashboardController>().fetchAllServices();
     await Get.find<DashboardController>().fetchAllBanners();
+    await Get.find<TechnicianHiringController>().fetchJobRequests();
   }
 
 
@@ -45,14 +51,14 @@ class DashboardPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: AppColors.whiteColor,
           title: const Text('Home'),
-          actions: [
-            CustomIconButton(
-                icon: Icons.notifications,
-                onTap: () => Get.toNamed(RouteHelper.getNotificationPage(
-                    userId:
-                        Get.find<CustomerController>().userInfoCustomer?.uid ??
-                            'null'))),
-          ],
+          // actions: [
+          //   CustomIconButton(
+          //       icon: Icons.notifications,
+          //       onTap: () => Get.toNamed(RouteHelper.getNotificationPage(
+          //           userId:
+          //               Get.find<CustomerController>().userInfoCustomer?.uid ??
+          //                   'null'))),
+          // ],
         ),
         body: GetBuilder<DashboardController>(
           builder: (controller) {
@@ -60,7 +66,7 @@ class DashboardPage extends StatelessWidget {
                 .map((model) => model.bannerList?.map((banner) => banner.bannerUrl) ?? [])
                 .expand((urls) => urls)
                 .toList();
-            return GetBuilder<CustomerController>(builder: (customerController) {
+            return controller.isLoading ? showCustomLoader() : GetBuilder<CustomerController>(builder: (customerController) {
               final userData = customerController.userInfoCustomer;
               return RefreshIndicator(
                 onRefresh: _loadAllData,
@@ -85,7 +91,8 @@ class DashboardPage extends StatelessWidget {
                               ),
                           )
                           : const SizedBox(),
-                      const Divider(),
+                      Get.find<AuthSignOutController>().userLoggedIn()
+                          ?  const Divider() : const SizedBox.shrink(),
                       Padding(
                         padding: EdgeInsets.only(bottom: Dimensions.padding10 * 1.2, left: Dimensions.padding10 * 1.2, right: Dimensions.padding10 * 1.2),
                         child: Column(

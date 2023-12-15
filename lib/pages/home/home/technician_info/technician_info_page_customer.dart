@@ -39,6 +39,11 @@ class _TechnicianInfoPageCustomerState
         .where((element) => element.uid == widget.technicianUid)
         .single;
 
+    final confirmedJobs = Get.find<TechnicianHiringController>()
+        .allJobRequests
+        .where((job) => job.technicianUid == widget.technicianUid && job.status == 'confirmed')
+        .toList();
+
     List<String> selectedServices = [];
 
     return Scaffold(
@@ -122,14 +127,8 @@ class _TechnicianInfoPageCustomerState
                     children: [
                       Expanded(
                         child: TechnicianInfoShortCard(
-                          largeText: userData.worksDone.toString(),
+                          largeText: '${confirmedJobs.length}',
                           smallText: 'Works Done',
-                        ),
-                      ),
-                      const Expanded(
-                        child: TechnicianInfoShortCard(
-                          largeText: '0',
-                          smallText: 'Current Works',
                         ),
                       ),
                     ],

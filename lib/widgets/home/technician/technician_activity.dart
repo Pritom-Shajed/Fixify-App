@@ -18,6 +18,7 @@ class TechnicianActivity extends StatelessWidget {
 
               Get.toNamed(
                   RouteHelper.getViewAllJobRequestsTechnician(
+                    showConfirmOnly: false,
                       technicianUid: Get.find<TechnicianPageController>()
                           .userInfoTechnician!
                           .uid

@@ -24,13 +24,23 @@ class DashboardController extends GetxController {
 
   @override
   onInit(){
-    _loadAllData();
+    loadAllData();
     super.onInit();
 
   }
 
+  final _isLoading = true.obs;
 
-  Future<void> _loadAllData() async {
+  get isLoading => _isLoading.value;
+
+  set isLoading (value){
+    _isLoading.value = value;
+  }
+
+
+  Future<void> loadAllData() async {
+    isLoading = true;
+    update();
     Get.find<AuthSignOutController>().userLoggedIn()
         ? await Get.find<CustomerController>().fetchCustomerUserInfo()
         : null;
@@ -40,6 +50,9 @@ class DashboardController extends GetxController {
     await fetchAllTechnician();
     await fetchAllServices();
     await fetchAllBanners();
+    await Get.find<TechnicianHiringController>().fetchJobRequests();
+    isLoading = false;
+    update();
   }
 
   DashboardController({required this.sharedPreferences});
@@ -53,7 +66,6 @@ class DashboardController extends GetxController {
 
   Future<void> fetchAllTechnician() async {
     technicianInfo = [];
-
     try {
       final QuerySnapshot<Map<String, dynamic>> snapshot = await _firestore
           .collection('users')
@@ -65,7 +77,6 @@ class DashboardController extends GetxController {
         for (var element in snapshot.docs) {
           technicianInfo.add(UserModelTechnician.fromSnap(element));
         }
-
         update();
       }
     } catch (e) {

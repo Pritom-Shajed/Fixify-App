@@ -19,7 +19,6 @@ class ShowWorkInfo extends StatelessWidget {
       onTap: onTap,
       child: Container(
         alignment: Alignment.center,
-        width: Dimensions.workInfoContainerWidth,
         height: Dimensions.workInfoContainerHeight,
         decoration: BoxDecoration(
             color: AppColors.whiteColor,

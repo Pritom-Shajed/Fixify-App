@@ -12,7 +12,6 @@ import 'package:fixify_app/utils/dimensions.dart';
 import 'package:fixify_app/widgets/buttons/custom_button.dart';
 import 'package:fixify_app/widgets/home/technician/technician_home_profile_view.dart';
 import 'package:fixify_app/widgets/switches/toggle_switch.dart';
-import 'package:fixify_app/widgets/texts/medium_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -45,6 +44,10 @@ class _HomePageTechnicianState extends State<HomePageTechnician> {
 
   @override
   Widget build(BuildContext context) {
+    final doneJobs = Get.find<TechnicianHiringController>()
+        .allJobRequests
+        .where((job) => job.technicianUid == Get.find<TechnicianPageController>().userInfoTechnician?.uid && job.status=='confirmed')
+        .toList();
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -114,40 +117,32 @@ class _HomePageTechnicianState extends State<HomePageTechnician> {
                               ],
                             ),
                             SizedBox(
-                              height: Dimensions.height10,
+                              height: Dimensions.height20,
                             ),
-                            Column(
-                              children: [
-                                SizedBox(
-                                  height: Dimensions.height10,
-                                ),
-                                AnimatedCrossFade(
-                                  crossFadeState: _about
-                                      ? CrossFadeState.showFirst
-                                      : CrossFadeState.showSecond,
-                                  duration: const Duration(milliseconds: 300),
-                                  firstChild: TechnicianWorkInfo(
-                                    onTap3: () => showCustomAlertDialog(context,
-                                        titleText: 'Services Offered',
-                                        bodyText:
-                                            userData.services!.join(', ')),
-                                    onTap4: () => showCustomAlertDialog(context,
-                                        titleText: 'Weekly Free',
-                                        bodyText:
-                                            userData.workDays!.join(', ')),
-                                    title1: 'Current Works',
-                                    number1: '0',
-                                    title2: 'Works Done',
-                                    number2: '${userData.worksDone}',
-                                    title3: 'Services Offered',
-                                    number3: '${userData.services!.length}',
-                                    title4: 'Weekly Free',
-                                    number4: '${userData.workDays!.length}',
-                                    subtitle4: 'days',
-                                  ),
-                                  secondChild: const TechnicianActivity(),
-                                ),
-                              ],
+                            AnimatedCrossFade(
+                              crossFadeState: _about
+                                  ? CrossFadeState.showFirst
+                                  : CrossFadeState.showSecond,
+                              duration: const Duration(milliseconds: 300),
+                              firstChild: TechnicianWorkInfo(
+                                onTap1: () => Get.toNamed(RouteHelper.getViewAllJobRequestsTechnician(technicianUid: userData.uid ?? 'null', showConfirmOnly: true)),
+                                onTap2: () => showCustomAlertDialog(context,
+                                    titleText: 'Services Offered',
+                                    bodyText:
+                                        userData.services!.join(', ')),
+                                onTap3: () => showCustomAlertDialog(context,
+                                    titleText: 'Weekly Free',
+                                    bodyText:
+                                        userData.workDays!.join(', ')),
+                                title1: 'Works Done',
+                                number1: '${doneJobs.length}',
+                                title2: 'Services Offered',
+                                number2: '${userData.services!.length}',
+                                title3: 'Weekly Free',
+                                number3: '${userData.workDays!.length}',
+                                subtitle3: 'days',
+                              ),
+                              secondChild: const TechnicianActivity(),
                             ),
                           ],
                         ),

@@ -85,8 +85,8 @@ class RouteHelper {
       '$editProfileTechnician?uid=$uid';
 
   static String getViewAllJobRequestsTechnician(
-          {required String technicianUid}) =>
-      '$viewAllJobRequestsTechnician?technicianUid=$technicianUid';
+          {required String technicianUid, required bool showConfirmOnly}) =>
+      '$viewAllJobRequestsTechnician?technicianUid=$technicianUid&showConfirmOnly=$showConfirmOnly';
 
   static String getViewJobDetailsPageTechnician(String jobId) =>
       '$viewJobDetailsPageTechnician?jobId=$jobId';
@@ -201,8 +201,10 @@ class RouteHelper {
         transition: Transition.cupertino,
         page: () {
           var technicianUid = Get.parameters['technicianUid']!;
+          var showConfirmOnly = bool.parse(Get.parameters['showConfirmOnly']!);
           return ViewAllJobRequestsTechnician(
             technicianUid: technicianUid,
+              showConfirmOnly: showConfirmOnly,
           );
         }),
 

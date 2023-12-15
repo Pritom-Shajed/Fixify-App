@@ -44,30 +44,27 @@ packages:
   cached_network_image:
     dependency: "direct main"
     description:
-      path: cached_network_image
-      ref: HEAD
-      resolved-ref: d37217f913c108f8096bd5c3f00449903926f41f
-      url: "https://github.com/gauravmehta13/flutter_cached_network_image.git"
-    source: git
-    version: "3.2.4"
+      name: cached_network_image
+      sha256: f98972704692ba679db144261172a8e20feb145636c617af0eb4022132a6797f
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.3.0"
   cached_network_image_platform_interface:
     dependency: transitive
     description:
-      path: cached_network_image_platform_interface
-      ref: HEAD
-      resolved-ref: d37217f913c108f8096bd5c3f00449903926f41f
-      url: "https://github.com/gauravmehta13/flutter_cached_network_image.git"
-    source: git
-    version: "2.0.1"
+      name: cached_network_image_platform_interface
+      sha256: "56aa42a7a01e3c9db8456d9f3f999931f1e05535b5a424271e9a38cabf066613"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   cached_network_image_web:
     dependency: transitive
     description:
-      path: cached_network_image_web
-      ref: HEAD
-      resolved-ref: d37217f913c108f8096bd5c3f00449903926f41f
-      url: "https://github.com/gauravmehta13/flutter_cached_network_image.git"
-    source: git
-    version: "1.0.3"
+      name: cached_network_image_web
+      sha256: "759b9a9f8f6ccbb66c185df805fac107f05730b1dab9c64626d1008cca532257"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   carousel_slider:
     dependency: "direct main"
     description:
@@ -273,14 +270,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_blurhash:
-    dependency: transitive
-    description:
-      name: flutter_blurhash
-      sha256: "05001537bd3fac7644fa6558b09ec8c0a3f2eba78c0765f88912882b1331a5c6"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.7.0"
   flutter_cache_manager:
     dependency: transitive
     description:
@@ -502,12 +491,11 @@ packages:
   octo_image:
     dependency: transitive
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: b41386c904895817a2c87e3c2cfcb3c92a051da0
-      url: "https://github.com/gauravmehta13/octo_image.git"
-    source: git
-    version: "1.0.2"
+      name: octo_image
+      sha256: "45b40f99622f11901238e18d48f5f12ea36426d8eced9f4cbf58479c7aa2430d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   path:
     dependency: transitive
     description:

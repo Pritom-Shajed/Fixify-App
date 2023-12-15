@@ -10,15 +10,20 @@ import 'package:get/get.dart';
 
 class ViewAllJobRequestsTechnician extends StatelessWidget {
   final String technicianUid;
+  final bool showConfirmOnly;
 
-  const ViewAllJobRequestsTechnician({Key? key, required this.technicianUid})
+  const ViewAllJobRequestsTechnician({Key? key, required this.technicianUid, required this.showConfirmOnly})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final jobRequests = Get.find<TechnicianHiringController>()
         .allJobRequests
-        .where((element) => element.technicianUid == technicianUid)
+        .where((job) => job.technicianUid == technicianUid)
+        .toList();
+    final confirmedJobs = Get.find<TechnicianHiringController>()
+        .allJobRequests
+        .where((job) => job.technicianUid == technicianUid && job.status =='confirmed')
         .toList();
     return Scaffold(
         backgroundColor: AppColors.mainBgColor,
@@ -42,9 +47,9 @@ class ViewAllJobRequestsTechnician extends StatelessWidget {
                 child: ListView.separated(
                     physics: const BouncingScrollPhysics(),
                   separatorBuilder: (context, index)=> SizedBox(height: Dimensions.height10,),
-                    itemCount: jobRequests.length,
+                    itemCount: showConfirmOnly ? confirmedJobs.length : jobRequests.length,
                     itemBuilder: (context, index) {
-                      var job = jobRequests[index];
+                      var job = showConfirmOnly ? confirmedJobs[index] : jobRequests[index];
                       return JobRequestCard(
                           onTap: () {
                             Get.find<TechnicianHiringController>()
