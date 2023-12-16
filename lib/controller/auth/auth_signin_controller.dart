@@ -67,7 +67,7 @@ class AuthSignInController extends GetxController {
 
           if(userData['accountStatus'] == 'Active'){
             await preferences.setString(AppConstants.preferenceUid, userUid);
-            Get.offAllNamed(RouteHelper.getHomeTechnician());
+            Get.offNamedUntil(RouteHelper.getHomeTechnician(), (route) => route.isFirst);
           } else if(userData['accountStatus'] == 'Suspended') {
             showCustomToast('Your account has been suspended!', toastLength: Toast.LENGTH_LONG);
           } else {

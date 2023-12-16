@@ -1,6 +1,5 @@
 import 'package:fixify_app/utils/app_colors.dart';
 import 'package:fixify_app/utils/dimensions.dart';
-import 'package:fixify_app/widgets/auth/auth_clip.dart';
 import 'package:flutter/material.dart';
 
 class AuthBody extends StatelessWidget {
