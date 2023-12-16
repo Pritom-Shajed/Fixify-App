@@ -37,6 +37,7 @@ class _HomePageState extends State<HomePage> {
         : null;
     await Get.find<DashboardController>().fetchAllTechnician();
     await Get.find<DashboardController>().fetchAllServices();
+    await Get.find<DashboardController>().fetchAllBanners();
     Get.find<AuthSignOutController>().userLoggedIn()
         ? await Get.find<TechnicianHiringController>().fetchJobRequests()
         : null;

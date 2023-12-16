@@ -45,14 +45,14 @@ class DashboardPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: AppColors.whiteColor,
           title: const Text('Home'),
-          actions: [
-            CustomIconButton(
-                icon: Icons.notifications,
-                onTap: () => Get.toNamed(RouteHelper.getNotificationPage(
-                    userId:
-                        Get.find<CustomerController>().userInfoCustomer?.uid ??
-                            'null'))),
-          ],
+          // actions: [
+          //   CustomIconButton(
+          //       icon: Icons.notifications,
+          //       onTap: () => Get.toNamed(RouteHelper.getNotificationPage(
+          //           userId:
+          //               Get.find<CustomerController>().userInfoCustomer?.uid ??
+          //                   'null'))),
+          // ],
         ),
         body: GetBuilder<DashboardController>(
           builder: (controller) {

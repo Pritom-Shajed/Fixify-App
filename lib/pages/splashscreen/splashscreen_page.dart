@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
         const Duration(milliseconds: 700),
         () =>  Get.find<AuthSignInController>().checkLoginStatus().then((isLoggedIn) {
           if(!isLoggedIn) {
-            Get.offAllNamed(RouteHelper.getHomePage());
+            Get.offNamedUntil(RouteHelper.getHomePage(), (route) => route.isFirst);
           }
         }));
 
