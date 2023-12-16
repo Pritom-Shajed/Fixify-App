@@ -37,7 +37,7 @@ class ViewAllJobRequestsTechnician extends StatelessWidget {
                     horizontal: Dimensions.width10 * 1.5,
                     vertical: Dimensions.height10),
                 child: const Center(
-                  child: MediumText(text: 'No job requests available!'),
+                  child: MediumText(text: 'No data found!'),
                 ),
               )
             : Padding(
