@@ -39,6 +39,7 @@ class CustomerController extends GetxController {
     var uid = sharedPreferences.getString(AppConstants.preferenceUid);
 
     try {
+
       final DocumentSnapshot<Map<String, dynamic>> snapshot =
           await _firestore.collection('users').doc(uid).get();
 
